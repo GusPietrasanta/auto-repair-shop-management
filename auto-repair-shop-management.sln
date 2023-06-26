@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{69D793A7-D8E7-409F-A603-ED273A3132EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{CC00DDF0-51FB-4752-B948-C99521FCBB02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{CC00DDF0-51FB-4752-B948-C99521FCBB02}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{14AA45CC-FB8D-474C-B494-B1560590EAEA}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RepairShopDB", "Database\RepairShopDB.sqlproj", "{14AA45CC-FB8D-474C-B494-B1560590EAEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

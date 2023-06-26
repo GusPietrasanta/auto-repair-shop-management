@@ -1,5 +1,7 @@
 using BlazorApp.Areas.Identity;
 using BlazorApp.Data;
+using DataAccessLibrary.Data;
+using DataAccessLibrary.DataAccess;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -19,7 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<IStockDataService, StockDataService>();
+builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
 
 var app = builder.Build();
 
