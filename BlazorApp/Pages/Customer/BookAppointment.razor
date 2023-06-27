@@ -128,6 +128,8 @@
 		appointmentID = await appointmentData.CreateAppointment(appointmentToDB);
 
 		sessionData.SetAppointmentID(appointmentID);
+		sessionData.SetAppointmentDateTime(appointmentToDB.Date);
+		sessionData.SetAppointmentNumberPlate(newVehicle.NumberPlate);
 
 		NavigationManager.NavigateTo("/AppointmentSuccessful");
 	}

@@ -9,6 +9,8 @@ namespace DataAccessLibrary.DataAccess
 	public class CustomerSessionData : ICustomerSessionData
 	{
 		private int appointmentID;
+		private string appointmentNumberPlate;
+		private DateTime appointmentDate;
 
 		public int GetAppointmentID()
 		{
@@ -17,6 +19,22 @@ namespace DataAccessLibrary.DataAccess
 		public void SetAppointmentID(int newAppointmentID)
 		{
 			appointmentID = newAppointmentID;
+		}
+		public string GetAppointmentNumberPlate()
+		{
+			return appointmentNumberPlate;
+		}
+		public void SetAppointmentNumberPlate(string newAppointmentNumberPlate)
+		{
+			appointmentNumberPlate = newAppointmentNumberPlate;
+		}
+		public DateTime GetAppointmentDate()
+		{
+			return appointmentDate;
+		}
+		public void SetAppointmentDateTime(DateTime newAppointmentDate)
+		{
+			appointmentDate = newAppointmentDate;
 		}
 	}
 }

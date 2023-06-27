@@ -9,17 +9,23 @@
 }
 else
 {
-	<h3>Appointment Successful!</h3>
+	<h1>Appointment Successful!</h1>
 
-	<h3>Appointment Details: </h3>
-	<h3>@appointmentID</h3>
+	<h2>Appointment Details: </h2>
+	<h2>Booking successful for vehicle @appointmentNumberPlate on @appointmentDate.ToShortDateString().</h2>
+	<h3>We will be waiting for you between 8:00AM and 9:00M.</h3>
+	<h3>Thanks for trusting us!</h3>
 }
 
 @code {
 	public int appointmentID;
+	public string appointmentNumberPlate;
+	public DateTime appointmentDate;
 
 	protected override void OnParametersSet()
 	{
 		appointmentID = sessionData.GetAppointmentID();
+		appointmentDate = sessionData.GetAppointmentDate();
+		appointmentNumberPlate = sessionData.GetAppointmentNumberPlate();
 	}
 }
