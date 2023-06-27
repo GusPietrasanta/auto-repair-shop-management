@@ -22,6 +22,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<IStockDataService, StockDataService>();
+builder.Services.AddScoped<ICustomerDataService, CustomerDataService>();
 builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
 
 var app = builder.Build();

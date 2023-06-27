@@ -1,0 +1,59 @@
+﻿@page "/TestCreateCustomer"
+@inject ICustomerDataService customerData
+
+<h3>TestCreateCustomer</h3>
+
+<div class="row">
+	<div class="col-md-4">
+		<EditForm Model="@customer" OnValidSubmit="HandleValidSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<div class="mb-3">
+				<label>First Name:</label>
+				<InputText @bind-Value="customer.FirstName" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Last Name:</label>
+				<InputText @bind-Value="customer.LastName" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Email:</label>
+				<InputText @bind-Value="customer.Email" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Phone Number:</label>
+				<InputText @bind-Value="customer.PhoneNumber" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Address:</label>
+				<InputText @bind-Value="customer.Address" class="form-control" />
+			</div>
+
+			<button class="btn btn-primary" type="submit">Create Stock Item</button>
+		</EditForm>
+	</div>
+</div>
+
+@if (customer.ID == 0)
+{
+	<h3>No customer ID yet.</h3>
+}
+else
+{
+	<h3>Customer ID: @customer.ID</h3>
+}
+
+
+@code {
+	private ICustomerModel customer = new UICustomerModel();
+
+	private async Task HandleValidSubmit()
+	{
+		customer = await customerData.CreateCustomer(customer);
+	}
+}

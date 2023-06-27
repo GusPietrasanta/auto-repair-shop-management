@@ -59,6 +59,10 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\Stored Procedures" />
+    <Folder Include="dbo\Stored Procedures\Stock" />
+    <Folder Include="dbo\Stored Procedures\Appointment" />
+    <Folder Include="dbo\Stored Procedures\Vehicle" />
+    <Folder Include="dbo\Stored Procedures\Customer" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Customer.sql" />
@@ -68,8 +72,12 @@
     <Build Include="dbo\Tables\Report.sql" />
     <Build Include="dbo\Tables\Message.sql" />
     <Build Include="dbo\Tables\Stock.sql" />
-    <Build Include="dbo\Stored Procedures\spStock_Create.sql" />
-    <Build Include="dbo\Stored Procedures\spStock_Read.sql" />
+    <Build Include="dbo\Stored Procedures\Stock\spStock_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Stock\spStock_ReadAll.sql" />
+    <Build Include="dbo\Stored Procedures\Appointment\spAppointment_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Customer\spCustomer_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Customer\spCustomer_ReadAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

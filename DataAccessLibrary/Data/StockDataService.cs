@@ -32,7 +32,7 @@ namespace DataAccessLibrary.Data
 
 		public async Task<List<IStockItemModel>> ReadAllStockItems()
 		{
-			var stockItems = await _dataAccess.LoadData<StockItemModel, dynamic>("dbo.spStock_Read", new { }, "SQLDB");
+			var stockItems = await _dataAccess.LoadData<StockItemModel, dynamic>("dbo.spStock_ReadAll", new { }, "SQLDB");
 
 			return stockItems.ToList<IStockItemModel>();
 		}

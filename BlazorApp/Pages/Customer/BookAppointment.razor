@@ -2,6 +2,71 @@
 
 <h3>Book An Appointment</h3>
 
-@code {
+<div class="row">
+	<div class="col-md-6">
+		<EditForm Model="@newAppointment" OnValidSubmit="HandleValidSubmit">
+			<DataAnnotationsValidator/>
+			<ValidationSummary/>
 
+			<div class="mb-3">
+				<label>First Name:</label>
+				<InputText @bind-Value="newAppointment.FirstName" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Last Name:</label>
+				<InputText @bind-Value="newAppointment.LastName" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Email:</label>
+				<InputText @bind-Value="newAppointment.Email" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Phone Number:</label>
+				<InputText @bind-Value="newAppointment.PhoneNumber" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Address:</label>
+				<InputText @bind-Value="newAppointment.Address" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Vehicle Plate Number (Rego):</label>
+				<InputText @bind-Value="newAppointment.PlateNumber" @onfocusout="CheckRego" class="form-control" />
+			</div>
+
+			<div class="mb-3">
+				<label>Date:</label>
+				<InputDate @bind-Value="newAppointment.Date" class="form-control"/>
+			</div>
+
+			<button class="btn btn-primary" type="submit">Book An Appointment!</button>
+		</EditForm>
+	</div>
+
+
+	<div class="col-md-6">
+		Test
+		<h1>@testString</h1>
+	</div>
+
+</div>
+
+@code {
+	private UIAppointmentFormModel newAppointment = new UIAppointmentFormModel();
+
+	private string testString = "";
+
+	private void CheckRego()
+	{
+		testString = "Yep, it works: " + newAppointment.PlateNumber;
+	}
+
+	private void HandleValidSubmit()
+	{
+		
+	}
 }

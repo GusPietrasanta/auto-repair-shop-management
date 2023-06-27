@@ -1,7 +1,7 @@
 ﻿@page "/TestCreateStock"
 @inject IStockDataService stockData
 
-<h3>TestCreateStock</h3>
+<h3>Test Create Stock</h3>
 
 <div class="row">
 	<div class="col-md-4">
@@ -35,16 +35,9 @@
 @code {
 	private IStockItemModel stockItem = new UIStockItemModel();
 
-	private void HandleValidSubmit()
+	private async Task HandleValidSubmit()
 	{
-		try
-		{
-			stockData.CreateStockItem(stockItem);
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex);
-		}
+		await stockData.CreateStockItem(stockItem);
 
 		stockItem = new UIStockItemModel();
 	}

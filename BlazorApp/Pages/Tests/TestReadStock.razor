@@ -18,19 +18,19 @@ else
 				if (@i.Quantity == 0)
 				{
 					<div class="alert alert-danger" role="alert">
-						<p>ID @i.ID: @i.ItemName, @i.Quantity @i.Unit</p>
+						<p>ID: @i.ID. @i.ItemName, @i.Quantity @i.Unit</p>
 					</div>
 				}
 				else if (@i.Quantity < @i.AlarmMinimum)
 				{
 					<div class="alert alert-warning" role="alert">
-						<p>ID @i.ID: @i.ItemName, @i.Quantity @i.Unit</p>
+						<p>ID: @i.ID. @i.ItemName, @i.Quantity @i.Unit</p>
 					</div>
 				}
 				else
 				{
 					<div class="alert alert-success" role="alert">
-						<p>ID @i.ID: @i.ItemName, @i.Quantity @i.Unit</p>
+						<p>ID: @i.ID. @i.ItemName, @i.Quantity @i.Unit</p>
 					</div>
 				}
 			}
