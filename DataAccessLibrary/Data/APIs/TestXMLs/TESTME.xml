@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "HONDA Civic",
+  "RegistrationYear": "2017",
+  "CarMake": {
+    "CurrentTextValue": "HONDA"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "HONDA"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Civic Hatchback"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Hatchback"
+  },
+  "Colour": "White",
+  "VechileIdentificationNumber": "HN34CVCW0Q6GH37A2017H",
+  "Engine": "1.5 litre, 4 cyl petrol turbo",
+  "extended": {
+    "nvic": "H37A",
+    "driveType": "",
+    "family": "CIVIC",
+    "variant": "",
+    "model": "Civic Hatchback",
+    "colour": "White",
+    "code": "HN34CVCW0Q6GH37A2017H",
+    "make": "HONDA",
+    "fuelType": "Petrol",
+    "capacityValue": "1.5",
+    "series": "",
+    "engineDescription": "1.5 litre, 4 cyl petrol turbo",
+    "bodyDescription": "3 door, hatchback",
+    "bodyType": "3 door, hatchback",
+    "cylinders": "4",
+    "year": "2017",
+    "capacityUnit": "L",
+    "transmissionType": "Auto"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@SE9OREEgQ2l2aWMgSGF0Y2hiYWNr",
+  "Expiry": "2023-08-15",
+  "State": "QLD"
+}</vehicleJson>
+  <vehicleData>
+    <Description>HONDA Civic Hatchback</Description>
+    <RegistrationYear>2017</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>HONDA</CurrentTextValue>
+    </CarMake>
+    <CarModel>Civic Hatchback</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Hatchback</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

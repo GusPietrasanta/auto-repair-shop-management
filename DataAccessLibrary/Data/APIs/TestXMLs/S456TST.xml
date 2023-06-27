@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "TOYOTA Corolla Sedan",
+  "RegistrationYear": "2018",
+  "CarMake": {
+    "CurrentTextValue": "TOYOTA"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "TOYOTA"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Corolla Sedan"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Sedan"
+  },
+  "Colour": "Silver",
+  "VechileIdentificationNumber": "TMWCV1J31C3RK72A2018C",
+  "Engine": "1.8 litre, 4 cyl petrol",
+  "extended": {
+    "nvic": "RK72A",
+    "driveType": "",
+    "family": "COROLLA",
+    "variant": "",
+    "model": "Corolla Sedan",
+    "colour": "Silver",
+    "code": "TMWCV1J31C3RK72A2018C",
+    "make": "TOYOTA",
+    "fuelType": "Petrol",
+    "capacityValue": "1.8",
+    "series": "",
+    "engineDescription": "1.8 litre, 4 cyl petrol",
+    "bodyDescription": "Ascent 4 Doors Sedan",
+    "bodyType": "Ascent 4 Doors Sedan",
+    "cylinders": "4",
+    "year": "2018",
+    "capacityUnit": "L",
+    "transmissionType": "Manual"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@VE9ZT1RBLUNPUk9MTEEgQ29yb2xsYSBTZWRhbg==",
+  "Expiry": "2023-12-31",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>TOYOTA Corolla Sedan</Description>
+    <RegistrationYear>2018</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>TOYOTA</CurrentTextValue>
+    </CarMake>
+    <CarModel>Corolla Sedan</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Sedan</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

@@ -2,17 +2,19 @@
 {
 	public interface IVehicleModel
 	{
-		int CustomerID { get; set; }
-		string Cylinders { get; set; }
-		DateTime FirstVisit { get; set; }
-		string FuelType { get; set; }
-		int ID { get; set; }
-		string Make { get; set; }
-		string Model { get; set; }
-		string NumberPlate { get; set; }
-		string SizeLitres { get; set; }
-		string TransmissionType { get; set; }
-		string VIN { get; set; }
-		string Year { get; set; }
+		public int ID { get; set; }
+		public int CustomerID { get; set; }
+		public string NumberPlate { get; set; }
+		public string Make { get; set; }
+		public string Model { get; set; }
+		public string Year { get; set; }
+		public string VIN { get; set; }
+		public string FuelType { get; set; }
+		public string TransmissionType { get; set; }
+		public string EngineDescription { get; set; }
+		public string BodyType { get; set; }
+		public string Cylinders { get; set; }
+		public string SizeLitres { get; set; }
+		public DateTime FirstVisit { get; set; }
 	}
 }

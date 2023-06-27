@@ -39,21 +39,23 @@
 	</div>
 </div>
 
-@if (customer.ID == 0)
+@if (justCreatedCustomerID == 0)
 {
 	<h3>No customer ID yet.</h3>
 }
 else
 {
-	<h3>Customer ID: @customer.ID</h3>
+	<h3>Customer ID: @justCreatedCustomerID</h3>
 }
 
 
 @code {
 	private ICustomerModel customer = new UICustomerModel();
+	private int justCreatedCustomerID;
 
 	private async Task HandleValidSubmit()
 	{
-		customer = await customerData.CreateCustomer(customer);
+		justCreatedCustomerID = await customerData.CreateCustomer(customer);
+		customer = new UICustomerModel();
 	}
 }

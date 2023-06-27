@@ -17,7 +17,7 @@ namespace DataAccessLibrary.Data
 			_dataAccess = dataAccess;
 		}
 
-		public async Task<ICustomerModel> CreateCustomer(ICustomerModel customer)
+		public async Task<int> CreateCustomer(ICustomerModel customer)
 		{
 			var c = new
 			{
@@ -28,9 +28,9 @@ namespace DataAccessLibrary.Data
 				customer.Address
 			};
 
-			var person = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Create", c, "SQLDB");
+			var newCustomerId = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Create", c, "SQLDB");
 
-			return person.FirstOrDefault();
+			return newCustomerId.FirstOrDefault().ID;
 		}
 
 		public async Task<List<ICustomerModel>> ReadAllCustomers()

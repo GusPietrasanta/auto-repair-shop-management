@@ -15,6 +15,8 @@ namespace BlazorApp.Models
 		public string VIN { get; set; }
 		public string FuelType { get; set; }
 		public string TransmissionType { get; set; }
+		public string EngineDescription { get; set; }
+		public string BodyType { get; set; }
 		public string Cylinders { get; set; }
 		public string SizeLitres { get; set; }
 		public DateTime FirstVisit { get; set; }

@@ -1,6 +1,7 @@
 using BlazorApp.Areas.Identity;
 using BlazorApp.Data;
 using DataAccessLibrary.Data;
+using DataAccessLibrary.Data.APIs;
 using DataAccessLibrary.DataAccess;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -23,6 +24,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<IStockDataService, StockDataService>();
 builder.Services.AddScoped<ICustomerDataService, CustomerDataService>();
+builder.Services.AddScoped<IAPICalls, MockAPICalls>();
+builder.Services.AddScoped<IVehicleDataService, VehicleDataService>();
+builder.Services.AddScoped<IAppointmentDataService, AppointmentDataService>();
 builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
 
 var app = builder.Build();

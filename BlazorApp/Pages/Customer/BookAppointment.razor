@@ -1,4 +1,8 @@
 ﻿@page "/BookAppointment"
+@inject IAPICalls apiCalls
+@inject ICustomerDataService customerData
+@inject IVehicleDataService vehicleData
+@inject IAppointmentDataService appointmentData
 
 <h3>Book An Appointment</h3>
 
@@ -35,7 +39,7 @@
 
 			<div class="mb-3">
 				<label>Vehicle Plate Number (Rego):</label>
-				<InputText @bind-Value="newAppointment.PlateNumber" @onfocusout="CheckRego" class="form-control" />
+				<InputText @bind-Value="newAppointment.NumberPlate" @onfocusout="RetrieveVehicleData" class="form-control" />
 			</div>
 
 			<div class="mb-3">
@@ -49,24 +53,82 @@
 
 
 	<div class="col-md-6">
-		Test
-		<h1>@testString</h1>
-	</div>
 
+		@if (newVehicle != null)
+		{
+			<h1>Vehicle Details:</h1>
+			<h2>Rego: @newVehicle.NumberPlate</h2>
+			<h2>Make: @newVehicle.Make</h2>
+			<h2>Model: @newVehicle.Model</h2>
+			<h2>Year: @newVehicle.Year</h2>
+			<h3>VIN: @newVehicle.VIN</h3>
+			<h3>Engine: @newVehicle.EngineDescription</h3>
+			<h3>Body: @newVehicle.BodyType</h3>
+			<h3>Transmission: @newVehicle.TransmissionType</h3>
+			<h3>Fuel: @newVehicle.FuelType</h3>
+		}
+		@if (apiErrorMessage != "")
+		{
+			<h1>@apiErrorMessage</h1>
+		}
+
+	</div>
 </div>
 
+@if (appointmentID > 0)
+{
+	<h2>Appointment ID @appointmentID succesfully created!</h2>
+}
+
 @code {
-	private UIAppointmentFormModel newAppointment = new UIAppointmentFormModel();
+	private UIAppointmentFormModel newAppointment = new();
+	private IVehicleModel newVehicle = null;
+	private ICustomerModel newCustomer = null;
+	private int customerID;
+	private int vehicleID;
+	private int appointmentID;
 
-	private string testString = "";
+	private string apiErrorMessage = "";
 
-	private void CheckRego()
+	private void RetrieveVehicleData()
 	{
-		testString = "Yep, it works: " + newAppointment.PlateNumber;
+		apiErrorMessage = "";
+
+		// Sanitise input
+		newAppointment.NumberPlate = Regex.Replace(newAppointment.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
+
+		try
+		{
+			newVehicle = apiCalls.GetVehicleDetails(newAppointment.NumberPlate);
+		}
+		catch (Exception e)
+		{
+			newVehicle = null;
+			Console.WriteLine(e);
+			apiErrorMessage = "Vehicle Not Found";
+		}
 	}
 
-	private void HandleValidSubmit()
+	private async void HandleValidSubmit()
 	{
-		
+		newCustomer = new CustomerModel();
+
+		newCustomer.FirstName = newAppointment.FirstName;
+		newCustomer.LastName = newAppointment.LastName;
+		newCustomer.PhoneNumber = newAppointment.PhoneNumber;
+		newCustomer.Email = newAppointment.Email;
+		newCustomer.Address = newAppointment.Address;
+
+
+		customerID = await customerData.CreateCustomer(newCustomer);
+		newVehicle.CustomerID = customerID;
+		vehicleID = await vehicleData.CreateVehicle(newVehicle);
+
+		IAppointmentModel appointmentToDB = new AppointmentModel();
+		appointmentToDB.CustomerID = customerID;
+		appointmentToDB.VehicleID = vehicleID;
+		appointmentToDB.Date = newAppointment.Date;
+
+		appointmentID = await appointmentData.CreateAppointment(appointmentToDB);
 	}
 }

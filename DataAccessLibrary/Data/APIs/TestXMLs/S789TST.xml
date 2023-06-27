@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "FORD Mustang GT Coupe",
+  "RegistrationYear": "2020",
+  "CarMake": {
+    "CurrentTextValue": "FORD"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "FORD"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Mustang GT Coupe"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Coupe"
+  },
+  "Colour": "Red",
+  "VechileIdentificationNumber": "FD45GTVFG8K0M12A2020F",
+  "Engine": "5.0 litre, 8 cyl petrol",
+  "extended": {
+    "nvic": "M12A",
+    "driveType": "",
+    "family": "MUSTANG",
+    "variant": "",
+    "model": "Mustang GT Coupe",
+    "colour": "Red",
+    "code": "FD45GTVFG8K0M12A2020F",
+    "make": "FORD",
+    "fuelType": "Petrol",
+    "capacityValue": "5.0",
+    "series": "",
+    "engineDescription": "5.0 litre, 8 cyl petrol",
+    "bodyDescription": "2-door coupe",
+    "bodyType": "2-door coupe",
+    "cylinders": "8",
+    "year": "2020",
+    "capacityUnit": "L",
+    "transmissionType": "Manual"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@Rk9SRCBNdXN0YW5nIEdUIENvdXBl",
+  "Expiry": "2024-06-30",
+  "State": "NSW"
+}</vehicleJson>
+  <vehicleData>
+    <Description>FORD Mustang GT Coupe</Description>
+    <RegistrationYear>2020</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>FORD</CurrentTextValue>
+    </CarMake>
+    <CarModel>Mustang GT Coupe</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Coupe</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

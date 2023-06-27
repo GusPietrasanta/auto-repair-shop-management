@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-	internal class VehicleModel : IVehicleModel
+	public class VehicleModel : IVehicleModel
 	{
 		public int ID { get; set; }
 		public int CustomerID { get; set; }
@@ -18,6 +18,8 @@ namespace DataAccessLibrary.Models
 		public string VIN { get; set; }
 		public string FuelType { get; set; }
 		public string TransmissionType { get; set; }
+		public string EngineDescription { get; set; }
+		public string BodyType { get; set; }
 		public string Cylinders { get; set; }
 		public string SizeLitres { get; set; }
 		public DateTime FirstVisit { get; set; }

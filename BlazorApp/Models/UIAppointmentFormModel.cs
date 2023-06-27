@@ -24,7 +24,7 @@ namespace BlazorApp.Models
 		public string Address { get; set; }
 
 		[Required]
-		public string PlateNumber { get; set; }
+		public string NumberPlate { get; set; }
 
 		[Required]
 		[ValidateDateRange]
