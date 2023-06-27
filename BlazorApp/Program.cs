@@ -27,6 +27,7 @@ builder.Services.AddScoped<ICustomerDataService, CustomerDataService>();
 builder.Services.AddScoped<IAPICalls, MockAPICalls>();
 builder.Services.AddScoped<IVehicleDataService, VehicleDataService>();
 builder.Services.AddScoped<IAppointmentDataService, AppointmentDataService>();
+builder.Services.AddScoped<ICustomerSessionData, CustomerSessionData>();
 builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
 
 var app = builder.Build();

@@ -3,6 +3,8 @@
 @inject ICustomerDataService customerData
 @inject IVehicleDataService vehicleData
 @inject IAppointmentDataService appointmentData
+@inject ICustomerSessionData sessionData
+@inject NavigationManager NavigationManager
 
 <h3>Book An Appointment</h3>
 
@@ -75,11 +77,6 @@
 	</div>
 </div>
 
-@if (appointmentID > 0)
-{
-	<h2>Appointment ID @appointmentID succesfully created!</h2>
-}
-
 @code {
 	private UIAppointmentFormModel newAppointment = new();
 	private IVehicleModel newVehicle = null;
@@ -119,7 +116,6 @@
 		newCustomer.Email = newAppointment.Email;
 		newCustomer.Address = newAppointment.Address;
 
-
 		customerID = await customerData.CreateCustomer(newCustomer);
 		newVehicle.CustomerID = customerID;
 		vehicleID = await vehicleData.CreateVehicle(newVehicle);
@@ -130,5 +126,9 @@
 		appointmentToDB.Date = newAppointment.Date;
 
 		appointmentID = await appointmentData.CreateAppointment(appointmentToDB);
+
+		sessionData.SetAppointmentID(appointmentID);
+
+		NavigationManager.NavigateTo("/AppointmentSuccessful");
 	}
 }

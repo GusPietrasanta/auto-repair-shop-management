@@ -1,0 +1,25 @@
+﻿@page "/AppointmentSuccessful"
+
+@inject ICustomerSessionData sessionData
+
+@if (appointmentID == 0)
+{
+	<h1>Nothing to see here!</h1>
+	<NavLink class="btn btn-primary" href="">Go back to Home</NavLink>
+}
+else
+{
+	<h3>Appointment Successful!</h3>
+
+	<h3>Appointment Details: </h3>
+	<h3>@appointmentID</h3>
+}
+
+@code {
+	public int appointmentID;
+
+	protected override void OnParametersSet()
+	{
+		appointmentID = sessionData.GetAppointmentID();
+	}
+}
