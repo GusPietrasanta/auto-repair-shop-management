@@ -1,8 +1,18 @@
 ﻿@page "/MechanicAuth"
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
 @attribute [Authorize(Roles = "Mechanic")]
 
 <h3>MechanicAuth</h3>
 
-@code {
+@name
 
+@code {
+    string name;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        var user = authstate.User;
+        name = user.Identity.Name;
+    }
 }

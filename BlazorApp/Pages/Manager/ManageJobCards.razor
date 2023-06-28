@@ -1,0 +1,119 @@
+﻿@page "/ManageJobCards"
+@attribute [Authorize(Roles = "Manager")]
+@inject IJSRuntime JSRuntime
+@inject IAppointmentDataService appointmentData
+@inject IMechanicDataService mechanicData
+
+<h3>AssignJobCards</h3>
+
+@if (appointments == null)
+{
+	<p>Loading appointments...</p>
+}
+else
+{
+	@foreach (var a in appointments)
+	{
+		<div class="details @(@a.MechanicID > 0 ? "alert-success" : "alert-warning")">
+			@a.ID
+			<br />
+			@a.Date.ToShortDateString()
+			<br />
+			@a.FirstName
+			<br />
+			@a.LastName
+			<br />
+			@a.NumberPlate
+			<br />
+			@a.Make
+			<br />
+			@a.Model
+			<br />
+			@a.MechanicID
+			<br />
+
+			<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
+				<option value="">Select Mechanic...</option>
+				@foreach (var m in mechanics)
+				{
+					<option value="@m.ID">@m.UserName</option>
+				}
+			</select>
+
+			<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+
+			@if (idToDelete == a.ID)
+			{
+				<button class="btn btn-danger" @onclick="(() => DeleteAppointment(a.ID))">
+					Confirm
+				</button>
+			}
+			else
+			{
+				<button class="btn btn-outline-danger mx-2" @onclick="(() => idToDelete = a.ID)">
+					Delete
+				</button>
+			}
+		</div>
+
+		<br />
+	}
+}
+
+@code {
+	private List<IDetailedAppointment> appointments;
+	private List<IMechanicBasicModel> mechanics;
+	private int idToDelete;
+	private int mechanicIDToAssign;
+
+	protected override async Task OnInitializedAsync()
+	{
+		appointments = await appointmentData.ReadAllAppointmentsDetailed();
+		mechanics = await mechanicData.ReadAllMechanicsBasic();
+	}
+
+	private async void ResetAllDropDowns()
+	{
+		mechanicIDToAssign = 0;
+		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
+	}
+
+	private void HandleDropDownChange(ChangeEventArgs e)
+	{
+		if (e.Value.ToString() == "")
+		{
+			mechanicIDToAssign = 0;
+		}
+		else
+		{
+			mechanicIDToAssign = int.Parse(e.Value.ToString());
+		}
+	}
+
+	private async void AssignJobCard(int appointmentId)
+	{
+		Console.WriteLine(appointmentId);
+		Console.WriteLine(mechanicIDToAssign);
+		if (mechanicIDToAssign > 0)
+		{
+			await appointmentData.AssignJobCardByID(appointmentId, mechanicIDToAssign);
+		}
+		//appointments.Remove(appointments.Where(x => x.ID == appointmentId).FirstOrDefault());
+
+		var appointment = appointments.Where(x => x.ID == appointmentId).FirstOrDefault();
+
+		appointment.MechanicID = mechanicIDToAssign;
+
+		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
+		idToDelete = 0;
+		StateHasChanged();
+	}
+
+	private async void DeleteAppointment(int id)
+	{
+		await appointmentData.DeleteAppointmentByID(id);
+		appointments.Remove(appointments.Where(x => x.ID == id).FirstOrDefault());
+		idToDelete = 0;
+		StateHasChanged();
+	}
+}

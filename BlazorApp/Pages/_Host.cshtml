@@ -30,5 +30,16 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+    <script type="text/javascript">
+        function ResetAllDropDowns() {
+            var elements = document.getElementsByTagName('select');
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].selectedIndex = 0;
+            }
+        }
+    </script>
+
+
 </body>
 </html>

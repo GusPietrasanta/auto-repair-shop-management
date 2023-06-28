@@ -63,6 +63,7 @@
     <Folder Include="dbo\Stored Procedures\Appointment" />
     <Folder Include="dbo\Stored Procedures\Vehicle" />
     <Folder Include="dbo\Stored Procedures\Customer" />
+    <Folder Include="dbo\Stored Procedures\Mechanic" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Customer.sql" />
@@ -78,6 +79,11 @@
     <Build Include="dbo\Stored Procedures\Customer\spCustomer_Create.sql" />
     <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_Create.sql" />
     <Build Include="dbo\Stored Procedures\Customer\spCustomer_ReadAll.sql" />
+    <Build Include="dbo\Stored Procedures\Appointment\spAppointment_ReadAll.sql" />
+    <Build Include="dbo\Stored Procedures\Appointment\spAppointment_Details_ReadAll.sql" />
+    <Build Include="dbo\Stored Procedures\Appointment\spAppointment_DeleteByID.sql" />
+    <Build Include="dbo\Stored Procedures\Mechanic\spMechanic_ReadAllBasic.sql" />
+    <Build Include="dbo\Stored Procedures\Appointment\spAppointment_AssignMechanicByID.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
