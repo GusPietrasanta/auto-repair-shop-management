@@ -44,14 +44,27 @@ namespace DataAccessLibrary.Data
 
 			return detailedAppointments.ToList<IDetailedAppointment>();
 		}
+		
+		public async Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailedByUserName(string userName)
+		{
+			var detailedAppointmentsByUserName = await _dataAccess.LoadData<DetailedAppointment, dynamic>("dbo.spAppointment_Details_ReadByUserName", new { UserName = userName }, "SQLDB");
+
+			return detailedAppointmentsByUserName.ToList<IDetailedAppointment>();
+		}
 
 		public async Task DeleteAppointmentByID(int id)
 		{
 			await _dataAccess.SaveData("spAppointment_DeleteById", new { ID = id }, "SQLDB");
 		}
+
 		public async Task AssignJobCardByID(int appointmentId, int mechanicId)
 		{
 			await _dataAccess.SaveData("spAppointment_AssignMechanicByID", new { AppointmentID = appointmentId, MechanicID = mechanicId }, "SQLDB");
+		}
+
+		public async Task SetAppointmentAsCompletedByID(int ID)
+		{
+			await _dataAccess.SaveData("spAppointment_UpdateCompletedByID", new { ID }, "SQLDB");
 		}
 	}
 }

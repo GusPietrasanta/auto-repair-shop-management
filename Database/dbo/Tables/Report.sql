@@ -5,8 +5,9 @@
     [TimeFinished] datetime2 NOT NULL,
     [VehicleID] INT NOT NULL, 
     [MechanicID] INT NOT NULL, 
+    [AppointmentID] INT NOT NULL, 
     [Date] DATETIME2 NOT NULL, 
-    [Odometer] NCHAR(10) NOT NULL,
+    [Odometer] INT NOT NULL,
     [RoadTestComments] VARCHAR(MAX) NULL,
     [GeneralComments] VARCHAR(MAX) NULL,
     [StoredFaultCodes] VARCHAR(MAX) NULL,
@@ -59,5 +60,6 @@
     [Other] VARCHAR(MAX) NULL,
     [OtherInspectionComments] VARCHAR(MAX) NULL, 
     CONSTRAINT [FK_Report_Vehicle] FOREIGN KEY (VehicleID) REFERENCES [Vehicle]([ID]), 
-    CONSTRAINT [FK_Report_Mechanic] FOREIGN KEY (MechanicID) REFERENCES [Mechanic]([ID])
+    CONSTRAINT [FK_Report_Mechanic] FOREIGN KEY (MechanicID) REFERENCES [Mechanic]([ID]), 
+    CONSTRAINT [FK_Report_Appointment] FOREIGN KEY (AppointmentID) REFERENCES [Appointment]([ID])
 )

@@ -9,5 +9,7 @@ namespace DataAccessLibrary.Data
 		Task DeleteAppointmentByID(int id);
 		Task<List<IAppointmentModel>> ReadAllAppointments();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailed();
+		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailedByUserName(string userName);
+		Task SetAppointmentAsCompletedByID(int ID);
 	}
 }

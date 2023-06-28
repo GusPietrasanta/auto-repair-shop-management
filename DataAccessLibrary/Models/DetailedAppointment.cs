@@ -16,5 +16,7 @@ namespace DataAccessLibrary.Models
 		public string Make { get; set; }
 		public string Model { get; set; }
 		public int MechanicID { get; set; }
+		public int VehicleID { get; set; }
+		public string UserName { get; set; }
 	}
 }

@@ -39,5 +39,23 @@ namespace DataAccessLibrary.Data
 
 			return newVehicleId.FirstOrDefault().ID;
 		}
+
+		public async Task<IVehicleModel> GetVehicleDetailsByID(int ID)
+		{
+			var vehicleDetails = await _dataAccess.LoadData<VehicleModel, dynamic>("dbo.spVehicle_ReadByID", new { ID }, "SQLDB");
+
+			return vehicleDetails.FirstOrDefault();
+		}
+
+		public async Task SaveVehicleFirstVisit(int ID, DateTime firstVisitDateTime)
+		{
+			var p = new
+			{
+				ID,
+				FirstVisit = firstVisitDateTime
+			};
+
+			await _dataAccess.SaveData<dynamic>("spVehicle_UpdateFirstVisitByID", p, "SQLDB");
+		}
 	}
 }

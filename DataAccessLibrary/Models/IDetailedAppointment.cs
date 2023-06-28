@@ -10,5 +10,7 @@
 		string Model { get; set; }
 		string NumberPlate { get; set; }
 		int MechanicID { get; set; }
+		int VehicleID { get; set; }
+		string UserName { get; set; }
 	}
 }

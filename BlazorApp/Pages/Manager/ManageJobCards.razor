@@ -15,22 +15,22 @@ else
 	@foreach (var a in appointments)
 	{
 		<div class="details @(@a.MechanicID > 0 ? "alert-success" : "alert-warning")">
-			@a.ID
+			Appointment ID: @a.ID
 			<br />
-			@a.Date.ToShortDateString()
+			Date: @a.Date.ToShortDateString()
 			<br />
-			@a.FirstName
+			Customer: @a.FirstName @a.LastName
 			<br />
-			@a.LastName
-			<br />
-			@a.NumberPlate
-			<br />
-			@a.Make
-			<br />
-			@a.Model
-			<br />
-			@a.MechanicID
-			<br />
+			Vehicle: @a.NumberPlate<br />
+			@a.Make - @a.Model<br />
+			@if (a.MechanicID > 0)
+			{
+				<p>Assigned to: @a.UserName</p>
+			}
+			else
+			{
+				<p>No Mechanic Assigned.</p>
+			}
 
 			<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
 				<option value="">Select Mechanic...</option>
@@ -97,16 +97,15 @@ else
 		if (mechanicIDToAssign > 0)
 		{
 			await appointmentData.AssignJobCardByID(appointmentId, mechanicIDToAssign);
+			var appointment = appointments.Where(x => x.ID == appointmentId).FirstOrDefault();
+
+			appointment.MechanicID = mechanicIDToAssign;
+			appointment.UserName = mechanics.Where(x => x.ID == mechanicIDToAssign).FirstOrDefault().UserName;
+
+			await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
+			idToDelete = 0;
+			StateHasChanged();
 		}
-		//appointments.Remove(appointments.Where(x => x.ID == appointmentId).FirstOrDefault());
-
-		var appointment = appointments.Where(x => x.ID == appointmentId).FirstOrDefault();
-
-		appointment.MechanicID = mechanicIDToAssign;
-
-		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
-		idToDelete = 0;
-		StateHasChanged();
 	}
 
 	private async void DeleteAppointment(int id)
