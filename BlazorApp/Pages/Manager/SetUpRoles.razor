@@ -1,0 +1,63 @@
+﻿@page "/SetUpRoles"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Configuration
+
+@inject RoleManager<IdentityRole> roleManager
+@inject UserManager<IdentityUser> userManager
+@inject IConfiguration config
+
+<h3>SetUpRoles</h3>
+
+<p>
+	Roles have been set up.
+</p>
+
+@code {
+	protected override async Task OnParametersSetAsync()
+	{
+		await SetUpAuth();
+	}
+
+	private async Task SetUpAuth()
+	{
+		string[] roles = { "Manager", "Mechanic" };
+
+		foreach (var role in roles)
+		{
+			var roleExist = await roleManager.RoleExistsAsync(role);
+
+			if (roleExist == false)
+			{
+				await roleManager.CreateAsync(new IdentityRole(role));
+			}
+		}
+
+		var manager = await userManager.FindByEmailAsync(config.GetValue<string>("Manager"));
+
+		if (manager != null)
+		{
+			await userManager.AddToRoleAsync(manager, "Manager");
+		}
+
+		var mechanic1 = await userManager.FindByEmailAsync(config.GetValue<string>("Mechanic1"));
+
+		if (mechanic1 != null)
+		{
+			await userManager.AddToRoleAsync(mechanic1, "Mechanic");
+		}
+
+		var mechanic2 = await userManager.FindByEmailAsync(config.GetValue<string>("Mechanic2"));
+
+		if (mechanic2 != null)
+		{
+			await userManager.AddToRoleAsync(mechanic2, "Mechanic");
+		}
+
+		var mechanic3 = await userManager.FindByEmailAsync(config.GetValue<string>("Mechanic3"));
+
+		if (mechanic3 != null)
+		{
+			await userManager.AddToRoleAsync(mechanic3, "Mechanic");
+		}
+	}
+}
