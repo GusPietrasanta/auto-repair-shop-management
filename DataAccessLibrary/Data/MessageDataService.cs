@@ -21,5 +21,12 @@ namespace DataAccessLibrary.Data
 		{
 			await _dataAccess.SaveData("spMessage_Create", newMessage, "SQLDB");
 		}
+
+		public async Task<List<IMessageModel>> ReadAllUnreadMessages()
+		{
+			var messages = await _dataAccess.LoadData<MessageModel, dynamic>("dbo.spMessage_ReadAll", new { }, "SQLDB");
+
+			return messages.ToList<IMessageModel>();
+		}
 	}
 }

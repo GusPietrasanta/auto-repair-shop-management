@@ -36,5 +36,12 @@ namespace DataAccessLibrary.Data
 
 			return stockItems.ToList<IStockItemModel>();
 		}
-    }
+
+		public async Task<List<IStockItemModel>> ReadLowStockItems()
+		{
+			var lowStockItems = await _dataAccess.LoadData<StockItemModel, dynamic>("dbo.spStock_ReadLows", new { }, "SQLDB");
+
+			return lowStockItems.ToList<IStockItemModel>();
+		}
+	}
 }

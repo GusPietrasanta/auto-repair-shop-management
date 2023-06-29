@@ -6,5 +6,6 @@ namespace DataAccessLibrary.Data
 	{
 		Task CreateStockItem(IStockItemModel stockItem);
 		Task<List<IStockItemModel>> ReadAllStockItems();
+		Task<List<IStockItemModel>> ReadLowStockItems();
 	}
 }

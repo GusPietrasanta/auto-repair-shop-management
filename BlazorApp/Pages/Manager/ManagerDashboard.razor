@@ -1,7 +1,106 @@
-﻿<h3>Manager Dashboard Component</h3>
+﻿@inject IAppointmentDataService appointmentData
+@inject IMessageDataService messageData
+@inject IStockDataService stockData
+@inject IReportDataService reportData
+
+<br />
+
+<h3>Manager Dashboard Component</h3>
+
+<br />
+
+<div class="row">
+
+	<div class="col-md-6">
+		<h2>Today's Appointments:</h2>
+		@if (todayAppointments != null)
+		{
+			@foreach (var a in todayAppointments)
+			{
+				<p>@a.ID</p>
+				<p>Car @a.NumberPlate</p>
+				<p>Assigned to @a.UserName</p>
+				<p>Completed? @a.Completed</p>
+			}
+		}
+		else
+		{
+			<p>No appointments for today!</p>
+		}
+	</div>
 
 
+
+	<div class="col-md-6">
+		<h2>Unread Messages: </h2>
+		@if (messages != null)
+		{
+			@foreach (var m in messages)
+			{
+				<p>@m.UserName posted on @m.PostedOn:</p>
+				<p>@m.Content</p>
+			}
+		}
+		else
+		{
+			<p>No new messages!</p>
+		}
+	</div>
+
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="row">
+
+	<div class="col-md-6">
+		<h2>Stock Warnings:</h2>
+		@if (stock != null)
+		{
+			@foreach (var i in stock)
+			{
+				<p>@i.ItemName is low</p>
+			}
+		}
+		else
+		{
+			<p>All good in the inventory!</p>
+		}
+	</div>
+
+	<div class="col-md-6">
+		<h2>Completed Inspections:</h2>
+		@if (completedInspections != null)
+		{
+			@foreach (var c in completedInspections)
+			{
+				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
+				<p>Customer: @c.FirstName @c.LastName</p>
+				<p>Completed by: @c.UserName on @c.TimeFinished</p>
+			}
+		}
+		else
+		{
+			<p>All good in the inventory!</p>
+		}
+	</div>
+
+</div>
 
 @code {
+	List<IDetailedAppointment> todayAppointments;
+	List<IMessageModel> messages;
+	List<IStockItemModel> stock;
+	List<IDashboardReportModel> completedInspections;
+
+	protected async override Task OnInitializedAsync()
+	{
+		todayAppointments = await appointmentData.ReadTodaysAppointmentsDetailed();
+		messages = await messageData.ReadAllUnreadMessages();
+		stock = await stockData.ReadLowStockItems();
+		completedInspections = await reportData.SearchAllReporstDashboard();
+	}
 
 }

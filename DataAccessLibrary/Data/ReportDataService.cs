@@ -26,5 +26,18 @@ namespace DataAccessLibrary.Data
 
 			return results.ToList<IFullReportModel>();
 		}
+		public async Task<List<IFullReportModel>> SearchAllReports()
+		{
+			var results = await _dataAccess.LoadData<FullReportModel, dynamic>("spReport_SearchAll", new { }, "SQLDB");
+
+			return results.ToList<IFullReportModel>();
+		}
+
+		public async Task<List<IDashboardReportModel>> SearchAllReporstDashboard()
+		{
+			var results = await _dataAccess.LoadData<DashboardReportModel, dynamic>("spReport_SearchAllDashboard", new { }, "SQLDB");
+
+			return results.ToList<IDashboardReportModel>();
+		}
 	}
 }

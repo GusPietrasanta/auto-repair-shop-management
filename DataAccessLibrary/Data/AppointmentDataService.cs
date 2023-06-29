@@ -74,5 +74,13 @@ namespace DataAccessLibrary.Data
 
 			return appointmentCount.FirstOrDefault();
 		}
+
+		public async Task<List<IDetailedAppointment>> ReadTodaysAppointmentsDetailed()
+		{
+			var todaysDetailedAppointments = await _dataAccess.LoadData<DetailedAppointment, dynamic>("dbo.spAppointment_Today_Details", new { Today = DateTime.Today }, "SQLDB");
+
+			return todaysDetailedAppointments.ToList<IDetailedAppointment>();
+		}
+
 	}
 }
