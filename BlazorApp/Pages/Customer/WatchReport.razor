@@ -1,0 +1,778 @@
+﻿@page "/WatchReport"
+
+@inject ICustomerSessionData sessionData
+@inject NavigationManager NavigationManager
+
+<h3>Watch Report</h3>
+
+@if (report != null)
+{
+	<div class="row">
+
+		<div class="col-md-6">
+
+		<p>Report ID: @report.ID</p>
+		<p>Date: @report.TimeStarted.ToShortDateString()</p>
+		<p>Time Started: @report.TimeStarted.ToShortTimeString()</p>
+		<p>Time Finished: @report.TimeFinished.ToShortTimeString()</p>
+		<p>Number Plate: @sessionData.GetSearchDetails().NumberPlate</p>
+		<p>Mileage: @report.Odometer kms</p>
+
+		<div class="p-2 mb-6 border border-dark">
+		<label>Road Test Comments:</label>
+		@if (report.RoadTestComments == null)
+			{
+				<p>N/A</p>
+			}
+			else
+			{
+				<p>@report.RoadTestComments</p>
+			}
+		</div>
+		
+		<div class="p-2 mb-6 border border-dark">
+		<label>General Comments:</label>
+				@if (report.GeneralComments == null)
+				{
+				<p>N/A</p>
+			}
+			else
+			{
+				<p>@report.GeneralComments</p>
+			}
+		</div>
+		
+		<div class="p-2 mb-6 border border-dark">
+		<label>Stored Fault Codes:</label>
+			@if (report.StoredFaultCodes == null)
+			{
+			<p>N/A</p>
+			}
+			else
+			{
+				<p>@report.StoredFaultCodes</p>
+			}
+		</div>
+
+		<div class="p-2 mb-6 border border-dark">
+			<label>Air Conditioning:</label>
+			@if (report.AirConditioning == ok)
+			{
+				@((MarkupString)okDiv)
+			}
+			else if (report.AirConditioning == average)
+			{
+				@((MarkupString)averageDiv)
+			}
+			else if (report.AirConditioning == bad)
+			{
+				@((MarkupString)badDiv)
+			}
+		</div>
+		
+		<div class="p-2 mb-6 border border-dark">
+			<label>Lights:</label>
+			@if (report.Lights == ok)
+			{
+				@((MarkupString)okDiv)
+			}
+				else if (@report.Lights == @average)
+			{
+				@((MarkupString)averageDiv)
+			}
+				else if (@report.Lights == @bad)
+			{
+				@((MarkupString)badDiv)
+			}
+		</div>
+
+		<div class="p-2 mb-6 border border-dark">
+			<label>Lights Comments:</label>
+			@if (report.LightsComments == null)
+			{
+				<p>N/A</p>
+			}
+			else
+			{
+					<p>@report.LightsComments</p>
+			}
+		</div>
+
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Front Wipers:</label>
+				@if (report.FrontWipers == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.FrontWipers == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.FrontWipers == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Rear Wipers:</label>
+				@if (report.RearWiper == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.RearWiper == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.RearWiper == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+				else
+				{
+					<p>N/A</p>
+				}
+			</div>
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Battery:</label>
+				@if (report.Battery == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.Battery == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.Battery == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Battery Comments:</label>
+				@if (report.BatteryComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.BatteryComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Air Filter:</label>
+				@if (report.AirFilter == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.AirFilter == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.AirFilter == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Cabin Filter:</label>
+				@if (report.CabinFilter == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.CabinFilter == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.CabinFilter == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Drive Belt/s:</label>
+				@if (report.DriveBelts == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.DriveBelts == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.DriveBelts == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Timing Belt:</label>
+				@if (report.TimingBelt == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.TimingBelt == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.TimingBelt == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+				else
+				{
+					<p>N/A</p>
+				}
+			</div>
+
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Radiator:</label>
+				@if (report.Radiator == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.Radiator == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.Radiator == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Hoses:</label>
+				@if (report.Hoses == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.Hoses == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.Hoses == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Hoses Comments:</label>
+				@if (report.HosesComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.HosesComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Engine Oil:</label>
+				@if (report.EngineOil == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.EngineOil == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.EngineOil == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Coolant:</label>
+				@if (report.Coolant == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.Coolant == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.Coolant == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Brake Fluid:</label>
+				@if (report.BrakeFluid == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.BrakeFluid == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.BrakeFluid == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Power Steering Fluid:</label>
+				@if (report.PowerSteeringFluid == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.PowerSteeringFluid == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.PowerSteeringFluid == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Transmission Fluid:</label>
+				@if (report.TransmissionFluid == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.TransmissionFluid == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.TransmissionFluid == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Windscreen Washer Fluid:</label>
+				@if (report.WindscreenWasherFluid == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.WindscreenWasherFluid == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.WindscreenWasherFluid == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Fluids Comments:</label>
+				@if (report.FluidsComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.FluidsComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Spark Plugs:</label>
+				@if (report.SparkPlugs == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.SparkPlugs == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.SparkPlugs == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+				else
+				{
+					<p>N/A</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Fuel Filter:</label>
+				@if (report.FuelFilter == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.FuelFilter == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.FuelFilter == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Front Suspension:</label>
+				@if (report.FrontSuspension == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.FrontSuspension == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.FrontSuspension == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Front Suspension Comments:</label>
+				@if (report.FrontSuspensionComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.FrontSuspensionComments</p>
+				}
+			</div>
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Rear Suspension:</label>
+				@if (report.RearSuspension == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.RearSuspension == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.RearSuspension == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Rear Suspension Comments:</label>
+				@if (report.RearSuspensionComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.RearSuspensionComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Front Brakes:</label>
+				@if (report.FrontBrakes == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.FrontBrakes == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.FrontBrakes == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Front Brakes Comments:</label>
+				@if (report.FrontBrakesComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.FrontBrakesComments</p>
+				}
+			</div>
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Rear Brakes:</label>
+				@if (report.RearBrakes == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.RearBrakes == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.RearBrakes == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			<div class="p-2 mb-6 border border-dark">
+				<label>Rear Brakes Comments:</label>
+				@if (report.RearBrakesComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.RearBrakesComments</p>
+				}
+			</div>
+
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Right Hand Front Tyre:</label>
+				@if (report.RHFTyre == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.RHFTyre == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.RHFTyre == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Left Hand Front Tyre:</label>
+				@if (report.LHFTyre == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.LHFTyre == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.LHFTyre == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Right Hand Rear Tyre:</label>
+				@if (report.RHRTyre == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.RHRTyre == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.RHRTyre == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Left Hand Rear Tyre:</label>
+				@if (report.LHRTyre == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.LHRTyre == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.LHRTyre == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Tyres Comments:</label>
+				@if (report.TyresComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.TyresComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Exhaust:</label>
+				@if (report.Exhaust == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.Exhaust == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.Exhaust == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Exhaust Comments:</label>
+				@if (report.ExhaustComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.ExhaustComments</p>
+				}
+			</div>
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Drivetrain:</label>
+				@if (report.Drivetrain == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.Drivetrain == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.Drivetrain == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Drivetrain Comments:</label>
+				@if (report.DrivetrainComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.DrivetrainComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Oil Leaks:</label>
+				@if (report.OilLeaks == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.OilLeaks == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.OilLeaks == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Oil Leaks Comments:</label>
+				@if (report.OilLeaksComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.OilLeaksComments</p>
+				}
+			</div>
+
+			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Coolant Leaks:</label>
+				@if (report.CoolantLeaks == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (@report.CoolantLeaks == @average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (@report.CoolantLeaks == @bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>			
+			<div class="p-2 mb-6 border border-dark">
+				<label>Coolant Leaks Comments:</label>
+				@if (report.CoolantLeaksComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.CoolantLeaksComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Other Leaks Comments:</label>
+				@if (report.CoolantLeaksComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.OtherLeaksComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Other Comments:</label>
+				@if (report.Other == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.Other</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Other Inspection Comments:</label>
+				@if (report.OtherInspectionComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.OtherInspectionComments</p>
+				}
+			</div>
+		</div>
+	</div>
+	
+}
+
+<button @onclick="(() => previousPage())">Go to previous page</button>
+
+@code {
+	const string ok = "Inspected and ok";
+	const string average = "May require future attention";
+	const string bad = "Requires immediate attention";
+
+	const string okDiv = "<div class='p-3 mb-2 bg-success text-white'>Inspected and ok</div>";
+	const string averageDiv = "<div class='p-3 mb-2 bg-warning text-dark'>May require future attention</div>";
+	const string badDiv = "<div class='p-3 mb-2 bg-danger text-white'>Requires immediate attention</div>";
+
+
+
+	private IFullReportModel report;
+
+	protected override void OnInitialized()
+	{
+		report = sessionData.GetReport();
+	}
+
+	private void previousPage()
+	{
+		NavigationManager.NavigateTo("/PastReports");
+	}
+}

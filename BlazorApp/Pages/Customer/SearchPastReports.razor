@@ -1,6 +1,8 @@
 ﻿@page "/PastReports"
 
+@inject NavigationManager NavigationManager
 @inject IReportDataService reportData
+@inject ICustomerSessionData sessionData
 
 <h3>Search Past Reports</h3>
 
@@ -24,6 +26,7 @@
 			<button class="btn btn-primary" type="submit">Search</button>
 
 		</EditForm>
+
 @if (wasSearchButtonClicked)
 {
 	@if (reports != null)
@@ -52,6 +55,7 @@
 					<p>Report ID: @r.ID</p>
 					<p>Date: @r.TimeStarted.ToShortDateString()</p>
 					<p>Odometer: @r.Odometer kms</p>
+					<button @onclick="(() => GoToReport(r))">View Report</button>
 				</div>
 
 				previousReportDate = r.TimeStarted;
@@ -63,6 +67,8 @@
 
 	</div>
 </div>
+
+
 @code {
 	private ISearchReporstByLastNameAndRego searchDetails = new UISearchReporstByLastNameAndRego();
 	private List<IFullReportModel> reports;
@@ -70,6 +76,16 @@
 
 	private DateTime previousReportDate;
 	private int previousReportOdometer;
+
+	protected override void OnInitialized()
+	{
+		if (sessionData.GetReports() != null)
+		{
+			reports = sessionData.GetReports();
+			wasSearchButtonClicked = sessionData.GetSearchButtonClicked();
+			searchDetails = sessionData.GetSearchDetails();
+		}
+	}
 
 	private async Task HandleValidSubmit()
 	{
@@ -81,6 +97,16 @@
 
 		reports = await reportData.SearchReports(searchDetails);
 
+		sessionData.SetReports(reports);
+		sessionData.SetSearchButtonClickedToTrue();
+		sessionData.SetSearchDetails(searchDetails);
+
 		wasSearchButtonClicked = true;
+	}
+
+	private void GoToReport(IFullReportModel reportToSee)
+	{
+		sessionData.SetReport(reportToSee);
+		NavigationManager.NavigateTo("/WatchReport");
 	}
 }

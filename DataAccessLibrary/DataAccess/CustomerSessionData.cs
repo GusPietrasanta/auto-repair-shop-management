@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,56 @@ namespace DataAccessLibrary.DataAccess
 		private int appointmentID;
 		private string appointmentNumberPlate;
 		private DateTime appointmentDate;
+		private IFullReportModel sessionReport;
+		private List<IFullReportModel> allSessionReports;
 
-		public int GetAppointmentID()
+		private bool wasSearchButtonClicked = false;
+
+		private ISearchReporstByLastNameAndRego searchDetails;
+
+
+		public void SetSearchDetails(ISearchReporstByLastNameAndRego newDetails)
+		{
+			searchDetails = newDetails;
+		}
+
+		public ISearchReporstByLastNameAndRego GetSearchDetails()
+		{
+			return searchDetails;
+		}
+
+		public void SetSearchButtonClickedToTrue()
+		{
+			wasSearchButtonClicked = true;
+		}
+		
+		public bool GetSearchButtonClicked()
+		{
+			return wasSearchButtonClicked;
+		}
+
+
+		public List<IFullReportModel> GetReports()
+		{
+			return allSessionReports;
+		}
+
+		public void SetReports(List<IFullReportModel> newReports)
+		{
+			allSessionReports = newReports;
+		}
+
+		public IFullReportModel GetReport()
+		{
+			return sessionReport;
+		}
+
+		public void SetReport(IFullReportModel newReport)
+		{
+			sessionReport = newReport;
+		}
+
+        public int GetAppointmentID()
 		{
 			return appointmentID;
 		}
