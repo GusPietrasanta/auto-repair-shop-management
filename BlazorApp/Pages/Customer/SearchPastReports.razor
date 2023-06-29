@@ -4,25 +4,26 @@
 
 <h3>Search Past Reports</h3>
 
-<EditForm Model="searchDetails" OnValidSubmit="HandleValidSubmit">
-	<DataAnnotationsValidator/>
-	<ValidationSummary/>
+<div class="row">
+	<div class="col-md-6">
+		<EditForm Model="searchDetails" OnValidSubmit="HandleValidSubmit">
+			<DataAnnotationsValidator/>
+			<ValidationSummary/>
 
 
-	<div class="mb-3">
-		<label>Last Name:</label>
-		<InputText @bind-Value="searchDetails.LastName" class="form-control" />
-	</div>
+			<div class="mb-3">
+				<label>Last Name:</label>
+				<InputText @bind-Value="searchDetails.LastName" class="form-control" />
+			</div>
 
-	<div class="mb-3">
-		<label>Number Plate:</label>
-		<InputText @bind-Value="searchDetails.NumberPlate" class="form-control" />
-	</div>
+			<div class="mb-3">
+				<label>Number Plate:</label>
+				<InputText @bind-Value="searchDetails.NumberPlate" class="form-control" />
+			</div>
 
-	<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-primary" type="submit">Search</button>
 
-</EditForm>
-
+		</EditForm>
 @if (wasSearchButtonClicked)
 {
 	@if (reports != null)
@@ -35,24 +36,40 @@
 		else
 		{
 			<h2>Reports found for vehicle @searchDetails.NumberPlate</h2>
-			foreach (var r in reports)
-			{
+			@foreach (var r in reports)
+			{				
+				@if (r != reports.FirstOrDefault())
+				{
+					int kmsBetweenServices = previousReportOdometer - r.Odometer;
+					int daysBetweenServices = (previousReportDate - r.TimeStarted).Days;
+					<div>
+						<p>Kms between services: @kmsBetweenServices</p>
+						<p>Days between services: @daysBetweenServices</p>
+					</div>
+				}
 
 				<div class="alert-info">
+					<p>Report ID: @r.ID</p>
 					<p>Date: @r.TimeStarted.ToShortDateString()</p>
 					<p>Odometer: @r.Odometer kms</p>
 				</div>
-				<br />
+
+				previousReportDate = r.TimeStarted;
+				previousReportOdometer = r.Odometer;
 			}
 		}
 	}
 }
 
-
+	</div>
+</div>
 @code {
 	private ISearchReporstByLastNameAndRego searchDetails = new UISearchReporstByLastNameAndRego();
-	private List<IReportModel> reports;
+	private List<IFullReportModel> reports;
 	private bool wasSearchButtonClicked = false;
+
+	private DateTime previousReportDate;
+	private int previousReportOdometer;
 
 	private async Task HandleValidSubmit()
 	{
