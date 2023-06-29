@@ -91,7 +91,6 @@
 	{
 		apiErrorMessage = "";
 
-		// Sanitise input
 		newAppointment.NumberPlate = Regex.Replace(newAppointment.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
 
 		try
@@ -110,8 +109,9 @@
 	{
 		newCustomer = new CustomerModel();
 
-		newCustomer.FirstName = newAppointment.FirstName;
-		newCustomer.LastName = newAppointment.LastName;
+		newCustomer.FirstName = newAppointment.FirstName.Substring(0, 1).ToUpper() + newAppointment.FirstName.Substring(1).ToLower();
+		newCustomer.LastName = newAppointment.LastName.Substring(0, 1).ToUpper() + newAppointment.LastName.Substring(1).ToLower();
+
 		newCustomer.PhoneNumber = newAppointment.PhoneNumber;
 		newCustomer.Email = newAppointment.Email;
 		newCustomer.Address = newAppointment.Address;

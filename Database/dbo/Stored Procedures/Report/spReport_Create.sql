@@ -4,6 +4,7 @@
 	@VehicleID INT,
 	@MechanicID INT,
 	@AppointmentID INT,
+	@CustomerID INT,
 	@Date DATETIME2,
 	@Odometer INT,
 	@RoadTestComments VARCHAR(MAX),
@@ -62,7 +63,7 @@ BEGIN
 
 	SET NOCOUNT ON;
 
-	INSERT INTO dbo.Report (TimeStarted, TimeFinished, VehicleID, MechanicID, AppointmentID, Date, Odometer, RoadTestComments,
+	INSERT INTO dbo.Report (TimeStarted, TimeFinished, VehicleID, MechanicID, AppointmentID, CustomerID, Date, Odometer, RoadTestComments,
                             GeneralComments, StoredFaultCodes, AirConditioning, Lights, LightsComments, FrontWipers,
                             RearWiper, Battery, BatteryComments, RHFTyre, LHFTyre, RHRTyre, LHRTyre, TyresComments,
                             NeedsAlignment, AirFilter, CabinFilter, DriveBelts, TimingBelt, Radiator, Hoses, HosesComments,
@@ -71,7 +72,7 @@ BEGIN
                             RearSuspensionComments, FrontBrakes, FrontBrakesComments, RearBrakes, RearBrakesComments, Exhaust,
                             ExhaustComments, Drivetrain, DrivetrainComments, OilLeaks, OilLeaksComments, CoolantLeaks,
                             CoolantLeaksComments, OtherLeaksComments, Other, OtherInspectionComments) 
-	VALUES (@TimeStarted, @TimeFinished, @VehicleID, @MechanicID, @AppointmentID, @Date, @Odometer, @RoadTestComments, @GeneralComments,
+	VALUES (@TimeStarted, @TimeFinished, @VehicleID, @MechanicID, @AppointmentID, @CustomerID, @Date, @Odometer, @RoadTestComments, @GeneralComments,
             @StoredFaultCodes, @AirConditioning, @Lights, @LightsComments, @FrontWipers, @RearWiper, @Battery,
             @BatteryComments, @RHFTyre, @LHFTyre, @RHRTyre, @LHRTyre, @TyresComments, @NeedsAlignment, @AirFilter,
             @CabinFilter, @DriveBelts, @TimingBelt, @Radiator, @Hoses, @HosesComments, @EngineOil, @Coolant, @BrakeFluid,

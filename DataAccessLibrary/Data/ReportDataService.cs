@@ -20,5 +20,11 @@ namespace DataAccessLibrary.Data
 		{
 			await _dataAccess.SaveData<dynamic>("spReport_Create", newReport, "SQLDB");
 		}
+		public async Task<List<IReportModel>> SearchReports(ISearchReporstByLastNameAndRego searchDetails)
+		{
+			var results = await _dataAccess.LoadData<ReportModel, dynamic>("spReport_SearchByLastName_Rego", searchDetails, "SQLDB");
+
+			return results.ToList<IReportModel>();
+		}
 	}
 }

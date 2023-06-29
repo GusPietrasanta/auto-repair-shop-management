@@ -17,6 +17,7 @@ namespace DataAccessLibrary.Models
 
 		public int MechanicID { get; set; }
 		public int AppointmentID { get; set; }
+		public int CustomerID { get; set; }
 
 		public DateTime Date { get; set; }
 

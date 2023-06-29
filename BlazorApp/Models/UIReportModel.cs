@@ -1,7 +1,5 @@
 ﻿using DataAccessLibrary.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using static BlazorApp.Models.ComponentCondition;
 
 namespace BlazorApp.Models
 {
@@ -16,6 +14,7 @@ namespace BlazorApp.Models
 			public int MechanicID { get; set; }
 
 			public int AppointmentID { get; set; }
+			public int CustomerID { get; set; }
 
 			public DateTime Date { get; set; }
 

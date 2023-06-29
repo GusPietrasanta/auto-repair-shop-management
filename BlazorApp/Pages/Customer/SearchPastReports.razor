@@ -1,0 +1,69 @@
+﻿@page "/PastReports"
+
+@inject IReportDataService reportData
+
+<h3>Search Past Reports</h3>
+
+<EditForm Model="searchDetails" OnValidSubmit="HandleValidSubmit">
+	<DataAnnotationsValidator/>
+	<ValidationSummary/>
+
+
+	<div class="mb-3">
+		<label>Last Name:</label>
+		<InputText @bind-Value="searchDetails.LastName" class="form-control" />
+	</div>
+
+	<div class="mb-3">
+		<label>Number Plate:</label>
+		<InputText @bind-Value="searchDetails.NumberPlate" class="form-control" />
+	</div>
+
+	<button class="btn btn-primary" type="submit">Search</button>
+
+</EditForm>
+
+@if (wasSearchButtonClicked)
+{
+	@if (reports != null)
+	{
+		@if (reports.Count == 0)
+		{
+			<h2>No reports were found with the provided details.</h2>
+			<h3>Please try again.</h3>
+		}
+		else
+		{
+			<h2>Reports found for vehicle @searchDetails.NumberPlate</h2>
+			foreach (var r in reports)
+			{
+
+				<div class="alert-info">
+					<p>Date: @r.TimeStarted.ToShortDateString()</p>
+					<p>Odometer: @r.Odometer kms</p>
+				</div>
+				<br />
+			}
+		}
+	}
+}
+
+
+@code {
+	private ISearchReporstByLastNameAndRego searchDetails = new UISearchReporstByLastNameAndRego();
+	private List<IReportModel> reports;
+	private bool wasSearchButtonClicked = false;
+
+	private async Task HandleValidSubmit()
+	{
+		searchDetails.LastName = searchDetails.LastName.Trim();
+		searchDetails.LastName = searchDetails.LastName.Substring(0, 1).ToUpper() + searchDetails.LastName.Substring(1).ToLower();
+
+		searchDetails.NumberPlate = searchDetails.NumberPlate.Trim();
+		searchDetails.NumberPlate = Regex.Replace(searchDetails.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
+
+		reports = await reportData.SearchReports(searchDetails);
+
+		wasSearchButtonClicked = true;
+	}
+}

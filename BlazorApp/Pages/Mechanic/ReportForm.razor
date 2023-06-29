@@ -1,5 +1,4 @@
 ﻿@page "/ReportForm"
-@using static BlazorApp.Models.ComponentCondition;
 
 @inject NavigationManager NavigationManager
 @inject IMechanicSessionData mechanicSession
@@ -697,6 +696,7 @@
 		report.AppointmentID = appointment.ID;
 		report.VehicleID = appointment.VehicleID;
 		report.MechanicID = appointment.MechanicID;
+		report.CustomerID = appointment.CustomerID;
 		report.Date = appointment.Date;
 	}
 

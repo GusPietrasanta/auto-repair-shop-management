@@ -6,6 +6,7 @@
     [VehicleID] INT NOT NULL, 
     [MechanicID] INT NOT NULL, 
     [AppointmentID] INT NOT NULL, 
+    [CustomerID] INT NOT NULL, 
     [Date] DATETIME2 NOT NULL, 
     [Odometer] INT NOT NULL,
     [RoadTestComments] VARCHAR(MAX) NULL,

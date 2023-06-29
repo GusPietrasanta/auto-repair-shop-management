@@ -12,6 +12,7 @@
 		string Coolant { get; set; }
 		string CoolantLeaks { get; set; }
 		string CoolantLeaksComments { get; set; }
+		int CustomerID { get; set; }
 		DateTime Date { get; set; }
 		string DriveBelts { get; set; }
 		string Drivetrain { get; set; }
