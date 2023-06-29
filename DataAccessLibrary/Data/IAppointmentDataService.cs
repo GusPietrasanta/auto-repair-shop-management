@@ -7,6 +7,7 @@ namespace DataAccessLibrary.Data
 		Task AssignJobCardByID(int appointmentId, int mechanicId);
 		Task<int> CreateAppointment(IAppointmentModel appointment);
 		Task DeleteAppointmentByID(int id);
+		Task<int> GetTodayAppointmentsCountByUserName(string userName);
 		Task<List<IAppointmentModel>> ReadAllAppointments();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailed();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailedByUserName(string userName);

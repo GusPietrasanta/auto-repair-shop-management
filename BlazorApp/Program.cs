@@ -32,6 +32,7 @@ builder.Services.AddScoped<ICustomerSessionData, CustomerSessionData>();
 builder.Services.AddScoped<IMechanicSessionData, MechanicSessionData>();
 builder.Services.AddScoped<IMechanicDataService, MechanicDataService>();
 builder.Services.AddScoped<IReportDataService, ReportDataService>();
+builder.Services.AddScoped<IMessageDataService, MessageDataService>();
 builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
 
 var app = builder.Build();

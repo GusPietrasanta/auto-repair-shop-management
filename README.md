@@ -5,7 +5,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 
 ### Users
 - [x] Book an appointment using the vehicle number plate and contact details.
-- [ ] Access car reports history using the vehicle number plate and last name.
+- [x] Access car reports history using the vehicle number plate and last name.
 
 ### Mechanics
 - [x] Perform assigned car inspections and complete reports.
@@ -28,7 +28,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 
 - [x] Set up the project structure and database schema.
 - [x] Enable users to book appointments.
-- [ ] Allow users to access car reports history.
+- [x] Allow users to access car reports history.
 - [x] Implement managers' ability to assign job cards/inspections to mechanics.
 - [x] Implement mechanics' ability to perform car inspections and complete reports.
 - [ ] Enable mechanics to post messages to the message board.

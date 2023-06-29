@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [dbo].[Message]
 (
-	[ID] INT NOT NULL PRIMARY KEY, 
-    [MechanicID] INT NOT NULL, 
-    [Content] VARCHAR(MAX) NOT NULL, 
-    [Tag] VARCHAR(20) NOT NULL, 
-    CONSTRAINT [FK_Message_Mechanic] FOREIGN KEY (MechanicID) REFERENCES [Mechanic]([ID])
+	[ID] INT NOT NULL PRIMARY KEY IDENTITY,
+    [UserName] NVARCHAR(50) NOT NULL, 
+    [Content] VARCHAR(MAX) NOT NULL,
+    [PostedOn] DATETIME2 NOT NULL,
+    [Read] BIT NOT NULL DEFAULT 0,
+    [Tag] VARCHAR(20) NOT NULL
 )

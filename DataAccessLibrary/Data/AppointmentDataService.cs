@@ -1,4 +1,5 @@
-﻿using DataAccessLibrary.DataAccess;
+﻿using Dapper;
+using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,13 @@ namespace DataAccessLibrary.Data
 		public async Task SetAppointmentAsCompletedByID(int ID)
 		{
 			await _dataAccess.SaveData("spAppointment_UpdateCompletedByID", new { ID }, "SQLDB");
+		}
+
+		public async Task<int> GetTodayAppointmentsCountByUserName(string userName)
+		{
+			var appointmentCount = await _dataAccess.LoadData<int, dynamic>("dbo.spAppointment_CountByMechanicToday", new { UserName = userName, Date = DateTime.Today }, "SQLDB");
+
+			return appointmentCount.FirstOrDefault();
 		}
 	}
 }

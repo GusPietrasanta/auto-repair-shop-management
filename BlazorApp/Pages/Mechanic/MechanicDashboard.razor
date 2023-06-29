@@ -1,0 +1,71 @@
+﻿@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@inject IAppointmentDataService appointmentData
+@inject IMessageDataService messageData
+@inject NavigationManager NavigationManager
+
+<h3>Mechanic Dashboard Component</h3>
+
+<div class="row">
+
+	<div class="col-md-6">
+		<h2>Post a Message</h2>
+
+		<EditForm OnValidSubmit="HandleMessageValidSubmit" Model="message">
+
+			<InputTextArea @bind-Value="message.Content" rows="8"/>
+
+			<InputSelect @bind-Value="message.Tag">
+				<option value="">Select a tag for the message...</option>
+				<option value="safety">Safety</option>
+				<option value="schedule">Schedule</option>
+				<option value="inventory">Inventory</option>
+				<option value="equipment">Equipment</option>
+			</InputSelect>
+
+			<button type="submit" class="btn btn-primary">Send</button>
+
+		</EditForm>
+
+	</div>
+
+	<div class="col-md-6">
+		<h2>You have @jobsAssigned jobs assigned for today.</h2>
+
+		<button @onclick="(() => GoToJobs())">Go to Jobs Page</button>
+	</div>
+
+</div>
+
+@code {
+	private int jobsAssigned;
+	private string userName;
+	private IMessageModel message = new UIMessageModel();
+
+	protected async override Task OnInitializedAsync()
+	{
+		var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+		var user = authstate.User;
+		userName = user.Identity.Name;
+
+		jobsAssigned = await appointmentData.GetTodayAppointmentsCountByUserName(userName);
+	}
+
+	private void GoToJobs()
+	{
+		NavigationManager.NavigateTo("/Jobs");
+	}
+
+	private async void HandleMessageValidSubmit()
+	{
+		message.UserName = userName;
+		message.PostedOn = DateTime.Now;
+
+		await messageData.CreateMessage(message);
+
+		message.Tag = "";
+		message.Content = "";
+		message = new UIMessageModel();
+
+		StateHasChanged();
+	}
+}
