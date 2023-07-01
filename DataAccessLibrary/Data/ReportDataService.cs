@@ -53,5 +53,10 @@ namespace DataAccessLibrary.Data
 
 			return results.ToList().FirstOrDefault();
 		}
+
+		public async Task ArchiveInspection(int ID)
+		{
+			await _dataAccess.SaveData<dynamic>("spReport_Archive", new { ID }, "SQLDB");
+		}
 	}
 }

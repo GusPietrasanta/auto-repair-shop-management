@@ -56,7 +56,7 @@
 				}
 				<br>
 				</div>
-				<br>
+				<br />
 
 			}
 		}
@@ -74,8 +74,13 @@
 		{
 			@foreach (var m in messages)
 			{
-				<p>@m.UserName posted on @m.PostedOn:</p>
-				<p>@m.Content</p>
+				<div class="alert-info">
+					<p>Message ID: @m.ID</p>
+					<p>@m.UserName posted on @m.PostedOn in <b>@m.Tag</b>:</p>
+					<p><i>@m.Content</i></p>
+					<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.ID))">Mark as read</button>
+				</div>
+				<br />
 			}
 		}
 		else
@@ -92,13 +97,22 @@
 
 <div class="row">
 
+
+
 	<div class="col-md-6">
-		<h2>Stock Warnings:</h2>
-		@if (stock != null)
+		<h2>Completed Inspections:</h2>
+		@if (completedInspections != null)
 		{
-			@foreach (var i in stock)
+			@foreach (var c in completedInspections)
 			{
-				<p>@i.ItemName is low</p>
+				<div class="alert-info">
+				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
+				<p>Customer: @c.FirstName @c.LastName</p>
+				<p>Completed by: @c.UserName on @c.TimeFinished</p>
+				<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
+				<button class="btn btn-primary" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
+				</div>
+				<br />
 			}
 		}
 		else
@@ -108,15 +122,29 @@
 	</div>
 
 	<div class="col-md-6">
-		<h2>Completed Inspections:</h2>
-		@if (completedInspections != null)
+		<h2>Stock Warnings:</h2>
+
+		@if (stock != null)
 		{
-			@foreach (var c in completedInspections)
+			@foreach (var i in stock)
 			{
-				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
-				<p>Customer: @c.FirstName @c.LastName</p>
-				<p>Completed by: @c.UserName on @c.TimeFinished</p>
+				@if (i.Quantity == 0)
+				{
+					<div class="alert-danger">
+						<p> Nothing left of @i.ItemName!</p>
+						<br>
+					</div>
+				}
+				else
+				{
+					<div class="alert-warning">
+						<p>@i.ItemName is low</p>
+						<p>(Only @i.Quantity @i.Unit left)</p>
+					</div>
+				}
 			}
+			<br />
+			<button class="btn btn-primary" @onclick="(() => GoToInventory())">Go to Inventory</button>
 		}
 		else
 		{
@@ -187,5 +215,29 @@
 
 		// Redirect to inspection page
 		NavigationManager.NavigateTo($"/Report/{reportID}");
+	}
+
+	private async Task MarkMessageAsRead(int messageID)
+	{
+		await messageData.MarkMessageAsRead(messageID);
+
+		messages.Remove(messages.Where(x => x.ID == messageID).FirstOrDefault());
+	}
+
+	private void GoToInventory()
+	{
+		NavigationManager.NavigateTo("/ReadStock");
+	}	
+	
+	private void SeeReport(int reportID)
+	{
+		NavigationManager.NavigateTo($"/Report/{reportID}");
+	}
+
+	private async Task ArchiveInspection(int inspectionID)
+	{
+		await reportData.ArchiveInspection(inspectionID);
+
+		completedInspections.Remove(completedInspections.Where(x => x.ID == inspectionID).FirstOrDefault());
 	}
 }

@@ -4,6 +4,7 @@ namespace DataAccessLibrary.Data
 {
 	public interface IReportDataService
 	{
+		Task ArchiveInspection(int ID);
 		Task CreateReport(IReportModel newReport);
 		Task<IFullReportModel> GetFullReportFromID(int reportID);
 		Task<int> GetReportIDFromAppointmentIDAsync(int appointmentID);

@@ -28,5 +28,10 @@ namespace DataAccessLibrary.Data
 
 			return messages.ToList<IMessageModel>();
 		}
+
+		public async Task MarkMessageAsRead(int ID)
+		{
+			await _dataAccess.SaveData("spMessage_MarkAsRead", new { ID }, "SQLDB");
+		}
 	}
 }

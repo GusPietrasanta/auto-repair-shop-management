@@ -7,6 +7,7 @@ BEGIN
 	INNER JOIN dbo.Mechanic m ON r.MechanicID = m.ID
 	INNER JOIN dbo.Customer c on r.CustomerID = c.ID
 	INNER JOIN dbo.Vehicle v on r.VehicleID = v.ID
+	WHERE Archived = 0
 	ORDER BY r.TimeFinished ASC;
 END
 RETURN 0

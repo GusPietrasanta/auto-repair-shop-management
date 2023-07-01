@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Report]
 (
 	[ID] INT NOT NULL PRIMARY KEY IDENTITY,
+    [Archived] BIT NOT NULL DEFAULT 0,
     [TimeStarted] datetime2 NOT NULL,
     [TimeFinished] datetime2 NOT NULL,
     [VehicleID] INT NOT NULL, 

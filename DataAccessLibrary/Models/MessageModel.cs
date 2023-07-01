@@ -9,6 +9,7 @@ namespace DataAccessLibrary.Models
 {
 	public class MessageModel : IMessageModel
 	{
+		public int ID { get; set; }
 		public string UserName { get; set; }
 		public string Content { get; set; }
 		public DateTime PostedOn { get; set; }
