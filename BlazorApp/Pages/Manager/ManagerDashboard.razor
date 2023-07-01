@@ -2,6 +2,9 @@
 @inject IMessageDataService messageData
 @inject IStockDataService stockData
 @inject IReportDataService reportData
+@inject IMechanicDataService mechanicData
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 <br />
 
@@ -17,10 +20,44 @@
 		{
 			@foreach (var a in todayAppointments)
 			{
+				<div class="@(a.UserName == null ? "alert-danger" : a.Completed != false ? "alert-success" : "alert-warning")">
 				<p>@a.ID</p>
 				<p>Car @a.NumberPlate</p>
-				<p>Assigned to @a.UserName</p>
-				<p>Completed? @a.Completed</p>
+				@if (a.UserName != null && a.Completed == false)
+				{
+					<p>Assigned to @a.UserName</p>
+				}
+				else if (a.UserName != null && a.Completed)
+				{
+					<p>Completed by @a.UserName</p>
+				}
+				else
+				{
+					<p>Job not assigned to any mechanic!</p>
+					<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
+						<option value="">Select Mechanic...</option>
+						@foreach (var m in mechanics)
+						{
+							<option value="@m.ID">@m.UserName</option>
+						}
+					</select>
+
+					<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+
+				}
+				@if (a.Completed)
+				{
+						<button class="btn btn-outline-primary" @onclick="(() => SeeReportFromAppointment(a.ID))">
+						See Report</button>
+				}
+				else if (a.Completed || a.UserName != null)
+				{
+					<p>Inspection in progress.</p>
+				}
+				<br>
+				</div>
+				<br>
+
 			}
 		}
 		else
@@ -90,10 +127,12 @@
 </div>
 
 @code {
-	List<IDetailedAppointment> todayAppointments;
-	List<IMessageModel> messages;
-	List<IStockItemModel> stock;
-	List<IDashboardReportModel> completedInspections;
+	private List<IMechanicBasicModel> mechanics;
+	private List<IDetailedAppointment> todayAppointments;
+	private List<IMessageModel> messages;
+	private List<IStockItemModel> stock;
+	private List<IDashboardReportModel> completedInspections;
+	private int mechanicIDToAssign;
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -101,6 +140,52 @@
 		messages = await messageData.ReadAllUnreadMessages();
 		stock = await stockData.ReadLowStockItems();
 		completedInspections = await reportData.SearchAllReporstDashboard();
+		mechanics = await mechanicData.ReadAllMechanicsBasic();
 	}
 
+	private async void ResetAllDropDowns()
+	{
+		mechanicIDToAssign = 0;
+		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
+	}
+
+	private void HandleDropDownChange(ChangeEventArgs e)
+	{
+		if (e.Value.ToString() == "")
+		{
+			mechanicIDToAssign = 0;
+		}
+		else
+		{
+			mechanicIDToAssign = int.Parse(e.Value.ToString());
+		}
+	}
+
+	private async void AssignJobCard(int appointmentId)
+	{
+		Console.WriteLine(appointmentId);
+		Console.WriteLine(mechanicIDToAssign);
+		if (mechanicIDToAssign > 0)
+		{
+			await appointmentData.AssignJobCardByID(appointmentId, mechanicIDToAssign);
+			var appointment = todayAppointments.Where(x => x.ID == appointmentId).FirstOrDefault();
+
+			appointment.MechanicID = mechanicIDToAssign;
+
+			appointment.UserName = mechanics.Where(x => x.ID == mechanicIDToAssign).FirstOrDefault().UserName;
+
+			await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
+
+			StateHasChanged();
+		}
+	}
+
+	private async void SeeReportFromAppointment(int appointmentID)
+	{
+		// Get inspection number by appointmentID
+		int reportID = await reportData.GetReportIDFromAppointmentIDAsync(appointmentID);
+
+		// Redirect to inspection page
+		NavigationManager.NavigateTo($"/Report/{reportID}");
+	}
 }

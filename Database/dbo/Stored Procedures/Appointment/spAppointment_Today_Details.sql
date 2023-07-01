@@ -11,7 +11,7 @@ BEGIN
 	INNER JOIN dbo.Vehicle v ON  a.VehicleID = v.ID
 	INNER JOIN dbo.Customer c ON  a.CustomerID = c.ID
 	LEFT JOIN dbo.Mechanic m ON a.MechanicID = m.ID
-	WHERE CAST(a.Date AS DATE) = @TODAY 
+	WHERE CAST(a.Date AS DATE) = @Today
 	ORDER BY a.Date;
 
 END

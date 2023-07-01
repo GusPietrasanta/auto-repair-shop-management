@@ -39,5 +39,13 @@ namespace DataAccessLibrary.Data
 
 			return customers.ToList<ICustomerModel>();
 		}
+
+		public async Task<ICustomerModel> ReadCustomerByID(int id)
+		{
+			var customers = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Read_By_Id", new { ID = id }, "SQLDB");
+
+			return customers.ToList<ICustomerModel>().FirstOrDefault();
+		}
+
 	}
 }

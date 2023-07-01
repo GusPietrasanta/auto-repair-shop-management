@@ -6,5 +6,6 @@ namespace DataAccessLibrary.Data
 	{
 		Task<int> CreateCustomer(ICustomerModel customer);
 		Task<List<ICustomerModel>> ReadAllCustomers();
+		Task<ICustomerModel> ReadCustomerByID(int id);
 	}
 }

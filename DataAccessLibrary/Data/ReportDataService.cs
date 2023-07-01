@@ -39,5 +39,19 @@ namespace DataAccessLibrary.Data
 
 			return results.ToList<IDashboardReportModel>();
 		}
+
+		public async Task<int> GetReportIDFromAppointmentIDAsync(int appointmentID)
+		{
+			var results = await _dataAccess.LoadData<int, dynamic>("spReport_ID_From_AppointmentID", new { AppointmentID = appointmentID }, "SQLDB");
+
+			return results.ToList().FirstOrDefault();
+		}
+
+		public async Task<IFullReportModel> GetFullReportFromID(int reportID)
+		{
+			var results = await _dataAccess.LoadData<FullReportModel, dynamic>("spReport_Read_By_ID", new { ID = reportID }, "SQLDB");
+
+			return results.ToList().FirstOrDefault();
+		}
 	}
 }

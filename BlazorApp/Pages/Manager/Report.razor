@@ -1,9 +1,11 @@
-﻿@page "/WatchReport"
-
-@inject ICustomerSessionData sessionData
+﻿@attribute [Authorize(Roles = "Manager")]
+@page "/Report/{reportID:int}"
+@inject IReportDataService reportData
+@inject IVehicleDataService vehicleData
+@inject ICustomerDataService customerData
 @inject NavigationManager NavigationManager
 
-<h3>Watch Report</h3>
+<h3>Report Number @reportID</h3>
 
 <button @onclick="(() => previousPage())">Go to previous page</button>
 
@@ -13,92 +15,110 @@
 
 		<div class="col-md-6">
 
-		<p>Report ID: @report.ID</p>
-		<p>Date: @report.TimeStarted.ToShortDateString()</p>
-		<p>Time Started: @report.TimeStarted.ToShortTimeString()</p>
-		<p>Time Finished: @report.TimeFinished.ToShortTimeString()</p>
-		<p>Number Plate: @sessionData.GetSearchDetails().NumberPlate</p>
-		<p>Mileage: @report.Odometer kms</p>
+			<h3>Report Info:</h3>
+			<p>Report ID: @report.ID</p>
+			<p>Date: @report.TimeStarted.ToShortDateString()</p>
+			<p>Time Started: @report.TimeStarted.ToShortTimeString()</p>
+			<p>Time Finished: @report.TimeFinished.ToShortTimeString()</p>
+			<p>Mileage: @report.Odometer kms</p>
 
-		<div class="p-2 mb-6 border border-dark">
-		<label>Road Test Comments:</label>
-		@if (report.RoadTestComments == null)
-			{
-				<p>N/A</p>
-			}
-			else
-			{
-				<p>@report.RoadTestComments</p>
-			}
-		</div>
-		
-		<div class="p-2 mb-6 border border-dark">
-		<label>General Comments:</label>
+			<h3>Vehicle Info:</h3>
+			<p>Number Plate: @vehicle.NumberPlate</p>
+			<p>Make: @vehicle.Make</p>
+			<p>Model: @vehicle.Model</p>
+			<p>Year: @vehicle.Year</p>
+			<p>VIN: @vehicle.VIN</p>
+			<p>Engine: @vehicle.EngineDescription</p>
+			<p>Engine Size: @vehicle.SizeLitres Cylinders: @vehicle.BodyType</p>
+			<p>Fuel Type: @vehicle.FuelType</p>
+			<p>Body: @vehicle.BodyType</p>
+			<p>First Visit: @vehicle.FirstVisit</p>
+
+			<h3>Customer Info:</h3>
+			<p>@customer.FirstName @customer.LastName</p>
+			<p>Email: @customer.Email</p>
+			<p>Phone Number: @customer.PhoneNumber</p>
+			<p>Address: @customer.Address</p>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Road Test Comments:</label>
+				@if (report.RoadTestComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.RoadTestComments</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>General Comments:</label>
 				@if (report.GeneralComments == null)
 				{
-				<p>N/A</p>
-			}
-			else
-			{
-				<p>@report.GeneralComments</p>
-			}
-		</div>
-		
-		<div class="p-2 mb-6 border border-dark">
-		<label>Stored Fault Codes:</label>
-			@if (report.StoredFaultCodes == null)
-			{
-			<p>N/A</p>
-			}
-			else
-			{
-				<p>@report.StoredFaultCodes</p>
-			}
-		</div>
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.GeneralComments</p>
+				}
+			</div>
 
-		<div class="p-2 mb-6 border border-dark">
-			<label>Air Conditioning:</label>
-			@if (report.AirConditioning == ok)
-			{
-				@((MarkupString)okDiv)
-			}
-			else if (report.AirConditioning == average)
-			{
-				@((MarkupString)averageDiv)
-			}
-			else if (report.AirConditioning == bad)
-			{
-				@((MarkupString)badDiv)
-			}
-		</div>
-		
-		<div class="p-2 mb-6 border border-dark">
-			<label>Lights:</label>
-			@if (report.Lights == ok)
-			{
-				@((MarkupString)okDiv)
-			}
+			<div class="p-2 mb-6 border border-dark">
+				<label>Stored Fault Codes:</label>
+				@if (report.StoredFaultCodes == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
+					<p>@report.StoredFaultCodes</p>
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Air Conditioning:</label>
+				@if (report.AirConditioning == ok)
+				{
+					@((MarkupString)okDiv)
+				}
+				else if (report.AirConditioning == average)
+				{
+					@((MarkupString)averageDiv)
+				}
+				else if (report.AirConditioning == bad)
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
+
+			<div class="p-2 mb-6 border border-dark">
+				<label>Lights:</label>
+				@if (report.Lights == ok)
+				{
+					@((MarkupString)okDiv)
+				}
 				else if (@report.Lights == @average)
-			{
-				@((MarkupString)averageDiv)
-			}
+				{
+					@((MarkupString)averageDiv)
+				}
 				else if (@report.Lights == @bad)
-			{
-				@((MarkupString)badDiv)
-			}
-		</div>
+				{
+					@((MarkupString)badDiv)
+				}
+			</div>
 
-		<div class="p-2 mb-6 border border-dark">
-			<label>Lights Comments:</label>
-			@if (report.LightsComments == null)
-			{
-				<p>N/A</p>
-			}
-			else
-			{
+			<div class="p-2 mb-6 border border-dark">
+				<label>Lights Comments:</label>
+				@if (report.LightsComments == null)
+				{
+					<p>N/A</p>
+				}
+				else
+				{
 					<p>@report.LightsComments</p>
-			}
-		</div>
+				}
+			</div>
 
 
 			<div class="p-2 mb-6 border border-dark">
@@ -136,7 +156,7 @@
 					<p>N/A</p>
 				}
 			</div>
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Battery:</label>
 				@if (report.Battery == ok)
@@ -323,7 +343,7 @@
 					@((MarkupString)badDiv)
 				}
 			</div>
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Power Steering Fluid:</label>
 				@if (report.PowerSteeringFluid == ok)
@@ -445,7 +465,7 @@
 					<p>@report.FrontSuspensionComments</p>
 				}
 			</div>
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Suspension:</label>
 				@if (report.RearSuspension == ok)
@@ -499,7 +519,7 @@
 					<p>@report.FrontBrakesComments</p>
 				}
 			</div>
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Brakes:</label>
 				@if (report.RearBrakes == ok)
@@ -559,7 +579,7 @@
 					@((MarkupString)badDiv)
 				}
 			</div>
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Right Hand Rear Tyre:</label>
 				@if (report.RHRTyre == ok)
@@ -618,7 +638,7 @@
 				{
 					@((MarkupString)badDiv)
 				}
-			</div>			
+			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Exhaust Comments:</label>
 				@if (report.ExhaustComments == null)
@@ -630,7 +650,7 @@
 					<p>@report.ExhaustComments</p>
 				}
 			</div>
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Drivetrain:</label>
 				@if (report.Drivetrain == ok)
@@ -645,7 +665,7 @@
 				{
 					@((MarkupString)badDiv)
 				}
-			</div>			
+			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Drivetrain Comments:</label>
 				@if (report.DrivetrainComments == null)
@@ -672,7 +692,7 @@
 				{
 					@((MarkupString)badDiv)
 				}
-			</div>			
+			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Oil Leaks Comments:</label>
 				@if (report.OilLeaksComments == null)
@@ -685,7 +705,7 @@
 				}
 			</div>
 
-			
+
 			<div class="p-2 mb-6 border border-dark">
 				<label>Coolant Leaks:</label>
 				@if (report.CoolantLeaks == ok)
@@ -700,7 +720,7 @@
 				{
 					@((MarkupString)badDiv)
 				}
-			</div>			
+			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Coolant Leaks Comments:</label>
 				@if (report.CoolantLeaksComments == null)
@@ -750,12 +770,17 @@
 			</div>
 		</div>
 	</div>
-	
+	<button @onclick="(() => previousPage())">Go to previous page</button>
 }
 
-<button @onclick="(() => previousPage())">Go to previous page</button>
-
 @code {
+	[Parameter]
+	public int reportID { get; set; }
+
+	private IFullReportModel report;
+	private IVehicleModel vehicle;
+	private ICustomerModel customer;
+
 	const string ok = "Inspected and ok";
 	const string average = "May require future attention";
 	const string bad = "Requires immediate attention";
@@ -764,17 +789,14 @@
 	const string averageDiv = "<div class='p-3 mb-2 bg-warning text-dark'>May require future attention</div>";
 	const string badDiv = "<div class='p-3 mb-2 bg-danger text-white'>Requires immediate attention</div>";
 
-
-
-	private IFullReportModel report;
-
-	protected override void OnInitialized()
+	protected async override Task OnInitializedAsync()
 	{
-		report = sessionData.GetReport();
+		report = await reportData.GetFullReportFromID(reportID);
+		vehicle = await vehicleData.GetVehicleDetailsByID(report.VehicleID);
+		customer = await customerData.ReadCustomerByID(report.CustomerID);
 	}
-
 	private void previousPage()
 	{
-		NavigationManager.NavigateTo("/PastReports");
+		NavigationManager.NavigateTo("/");
 	}
 }

@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[spReport_Read_By_ID]
+	@ID INT
+AS
+BEGIN
+	SELECT * FROM dbo.Report WHERE ID = @ID;
+END
+RETURN 0
