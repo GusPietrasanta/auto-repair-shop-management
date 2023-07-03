@@ -66,6 +66,7 @@
     <Folder Include="dbo\Stored Procedures\Mechanic" />
     <Folder Include="dbo\Stored Procedures\Report" />
     <Folder Include="dbo\Stored Procedures\Message" />
+    <Folder Include="dbo\Stored Procedures\Statistics" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Customer.sql" />
@@ -104,6 +105,8 @@
     <Build Include="dbo\Stored Procedures\Customer\spCustomer_Read_By_ID.sql" />
     <Build Include="dbo\Stored Procedures\Message\spMessage_MarkAsRead.sql" />
     <Build Include="dbo\Stored Procedures\Report\spReport_Archive.sql" />
+    <Build Include="dbo\Stored Procedures\Statistics\spStatisticsGetVehicleCountByBrand.sql" />
+    <Build Include="dbo\Stored Procedures\Statistics\spStatisticsGetTopImmediateAttentionItems.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

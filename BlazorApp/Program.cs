@@ -9,8 +9,11 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCeUx+WmFZfV1gcF9DaFZRQ2YuP1ZhSXxQdkJjWH9adXxVQWReVUU=");
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -33,6 +36,9 @@ builder.Services.AddScoped<IMechanicSessionData, MechanicSessionData>();
 builder.Services.AddScoped<IMechanicDataService, MechanicDataService>();
 builder.Services.AddScoped<IReportDataService, ReportDataService>();
 builder.Services.AddScoped<IMessageDataService, MessageDataService>();
+builder.Services.AddScoped<IStatisticsDataService, StatisticsDataService>();
+builder.Services.AddSyncfusionBlazor();
+
 builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
 
 var app = builder.Build();
