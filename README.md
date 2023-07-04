@@ -12,7 +12,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 - [x] Post messages to a message board to communicate with managers about different topics using tags.
 
 ### Managers
-- [ ] Search, view, and update customers and their cars.
+- [x] Search, view, and update customers and their cars.
 - [ ] Search, view, and update vehicle details and maintenance history.
 - [x] Assign job cards/inspections to mechanics.
 - [x] View completed inspections.
@@ -37,15 +37,20 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 - [ ] Develop and implement unit tests
 - [ ] Improve visuals
 - [ ] Refine and optimise the application.
+- [ ] Deploy to AWS!
 
 ## Technology Stack
 
+- AWS
 - C#
+- LINQ
 - HTML
 - ASP.NET Blazor Server
 - SQL Server
 - Dapper
 - Bootstrap
+- Syncfusion UI Components
+- A bit of JavaScript Interop ~~sadly~~
 
 ## Licence
 
