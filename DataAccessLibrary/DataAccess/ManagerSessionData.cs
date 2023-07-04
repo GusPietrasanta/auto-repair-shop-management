@@ -8,16 +8,18 @@ namespace DataAccessLibrary.DataAccess
 {
 	public class ManagerSessionData : IManagerSessionData
 	{
-		public string LastPage = "/";
+		public List<string> history = new List<string> { "/" };
 
 		public void SetLastPage(string newLastPage)
 		{
-			LastPage = newLastPage;
+			history.Add(newLastPage);
 		}
 
 		public string GetLastPage()
 		{
-			return LastPage;
+			string output = history[history.Count - 1];
+			history.RemoveAt(history.Count - 1);
+			return output;
 		}
 	}
 }

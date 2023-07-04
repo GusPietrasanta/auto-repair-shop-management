@@ -170,7 +170,7 @@
 
 	private void previousPage()
 	{
-		NavigationManager.NavigateTo("/SearchCustomers");
+		NavigationManager.NavigateTo(managerSession.GetLastPage());
 	}
 
 	private void SeeReport(int reportID)
