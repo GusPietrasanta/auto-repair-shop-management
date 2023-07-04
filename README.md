@@ -20,8 +20,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 - [x] Have a dashboard with multiple data, including:
   - [x] Week schedule/incoming appointments.
   - [x] Message board.
-  - [ ] Analytics on customer preferences, popular services, etc.
-  - [ ] Reports on sales, services performed, and inventory.
+  - [x] Analytics on customer preferences, popular services, etc.
   - [x] Low stock alarms (if any).
 
 ## Roadmap
