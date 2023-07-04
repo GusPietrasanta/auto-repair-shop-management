@@ -1,0 +1,37 @@
+﻿@inject IVehicleDataService vehicleData
+@inject NavigationManager NavigationManager
+
+<h3>ShowVehiclesComponent</h3>
+
+@if (vehicles == null)
+{
+	<h4>Loading...</h4>
+}
+else
+{
+	foreach (var v in vehicles)
+	{
+		<div class="alert-info">
+			<p>Number Plate: @v.NumberPlate <button class="btn btn-dark" @onclick="(() => GoToVehicle(v.ID))">Go to Vehicle</button></p>
+			<p>@v.Make @v.Model - @v.Year</p>
+		</div>
+	}
+}
+
+@code {
+	[Parameter]
+	public int CustomerID { get; set; }
+
+	private List<IVehicleModel> vehicles;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		// Get vehicles from DB
+		vehicles = await vehicleData.GetVehiclesByCustomerID(CustomerID);
+	}
+
+	private void GoToVehicle(int vehicleID)
+	{
+		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+	}
+}

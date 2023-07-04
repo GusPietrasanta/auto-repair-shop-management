@@ -57,5 +57,15 @@ namespace DataAccessLibrary.Data
 
 			await _dataAccess.SaveData<dynamic>("spVehicle_UpdateFirstVisitByID", p, "SQLDB");
 		}
-	}
+
+		public async Task<List<IVehicleModel>> GetVehiclesByCustomerID(int CustomerID)
+		{
+
+			var vehicles = await _dataAccess.LoadData<VehicleModel, dynamic>("spVehicle_ReadByCustomerID", new { CustomerID }, "SQLDB");
+
+			return vehicles.ToList<IVehicleModel>();
+
+		}
+
+    }
 }
