@@ -1,5 +1,6 @@
 ﻿@inject IVehicleDataService vehicleData
 @inject NavigationManager NavigationManager
+@inject IManagerSessionData managerSession
 
 <h3>ShowVehiclesComponent</h3>
 
@@ -32,6 +33,7 @@ else
 
 	private void GoToVehicle(int vehicleID)
 	{
+		managerSession.SetLastPage("/SearchCustomers");
 		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
 	}
 }

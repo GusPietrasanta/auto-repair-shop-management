@@ -1,7 +1,11 @@
 ﻿@page "/ReadStock"
 @inject IStockDataService stockData
+@inject IManagerSessionData managerSession
+@inject NavigationManager NavigationManager
 
 <h3>Test Read Stock</h3>
+
+<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
 
 @if (stockItems == null)
 {
@@ -44,5 +48,10 @@ else
 	protected override async Task OnParametersSetAsync()
 	{
 		stockItems = await stockData.ReadAllStockItems();
+	}
+
+	private void previousPage()
+	{
+		NavigationManager.NavigateTo(managerSession.GetLastPage());
 	}
 }

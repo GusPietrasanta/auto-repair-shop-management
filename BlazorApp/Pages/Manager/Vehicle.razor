@@ -1,0 +1,93 @@
+﻿@attribute [Authorize(Roles = "Manager")]
+@page "/Vehicle/{vehicleID:int}"
+@inject IVehicleDataService vehicleData
+@inject IReportDataService reportData
+@inject ICustomerDataService customerData
+@inject NavigationManager NavigationManager
+@inject IManagerSessionData managerSession
+
+<h3>Vehicle</h3>
+<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+
+<div class="row">
+
+		@if (vehicle != null)
+		{
+		<div class="col-md-6">
+		<h3>Vehicle Info:</h3>
+		<p>Number Plate: @vehicle.NumberPlate</p>
+		<p>Make: @vehicle.Make</p>
+		<p>Model: @vehicle.Model</p>
+		<p>Year: @vehicle.Year</p>
+		<p>VIN: @vehicle.VIN</p>
+		<p>Engine: @vehicle.EngineDescription</p>
+		<p>Engine Size: @vehicle.SizeLitres Cylinders: @vehicle.Cylinders</p>
+		<p>Fuel Type: @vehicle.FuelType</p>
+		<p>Body: @vehicle.BodyType</p>
+		<p>First Visit: @vehicle.FirstVisit</p>
+		</div>
+		}
+
+	<div class="col-md-6">
+
+		@if (reports != null)
+		{
+			<h2>Reports: </h2>
+			@foreach (var r in reports)
+			{
+				@if (r != reports.FirstOrDefault())
+				{
+					int kmsBetweenServices = previousReportOdometer - r.Odometer;
+					int daysBetweenServices = (previousReportDate - r.TimeStarted).Days;
+					<div>
+						<p>Kms between services: @kmsBetweenServices.ToString("N0") kms.</p>
+						<p>Days between services: @daysBetweenServices days.</p>
+					</div>
+				}
+
+				<div class="alert-info">
+					<p>Report ID: @r.ID</p>
+					<p>Date: @r.TimeStarted.ToShortDateString()</p>
+					<p>Odometer: @r.Odometer kms</p>
+					<button class="btn btn-primary" @onclick="(() => SeeReport(r.ID))">See Report</button>
+				</div>
+				<br />
+
+				previousReportDate = r.TimeStarted;
+				previousReportOdometer = r.Odometer;
+			}
+		}
+
+	</div>
+
+</div>
+
+<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+
+@code {
+	[Parameter]
+	public int vehicleID { get; set; }
+
+	private IVehicleModel vehicle;
+	private List<IReportModel> reports;
+
+	private DateTime previousReportDate;
+	private int previousReportOdometer;
+
+	protected async override Task OnInitializedAsync()
+	{
+		vehicle = await vehicleData.GetVehicleDetailsByID(vehicleID);
+		reports = await reportData.GetReportsByVehicleID(vehicleID);
+	}
+
+	private void previousPage()
+	{
+		NavigationManager.NavigateTo("/SearchCustomers");
+	}
+
+	private void SeeReport(int reportID)
+	{
+		managerSession.SetLastPage($"/Vehicle/{vehicleID}");
+		NavigationManager.NavigateTo($"/Report/{reportID}");
+	}
+}

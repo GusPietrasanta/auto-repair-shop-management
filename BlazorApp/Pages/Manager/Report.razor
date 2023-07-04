@@ -4,10 +4,11 @@
 @inject IVehicleDataService vehicleData
 @inject ICustomerDataService customerData
 @inject NavigationManager NavigationManager
+@inject IManagerSessionData managerSession
 
 <h3>Report Number @reportID</h3>
 
-<button @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info"  @onclick="(() => previousPage())">Go to previous page</button>
 
 @if (report != null)
 {
@@ -770,7 +771,7 @@
 			</div>
 		</div>
 	</div>
-	<button @onclick="(() => previousPage())">Go to previous page</button>
+		<button class="btn btn-info"  @onclick="(() => previousPage())">Go to previous page</button>
 }
 
 @code {
@@ -797,6 +798,6 @@
 	}
 	private void previousPage()
 	{
-		NavigationManager.NavigateTo("/");
+		NavigationManager.NavigateTo(managerSession.GetLastPage());
 	}
 }

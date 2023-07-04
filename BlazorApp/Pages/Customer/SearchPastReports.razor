@@ -46,8 +46,8 @@
 					int kmsBetweenServices = previousReportOdometer - r.Odometer;
 					int daysBetweenServices = (previousReportDate - r.TimeStarted).Days;
 					<div>
-						<p>Kms between services: @kmsBetweenServices</p>
-						<p>Days between services: @daysBetweenServices</p>
+						<p>Kms between services: @kmsBetweenServices.ToString("N0") kms.</p>
+						<p>Days between services: @daysBetweenServices days.</p>
 					</div>
 				}
 

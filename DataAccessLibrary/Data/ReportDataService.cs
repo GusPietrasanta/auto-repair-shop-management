@@ -58,5 +58,12 @@ namespace DataAccessLibrary.Data
 		{
 			await _dataAccess.SaveData<dynamic>("spReport_Archive", new { ID }, "SQLDB");
 		}
+
+		public async Task<List<IReportModel>> GetReportsByVehicleID(int vehicleID)
+		{
+			var results = await _dataAccess.LoadData<ReportModel, dynamic>("spReport_Read_By_VehicleID", new { VehicleID = vehicleID }, "SQLDB");
+
+			return results.ToList<IReportModel>();
+		}
 	}
 }

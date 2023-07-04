@@ -37,6 +37,7 @@ builder.Services.AddScoped<IMechanicDataService, MechanicDataService>();
 builder.Services.AddScoped<IReportDataService, ReportDataService>();
 builder.Services.AddScoped<IMessageDataService, MessageDataService>();
 builder.Services.AddScoped<IStatisticsDataService, StatisticsDataService>();
+builder.Services.AddScoped<IManagerSessionData, ManagerSessionData>();
 builder.Services.AddSyncfusionBlazor();
 
 builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();

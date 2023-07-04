@@ -5,6 +5,7 @@ namespace BlazorApp.Models
 {
 	public class UIReportModel : IReportModel
 	{
+			public int ID { get; set; }
 			public DateTime TimeStarted { get; set; }
 
 			public DateTime TimeFinished { get; set; }

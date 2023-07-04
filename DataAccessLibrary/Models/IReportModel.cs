@@ -30,6 +30,7 @@
 		string GeneralComments { get; set; }
 		string Hoses { get; set; }
 		string HosesComments { get; set; }
+		int ID { get; set; }
 		string LHFTyre { get; set; }
 		string LHRTyre { get; set; }
 		string Lights { get; set; }
