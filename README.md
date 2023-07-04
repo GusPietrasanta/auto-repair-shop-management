@@ -13,7 +13,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 
 ### Managers
 - [x] Search, view, and update customers and their cars.
-- [ ] Search, view, and update vehicle details and maintenance history.
+- [x] Search, view, and update vehicle details.
 - [x] Assign job cards/inspections to mechanics.
 - [x] View completed inspections.
 - [x] Check and update stock/inventory.
@@ -31,7 +31,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 - [x] Implement managers' ability to assign job cards/inspections to mechanics.
 - [x] Implement mechanics' ability to perform car inspections and complete reports.
 - [x] Enable mechanics to post messages to the message board.
-- [ ] Implement managers' ability to search, view, and update customers details and their cars.
+- [x] Implement managers' ability to search, view, and update customers details and their cars.
 - [x] Create a dashboard for managers with multiple data (e.g., week schedule, message board, low stock alarms).
 - [ ] Tidy up code
 - [ ] Develop and implement unit tests
