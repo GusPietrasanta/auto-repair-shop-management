@@ -1,0 +1,67 @@
+﻿@inject ICustomerDataService customerData
+
+<h3>Update Customer</h3>
+
+<EditForm Model="@customerToUpdate" OnValidSubmit="HandleValidSubmit">
+	<DataAnnotationsValidator/>
+	<ValidationSummary/>
+
+	<div class="form-group">
+		<label>ID:</label>
+		<span>@customerToUpdate.ID</span>
+	</div>
+
+	<div class="form-group">
+		<label>First Name</label>
+		<InputText @bind-Value="customerToUpdate.FirstName" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label>Last Name</label>
+		<InputText @bind-Value="customerToUpdate.LastName" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label>Email</label>
+		<InputText @bind-Value="customerToUpdate.Email" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label>Phone Number</label>
+		<InputText @bind-Value="customerToUpdate.PhoneNumber" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label>Address</label>
+		<InputText @bind-Value="customerToUpdate.Address" class="form-control" />
+	</div>
+
+	<button class="btn btn-primary" type="submit">Update Person</button>
+
+</EditForm>
+
+@code {
+	[Parameter]
+	public EventCallback<ICustomerModel> OnUpdate { get; set; }
+
+	[Parameter]
+	public ICustomerModel Customer { get; set; }
+
+	private ICustomerModel customerToUpdate = new UICustomerModel();
+
+	private async Task HandleValidSubmit()
+	{
+		await customerData.UpdateCustomer(customerToUpdate);
+		await OnUpdate.InvokeAsync(customerToUpdate);
+	}
+
+	protected override void OnParametersSet()
+	{
+		customerToUpdate.ID = Customer.ID;
+		customerToUpdate.FirstName = Customer.FirstName;
+		customerToUpdate.LastName = Customer.LastName;
+		customerToUpdate.PhoneNumber = Customer.PhoneNumber;
+		customerToUpdate.Email = Customer.Email;
+		customerToUpdate.Address = Customer.Address;
+	}
+}

@@ -1,0 +1,138 @@
+﻿@page "/SearchCustomers"
+@attribute [Authorize(Roles = "Manager")]
+@inject ICustomerDataService customerData
+
+<h3>Search Customers</h3>
+
+<label>Search:
+<input type="text" @oninput="HandleInput"/>
+</label>
+<br /><br />
+
+@if (filteredCustomers == null)
+{
+	<h4>Customer not found.</h4>
+}
+else
+{
+	<div class="row">
+		<div class="col-md-8">
+			<table class="table table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>Phone Number</th>
+						<th>Address</th>
+						<th>View Vehicles</th>
+						<th>Edit Info</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var c in filteredCustomers)
+					{
+						<tr>
+							<td>@c.FirstName</td>
+							<td>@c.LastName</td>
+							<td>@c.Email</td>
+							<td>@c.PhoneNumber</td>
+							<td>@c.Address</td>
+							<td><button @onclick="(() => ViewVehicles(c.ID))">View Vehicles</button></td>
+							<td><button class="btn btn-primary" @onclick="(() => EditCustomer(c.ID))">Edit</button>
+								@if (idToDelete == c.ID)
+								{
+									<button class="btn btn-outline-danger" @onclick="(() => ConfirmDeleteCustomer(c.ID))">Confirm Delete</button>
+								}
+								else
+								{
+									<button class="btn btn-outline-danger" @onclick="(() => DeleteCustomer(c.ID))">Delete</button>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-4">
+			@if (showEditForm)
+			{
+				<UpdatePerson Customer="customerToUpdate" OnUpdate="HandleOnUpdate"></UpdatePerson>
+			}
+		</div>
+	</div>
+}
+
+@code {
+	private List<ICustomerModel> allCustomers;
+	private List<ICustomerModel> filteredCustomers;
+	private bool showEditForm = false;
+	private int idToUpdate = 0;
+	private int idToDelete = 0;
+	private ICustomerModel customerToUpdate;
+
+	protected override async Task OnInitializedAsync()
+	{
+		allCustomers = await customerData.ReadAllCustomers();
+		filteredCustomers = allCustomers;
+	}
+
+	private void HandleInput(ChangeEventArgs args)
+	{
+		if (args.Value.ToString().Length == 0)
+		{
+			filteredCustomers = allCustomers;
+		}
+		else
+		{
+			var filteredIEnumerable = from x in allCustomers
+											where x.FirstName.ToLower().Contains(args.Value.ToString().ToLower()) ||
+											x.LastName.ToLower().Contains(args.Value.ToString().ToLower()) ||
+											x.Address.ToLower().Contains(args.Value.ToString().ToLower())
+											select x;
+
+			filteredCustomers = filteredIEnumerable.ToList();
+		}
+	}
+
+	private void EditCustomer(int ID)
+	{
+		showEditForm = true;
+		customerToUpdate = allCustomers.Where(x => x.ID == ID).FirstOrDefault();
+		idToUpdate = ID;
+	}
+
+	private void HandleOnUpdate(ICustomerModel updatedCustomer)
+	{
+		showEditForm = false;
+
+		var c = allCustomers.First(x => x.ID == updatedCustomer.ID);
+
+		var index = allCustomers.IndexOf(c);
+
+		allCustomers[index] = updatedCustomer;		
+		
+		var fc = filteredCustomers.First(x => x.ID == updatedCustomer.ID);
+
+		var index2 = filteredCustomers.IndexOf(fc);
+
+		filteredCustomers[index2] = updatedCustomer;
+	}
+
+	private void ViewVehicles(int ID)
+	{
+
+	}
+
+	private void DeleteCustomer(int ID)
+	{
+		idToDelete = ID;
+	}
+	private async Task ConfirmDeleteCustomer(int ID)
+	{
+		allCustomers.Remove(allCustomers.Where(x => x.ID == ID).FirstOrDefault());
+		filteredCustomers.Remove(filteredCustomers.Where(x => x.ID == ID).FirstOrDefault());
+		await customerData.DeleteCustomerByID(ID);
+	}
+
+}

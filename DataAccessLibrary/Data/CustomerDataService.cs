@@ -47,5 +47,14 @@ namespace DataAccessLibrary.Data
 			return customers.ToList<ICustomerModel>().FirstOrDefault();
 		}
 
+		public async Task DeleteCustomerByID(int id)
+		{
+			await _dataAccess.SaveData<dynamic>("spCustomer_DeleteByID", new { ID = id }, "SQLDB");
+		}
+
+		public async Task UpdateCustomer(ICustomerModel customer)
+		{
+			await _dataAccess.SaveData("spCustomer_Update", customer, "SQLDB");
+		}
 	}
 }
