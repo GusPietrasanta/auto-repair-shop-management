@@ -8,5 +8,6 @@ namespace DataAccessLibrary.Data
 		Task<IVehicleModel> GetVehicleDetailsByID(int ID);
         Task<List<IVehicleModel>> GetVehiclesByCustomerID(int CustomerID);
         Task SaveVehicleFirstVisit(int ID, DateTime firstVisitDateTime);
+		Task UpdateVehicle(IVehicleModel vehicle);
 	}
 }

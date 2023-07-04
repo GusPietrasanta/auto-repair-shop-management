@@ -67,5 +67,28 @@ namespace DataAccessLibrary.Data
 
 		}
 
-    }
+		public async Task UpdateVehicle(IVehicleModel vehicle)
+		{
+			var v = new
+			{
+				vehicle.ID,
+				vehicle.NumberPlate,
+				vehicle.Make,
+				vehicle.Model,
+				vehicle.Year,
+				vehicle.VIN,
+				vehicle.FuelType,
+				vehicle.TransmissionType,
+				vehicle.EngineDescription,
+				vehicle.BodyType,
+				vehicle.Cylinders,
+				vehicle.SizeLitres,
+				vehicle.FirstVisit
+			};
+
+			await _dataAccess.SaveData<dynamic>("dbo.spVehicle_Update", v, "SQLDB");
+		}
+
+
+	}
 }
