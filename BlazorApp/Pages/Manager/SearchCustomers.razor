@@ -94,10 +94,14 @@ else
 		}
 		else
 		{
+			string searchTerm = args.Value.ToString().ToLower();
+
 			var filteredIEnumerable = from x in allCustomers
-											where x.FirstName.ToLower().Contains(args.Value.ToString().ToLower()) ||
-											x.LastName.ToLower().Contains(args.Value.ToString().ToLower()) ||
-											x.Address.ToLower().Contains(args.Value.ToString().ToLower())
+											where x.FirstName.ToLower().Contains(searchTerm) ||
+											x.LastName.ToLower().Contains(searchTerm) ||
+											x.Address.ToLower().Contains(searchTerm) ||
+											x.PhoneNumber.Contains(searchTerm) ||
+											x.Email.ToLower().Contains(searchTerm)
 											select x;
 
 			filteredCustomers = filteredIEnumerable.ToList();
