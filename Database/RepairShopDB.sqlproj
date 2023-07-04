@@ -111,6 +111,7 @@
     <Build Include="dbo\Stored Procedures\Customer\spCustomer_Update.sql" />
     <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_ReadByCustomerID.sql" />
     <Build Include="dbo\Stored Procedures\Report\spReport_Read_By_VehicleID.sql" />
+    <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

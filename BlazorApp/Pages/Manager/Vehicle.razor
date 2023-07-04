@@ -14,17 +14,92 @@
 		@if (vehicle != null)
 		{
 		<div class="col-md-6">
-		<h3>Vehicle Info:</h3>
-		<p>Number Plate: @vehicle.NumberPlate</p>
-		<p>Make: @vehicle.Make</p>
-		<p>Model: @vehicle.Model</p>
-		<p>Year: @vehicle.Year</p>
-		<p>VIN: @vehicle.VIN</p>
-		<p>Engine: @vehicle.EngineDescription</p>
-		<p>Engine Size: @vehicle.SizeLitres Cylinders: @vehicle.Cylinders</p>
-		<p>Fuel Type: @vehicle.FuelType</p>
-		<p>Body: @vehicle.BodyType</p>
-		<p>First Visit: @vehicle.FirstVisit</p>
+		<form>
+			<fieldset disabled="@isFormDisabled">
+
+		<EditForm Model="@vehicle" OnValidSubmit="HandleValidSubmit">
+			<DataAnnotationsValidator/>
+			<ValidationSummary/>
+
+				<div class="form-group">
+					<label>Vehicle ID:</label>
+					<span>@vehicle.ID</span>
+				</div>
+
+				<div class="form-group">
+					<label>Number Plate:</label>
+					<InputText @bind-Value="vehicle.NumberPlate" class="form-control" />
+				</div>
+				
+				<div class="form-group">
+					<label>Make:</label>
+					<InputText @bind-Value="vehicle.Make" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>Model:</label>
+					<InputText @bind-Value="vehicle.Model" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>Year:</label>
+					<InputText @bind-Value="vehicle.Year" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>VIN:</label>
+					<InputText @bind-Value="vehicle.VIN" class="form-control" />
+				</div>
+				
+				<div class="form-group">
+					<label>Engine:</label>
+					<InputText @bind-Value="vehicle.EngineDescription" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>Transmission:</label>
+					<InputText @bind-Value="vehicle.TransmissionType" class="form-control" />
+				</div>
+				
+				<div class="form-group">
+					<label>Engine Size:</label>
+					<InputText @bind-Value="vehicle.SizeLitres" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>Cylinders:</label>
+					<InputText @bind-Value="vehicle.Cylinders" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>Fuel Type:</label>
+					<InputText @bind-Value="vehicle.FuelType" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>Body Type:</label>
+					<InputText @bind-Value="vehicle.BodyType" class="form-control" />
+				</div>
+				
+				<div class="form-group">
+					<label>First Visit:</label>
+					<InputDate @bind-Value="vehicle.FirstVisit" class="form-control" />
+				</div>
+
+		</EditForm>
+
+				</fieldset>
+			</form>
+
+			<br/>
+
+		<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
+		
+		@if (isFormDisabled == false)	
+		{
+				<button class="btn btn-success" type="submit" @onclick="(() => HandleValidSubmit())">Save</button>
+		}
+	
 		</div>
 		}
 
@@ -65,6 +140,8 @@
 <button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
 
 @code {
+	private bool isFormDisabled = true;
+
 	[Parameter]
 	public int vehicleID { get; set; }
 
@@ -73,6 +150,17 @@
 
 	private DateTime previousReportDate;
 	private int previousReportOdometer;
+
+	private void ToggleEdit()
+	{
+		isFormDisabled = !isFormDisabled;
+	}
+
+	private void HandleValidSubmit()
+	{
+		vehicleData.UpdateVehicle(vehicle);
+		isFormDisabled = true;
+	}
 
 	protected async override Task OnInitializedAsync()
 	{
