@@ -1,0 +1,113 @@
+﻿@page "/SearchVehicle"
+@attribute [Authorize(Roles = "Manager")]
+@inject IVehicleDataService vehicleData
+@inject NavigationManager NavigationManager
+@inject IManagerSessionData managerSession
+
+<h3>Search Vehicle</h3>
+
+<label>Search:
+	<input type="text" @oninput="HandleInput"/>
+</label>
+<br/>
+<br/>
+
+@if (filteredVehicles == null)
+{
+	<h4>Loading...</h4>
+}
+else if (filteredVehicles.Count == 0)
+{
+	<h4>Vehicle not found.</h4>
+}
+else
+{
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th>Number Plate</th>
+						<th>Make</th>
+						<th>Model</th>
+						<th>Year</th>
+						<th>VIN</th>
+						<th>Fuel Type</th>
+						<th>Engine Description</th>
+						<th>Body Type</th>
+						<th>Cylinders</th>
+						<th>Transmission Type</th>
+						<th>Body Type</th>
+						<th>Vehicle Page</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var v in filteredVehicles)
+					{
+						<tr>
+							<td>@v.NumberPlate</td>
+							<td>@v.Make</td>
+							<td>@v.Model</td>
+							<td>@v.Year</td>
+							<td>@v.VIN</td>
+							<td>@v.FuelType</td>
+							<td>@v.EngineDescription</td>
+							<td>@v.BodyType</td>
+							<td>@v.Cylinders</td>
+							<td>@v.TransmissionType</td>
+							<td>@v.BodyType</td>
+							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicle(v.ID))">Go</button></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}
+
+
+@code {
+	private List<IVehicleModel> allVehicles;
+	private List<IVehicleModel> filteredVehicles;
+
+	protected override async Task OnInitializedAsync()
+	{
+		allVehicles = await vehicleData.GetAllVehicles();
+		filteredVehicles = allVehicles;
+	}
+
+	private void HandleInput(ChangeEventArgs args)
+	{
+		if (args.Value.ToString().Length == 0)
+		{
+			filteredVehicles = allVehicles;
+		}
+		else
+		{
+			string searchTerm = args.Value.ToString().ToLower();
+
+			var filteredIEnumerable = from x in allVehicles
+											where	x.Make.ToLower().Contains(searchTerm) ||
+													x.Model.ToLower().Contains(searchTerm) ||
+													x.Year.ToLower().Contains(searchTerm) ||
+													x.VIN.ToLower().Contains(searchTerm) ||
+													x.FuelType.ToLower().Contains(searchTerm) ||
+													x.EngineDescription.ToLower().Contains(searchTerm) ||
+													x.BodyType.ToLower().Contains(searchTerm) ||
+													x.Cylinders.ToLower().Contains(searchTerm) ||
+													x.TransmissionType.ToLower().Contains(searchTerm) ||
+													x.SizeLitres.ToLower().Contains(searchTerm) ||
+													x.NumberPlate.ToLower().Contains(searchTerm)
+											select x;
+
+			filteredVehicles = filteredIEnumerable.ToList();
+		}
+	}
+
+	private void ViewVehicle(int vehicleID)
+	{
+		managerSession.SetLastPage("/SearchVehicle");
+		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+	}
+
+}

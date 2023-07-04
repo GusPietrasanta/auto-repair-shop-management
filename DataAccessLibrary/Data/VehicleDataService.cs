@@ -89,6 +89,15 @@ namespace DataAccessLibrary.Data
 			await _dataAccess.SaveData<dynamic>("dbo.spVehicle_Update", v, "SQLDB");
 		}
 
+		public async Task<List<IVehicleModel>> GetAllVehicles()
+		{
+
+			var vehicles = await _dataAccess.LoadData<VehicleModel, dynamic>("spVehicle_ReadAll", new { }, "SQLDB");
+
+			return vehicles.ToList<IVehicleModel>();
+
+		}
+
 
 	}
 }

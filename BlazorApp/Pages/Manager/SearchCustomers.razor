@@ -12,6 +12,10 @@
 
 @if (filteredCustomers == null)
 {
+	<h4>Loading...</h4>
+}
+else if (filteredCustomers.Count == 0)
+{
 	<h4>Customer not found.</h4>
 }
 else
@@ -97,11 +101,11 @@ else
 			string searchTerm = args.Value.ToString().ToLower();
 
 			var filteredIEnumerable = from x in allCustomers
-											where x.FirstName.ToLower().Contains(searchTerm) ||
-											x.LastName.ToLower().Contains(searchTerm) ||
-											x.Address.ToLower().Contains(searchTerm) ||
-											x.PhoneNumber.Contains(searchTerm) ||
-											x.Email.ToLower().Contains(searchTerm)
+											where	x.FirstName.ToLower().Contains(searchTerm) ||
+													x.LastName.ToLower().Contains(searchTerm) ||
+													x.Address.ToLower().Contains(searchTerm) ||
+													x.PhoneNumber.Contains(searchTerm) ||
+													x.Email.ToLower().Contains(searchTerm)
 											select x;
 
 			filteredCustomers = filteredIEnumerable.ToList();
