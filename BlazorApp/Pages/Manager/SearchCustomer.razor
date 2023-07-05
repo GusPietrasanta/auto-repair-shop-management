@@ -152,8 +152,6 @@ else
 	}
 	private async Task ConfirmDeleteCustomer(int ID)
 	{
-		// await JSRuntime.InvokeVoidAsync("alert", "Warning!");
-
 		bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "This will delete all the appointments and vehicles related to this customer. Are you sure?"); 
 
 		if (confirmed)
