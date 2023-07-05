@@ -14,5 +14,5 @@
     [Cylinders] VARCHAR(6) NOT NULL, 
     [SizeLitres] DECIMAL(4, 2) NOT NULL, 
     [FirstVisit] DATETIME2 NULL, 
-    CONSTRAINT [FK_Vehicle_Customer] FOREIGN KEY (CustomerID) REFERENCES Customer([ID]),
+    CONSTRAINT [FK_Vehicle_Customer] FOREIGN KEY (CustomerID) REFERENCES Customer([ID]) ON DELETE CASCADE
 )

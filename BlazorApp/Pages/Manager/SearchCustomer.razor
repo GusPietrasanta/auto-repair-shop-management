@@ -1,7 +1,9 @@
-﻿@page "/SearchCustomers"
+﻿@page "/SearchCustomer"
 @using BlazorApp.Pages.Manager.Components
 @attribute [Authorize(Roles = "Manager")]
 @inject ICustomerDataService customerData
+@inject IJSRuntime JSRuntime
+
 
 <h3>Search Customers</h3>
 
@@ -150,9 +152,21 @@ else
 	}
 	private async Task ConfirmDeleteCustomer(int ID)
 	{
-		allCustomers.Remove(allCustomers.Where(x => x.ID == ID).FirstOrDefault());
-		filteredCustomers.Remove(filteredCustomers.Where(x => x.ID == ID).FirstOrDefault());
-		await customerData.DeleteCustomerByID(ID);
+		// await JSRuntime.InvokeVoidAsync("alert", "Warning!");
+
+		bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "This will delete all the appointments and vehicles related to this customer. Are you sure?"); 
+
+		if (confirmed)
+		{
+			allCustomers.Remove(allCustomers.Where(x => x.ID == ID).FirstOrDefault());
+			filteredCustomers.Remove(filteredCustomers.Where(x => x.ID == ID).FirstOrDefault());
+			await customerData.DeleteCustomerByID(ID);
+		}
+		else
+		{
+			idToDelete = 0;
+		}
+
 	}
 
 }

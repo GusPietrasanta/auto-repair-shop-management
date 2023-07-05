@@ -61,7 +61,7 @@
     [OtherLeaksComments] VARCHAR(MAX) NULL,
     [Other] VARCHAR(MAX) NULL,
     [OtherInspectionComments] VARCHAR(MAX) NULL, 
-    CONSTRAINT [FK_Report_Vehicle] FOREIGN KEY (VehicleID) REFERENCES [Vehicle]([ID]), 
-    CONSTRAINT [FK_Report_Mechanic] FOREIGN KEY (MechanicID) REFERENCES [Mechanic]([ID]), 
-    CONSTRAINT [FK_Report_Appointment] FOREIGN KEY (AppointmentID) REFERENCES [Appointment]([ID])
+    CONSTRAINT [FK_Report_Vehicle] FOREIGN KEY (VehicleID) REFERENCES [Vehicle]([ID]) ON DELETE NO ACTION, 
+    CONSTRAINT [FK_Report_Mechanic] FOREIGN KEY (MechanicID) REFERENCES [Mechanic]([ID]) ON DELETE NO ACTION, 
+    CONSTRAINT [FK_Report_Appointment] FOREIGN KEY (AppointmentID) REFERENCES [Appointment]([ID]) ON DELETE CASCADE
 )
