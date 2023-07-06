@@ -23,7 +23,7 @@ else if (filteredCustomers.Count == 0)
 else
 {
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-sm-8">
 			<table class="table table-striped">
 				<thead class="table-dark">
 					<tr>
@@ -32,7 +32,7 @@ else
 						<th>Email</th>
 						<th>Phone Number</th>
 						<th>Address</th>
-						<th>View Vehicles</th>
+						<th>Vehicles</th>
 						<th>Edit Info</th>
 					</tr>
 				</thead>
@@ -45,23 +45,26 @@ else
 							<td>@c.Email</td>
 							<td>@c.PhoneNumber</td>
 							<td>@c.Address</td>
-							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicles(c.ID))">View Vehicles</button></td>
-							<td><button class="btn btn-primary" @onclick="(() => EditCustomer(c.ID))">Edit</button>
+							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicles(c.ID))">View</button></td>
+							<td><div class="text-center">
+								<button class="btn btn-primary mb-1" @onclick="(() => EditCustomer(c.ID))">Edit</button>
+
 								@if (idToDelete == c.ID)
 								{
-									<button class="btn btn-outline-danger" @onclick="(() => ConfirmDeleteCustomer(c.ID))">Confirm Delete</button>
+										<button class="btn btn-danger p-2" @onclick="(() => ConfirmDeleteCustomer(c.ID))">Confirm</button>
 								}
 								else
 								{
-									<button class="btn btn-outline-danger" @onclick="(() => DeleteCustomer(c.ID))">Delete</button>
+										<button class="btn btn-outline-danger p-2" @onclick="(() => DeleteCustomer(c.ID))">Delete</button>
 								}
+								</div>
 							</td>
 						</tr>
 					}
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-4">
+		<div class="col-sm-4">
 			@if (showEditForm)
 			{
 				<UpdatePerson Customer="customerToUpdate" OnUpdate="HandleOnUpdate"></UpdatePerson>

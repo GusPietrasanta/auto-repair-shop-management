@@ -95,6 +95,7 @@
 			@if (isFormDisabled == false)
 			{
 				<button class="btn btn-success ms-2" type="submit" @onclick="(() => Save())">Save</button>
+				<button class="btn btn-danger" type="submit" @onclick="(() => Delete())">Delete</button>
 			}
 	</div>
 
@@ -138,6 +139,16 @@
 		item.Quantity += amount;
 		amount = 0;
 		await Save();
+	}	
+
+	private async Task Delete()
+	{
+		await stockData.DeleteItemByID(item.ID);
+
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+
+		NavigationManager.NavigateTo("/Inventory");
+
 	}
 
 	private async Task Subtract()

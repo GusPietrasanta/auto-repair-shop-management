@@ -71,5 +71,10 @@ namespace DataAccessLibrary.Data
 
 			await _dataAccess.SaveData<dynamic>("spStock_Update_ByID", i, "SQLDB");
 		}
+
+		public async Task DeleteItemByID(int itemID)
+		{
+			await _dataAccess.SaveData<dynamic>("spStock_Delete", new {ID = itemID}, "SQLDB");
+		}
 	}
 }

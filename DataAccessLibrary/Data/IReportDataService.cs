@@ -9,8 +9,9 @@ namespace DataAccessLibrary.Data
 		Task<IFullReportModel> GetFullReportFromID(int reportID);
 		Task<int> GetReportIDFromAppointmentIDAsync(int appointmentID);
 		Task<List<IReportModel>> GetReportsByVehicleID(int vehicleID);
-		Task<List<IDashboardReportModel>> SearchAllReporstDashboard();
+		Task<List<IDashboardReportModel>> SearchAllReportsDashboard();
 		Task<List<IFullReportModel>> SearchAllReports();
 		Task<List<IFullReportModel>> SearchReports(ISearchReporstByLastNameAndRego searchDetails);
+		Task<List<IDashboardReportModel>> SearchAllReportsDashboardNonArchived();
 	}
 }

@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[spStock_Delete]
+	@ID INT
+AS
+BEGIN
+	DELETE FROM dbo.Stock WHERE ID = @ID;
+END
+RETURN 0

@@ -1,4 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject IManagerSessionData managerSession
+@inject NavigationManager NavigationManager
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorApp</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -9,66 +12,73 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="BookAppointment">
-                <span class="oi oi-beaker" aria-hidden="true"></span> Book An Appointment
-            </NavLink>
-        </div>
+
+        @* User Nav Menu Links *@
+        <AuthorizeView>
+	        <NotAuthorized>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="BookAppointment">
+                    <span class="oi oi-book" aria-hidden="true"></span> Book An Appointment
+                </NavLink>
+            </div>
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="PastReports">
-                <span class="oi oi-beaker" aria-hidden="true"></span> Search Past Reports
+                <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Past Reports
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ManageJobCards">
-                <span class="oi oi-person" aria-hidden="true"></span> Manage Job Cards
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Jobs">
-                <span class="oi oi-person" aria-hidden="true"></span> Jobs
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="SearchCustomer">
-                <span class="oi oi-person" aria-hidden="true"></span> Search Customer
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ManagerAuth">
-                <span class="oi oi-person" aria-hidden="true"></span> Manager Auth
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="MechanicAuth">
-                <span class="oi oi-person" aria-hidden="true"></span> Mechanic Auth
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="TestCreateStock">
-                <span class="oi oi-beaker" aria-hidden="true"></span> Test Create Stock
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="TestReadStock">
-                <span class="oi oi-beaker" aria-hidden="true"></span> Test Read Stock
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="TestCreateCustomer">
-                <span class="oi oi-beaker" aria-hidden="true"></span> Test Create Customer
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="TestReadCustomer">
-                <span class="oi oi-beaker" aria-hidden="true"></span> Test Read Customer
-            </NavLink>
-        </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        @* Mechanic Nav Menu Links *@
+        <AuthorizeView Roles="Mechanic">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Jobs">
+                    <span class="oi oi-wrench" aria-hidden="true"></span> Jobs
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        @* Manager Nav Menu Links *@
+        <AuthorizeView Roles="Manager">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManageJobCards">
+                    <span class="oi oi-wrench" aria-hidden="true"></span> Manage Job Cards
+                </NavLink>
+            </div>
+            
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Reports">
+                    <span class="oi oi-task" aria-hidden="true"></span> Reports
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="SearchCustomer">
+                    <span class="oi oi-people" aria-hidden="true"></span> Search Customer
+                </NavLink>
+            </div>
+                        
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="SearchVehicle">
+                    <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Vehicle
+                </NavLink>
+            </div>
+                 
+            <div class="nav-item px-3" @onclick="(() => SaveLastPage())">
+                <NavLink class="nav-link" href="Inventory">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> View Inventory
+                </NavLink>
+            </div>
+
+        </AuthorizeView>
+
     </nav>
 </div>
 
@@ -80,5 +90,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void SaveLastPage()
+    {
+        managerSession.SetLastPage(NavigationManager.Uri.ToString());
     }
 }

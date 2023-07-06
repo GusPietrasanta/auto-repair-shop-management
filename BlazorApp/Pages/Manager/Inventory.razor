@@ -1,0 +1,74 @@
+﻿@page "/Inventory"
+@inject IStockDataService stockData
+@inject IManagerSessionData managerSession
+@inject NavigationManager NavigationManager
+
+<h3>Test Read Stock</h3>
+
+<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+
+@if (stockItems == null)
+{
+	<h4>Loading Stock Items...</h4>
+}
+else
+{
+	<h2>Stock Items</h2>
+
+	<div class="row">
+		<div class="col-md-6">
+			@foreach (var i in stockItems)
+			{
+				if (@i.Quantity == 0)
+				{
+					<a class="fill-div" href="#">
+						<div class="alert alert-danger" role="alert" @onclick="(() => GoToItem(i.ID))">
+							<p>ID: @i.ID. @i.ItemName, @i.Quantity @i.Unit</p>
+						</div>
+					</a>
+				}
+				else if (@i.Quantity <= @i.AlarmMinimum)
+				{
+					<a class="fill-div" href="#">
+						<div class="alert alert-warning" role="alert" @onclick="(() => GoToItem(i.ID))">
+							<p>ID: @i.ID. @i.ItemName, @i.Quantity @i.Unit</p>
+						</div>
+					</a>
+				}
+				else
+				{
+					<a class="fill-div" href="#">
+						<div class="alert alert-success" role="alert" @onclick="(() => GoToItem(i.ID))">
+							<p>ID: @i.ID. @i.ItemName, @i.Quantity @i.Unit</p>
+						</div>
+					</a>
+				}
+			}
+		</div>
+
+		<div class="col-md-6">
+			<CreateStockItem></CreateStockItem>
+		</div>
+
+	</div>
+}
+
+@code {
+	private List<IStockItemModel> stockItems;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		stockItems = await stockData.ReadAllStockItems();
+	}
+
+	private void previousPage()
+	{
+		NavigationManager.NavigateTo(managerSession.GetLastPage());
+	}
+
+	private void GoToItem(int itemID)
+	{
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		NavigationManager.NavigateTo($"/StockItem/{itemID}");
+	}
+}

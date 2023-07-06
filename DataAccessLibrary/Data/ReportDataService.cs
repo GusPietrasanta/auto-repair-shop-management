@@ -33,7 +33,7 @@ namespace DataAccessLibrary.Data
 			return results.ToList<IFullReportModel>();
 		}
 
-		public async Task<List<IDashboardReportModel>> SearchAllReporstDashboard()
+		public async Task<List<IDashboardReportModel>> SearchAllReportsDashboard()
 		{
 			var results = await _dataAccess.LoadData<DashboardReportModel, dynamic>("spReport_SearchAllDashboard", new { }, "SQLDB");
 
@@ -64,6 +64,13 @@ namespace DataAccessLibrary.Data
 			var results = await _dataAccess.LoadData<ReportModel, dynamic>("spReport_Read_By_VehicleID", new { VehicleID = vehicleID }, "SQLDB");
 
 			return results.ToList<IReportModel>();
+		}
+
+		public async Task<List<IDashboardReportModel>> SearchAllReportsDashboardNonArchived()
+		{
+			var results = await _dataAccess.LoadData<DashboardReportModel, dynamic>("spReport_SearchAllDashboardNonArchived", new { }, "SQLDB");
+
+			return results.ToList<IDashboardReportModel>();
 		}
 	}
 }

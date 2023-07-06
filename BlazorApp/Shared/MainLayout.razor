@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorApp.Pages.Manager.Components
+@inherits LayoutComponentBase
 
 <PageTitle>BlazorApp</PageTitle>
 
@@ -10,9 +11,9 @@
     <main>
         <div class="top-row px-4 auth">
 
-            @*<AuthorizeView Roles="Manager">*@
+            <AuthorizeView Roles="Manager">
                 <SearchComponent></SearchComponent>
-            @*</AuthorizeView>*@
+            </AuthorizeView>
             
             
             <LoginDisplay />

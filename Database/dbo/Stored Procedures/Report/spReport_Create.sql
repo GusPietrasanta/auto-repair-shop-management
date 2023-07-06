@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spReport_Create]
+	@ID INT,
 	@TimeStarted datetime2,
 	@TimeFinished datetime2,
 	@VehicleID INT,

@@ -118,7 +118,7 @@
 		}
 		else
 		{
-			<p>All good in the inventory!</p>
+			<p>No completed inspections.</p>
 		}
 	</div>
 
@@ -179,7 +179,7 @@
 		todayAppointments = await appointmentData.ReadTodaysAppointmentsDetailed();
 		messages = await messageData.ReadAllUnreadMessages();
 		stock = await stockData.ReadLowStockItems();
-		completedInspections = await reportData.SearchAllReporstDashboard();
+		completedInspections = await reportData.SearchAllReportsDashboard();
 		mechanics = await mechanicData.ReadAllMechanicsBasic();
 	}
 
@@ -240,8 +240,7 @@
 	private void GoToInventory()
 	{
 		managerSession.SetLastPage(NavigationManager.Uri.ToString());
-		// managerSession.SetLastPage("/");
-		NavigationManager.NavigateTo("/ReadStock");
+		NavigationManager.NavigateTo("/Inventory");
 	}	
 	
 	private void SeeReport(int reportID)

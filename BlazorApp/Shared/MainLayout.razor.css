@@ -24,7 +24,7 @@ main {
 
     .top-row ::deep a, .top-row .btn-link {
         white-space: nowrap;
-        margin-left: 0;
+        margin-left: 1rem;
     }
 
     .top-row a:first-child {
