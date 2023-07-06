@@ -80,10 +80,19 @@
 					<label>Body Type:</label>
 					<InputText @bind-Value="vehicle.BodyType" class="form-control" />
 				</div>
-				
+
 				<div class="form-group">
-					<label>First Visit:</label>
-					<InputDate @bind-Value="vehicle.FirstVisit" class="form-control" />
+				<label>First Visit:</label>
+				@if (@vehicle.FirstVisit.ToShortDateString() == "1/01/0001")
+				{
+				<p>Has never been at the shop yet.</p>
+				}
+				else
+				{
+
+				<InputDate @bind-Value="vehicle.FirstVisit" class="form-control" />
+				
+				}
 				</div>
 
 		</EditForm>

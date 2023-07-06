@@ -1,12 +1,82 @@
 ﻿@attribute [Authorize(Roles="Manager")]
 @page "/Customer/{customerID:int}"
-@inject IStockDataService stockData
+@inject ICustomerDataService customerData
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData managerSession
+@inject IVehicleDataService vehicleData
+@inject NavigationManager NavigationManager
 
-<h3>Customer</h3>
+<h1>CustomerID: @customerID</h1>
 
-<p>CustomerID: @customerID</p>
+@if(customer != null)
+{
+	<div class="row">
+
+		<div class="col-md-6">
+			<form>
+				<fieldset disabled="@isFormDisabled">
+					<h3>Customer Details: </h3>
+
+						<div class="form-group">
+							<label>First Name:</label>
+							<InputText @bind-Value="customer.FirstName" class="form-control" />
+						</div>
+
+						<div class="form-group">
+							<label>Last Name:</label>
+							<InputText @bind-Value="customer.LastName" class="form-control" />
+						</div>
+						
+						<div class="form-group">
+							<label>Email:</label>
+							<InputText @bind-Value="customer.Email" class="form-control" />
+						</div>
+
+						<div class="form-group">
+							<label>Phone Number:</label>
+							<InputText @bind-Value="customer.PhoneNumber" class="form-control" />
+						</div>
+
+						<div class="form-group">
+							<label>Address:</label>
+							<InputText @bind-Value="customer.Address" class="form-control" />
+						</div>
+
+
+				</fieldset>
+			</form>
+
+			<br />
+			<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
+
+			@if (isFormDisabled == false)
+			{
+				<button class="btn btn-success ms-2" type="submit" @onclick="(() => HandleValidSubmit())">Save</button>
+			}
+
+		</div>
+
+
+
+		<div class="col-md-6">
+			<h3>Customer Vehicles:</h3>
+			@foreach (var v in vehicles)
+				{
+					<a class="fill-div" href="#">
+					<div class="alert-info" @onclick="(() => GoToVehicle(v.ID))">
+						<b>@v.NumberPlate</b> 
+						<br />
+						@v.Make @v.Model - @v.Year
+					</div>
+					</a>
+					<br />
+				}
+		</div>
+
+	</div>
+}
+
+<br/>
 
 <button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
 
@@ -14,9 +84,36 @@
 	[Parameter]
 	public int customerID { get; set; }
 
+	private bool isFormDisabled = true;
+
+	private ICustomerModel customer;
+	private List<IVehicleModel> vehicles;
+
 	private void previousPage()
 	{
 		NavigationManager.NavigateTo(managerSession.GetLastPage());
 	}
 
+	protected override async Task OnInitializedAsync()
+	{
+		customer = await customerData.ReadCustomerByID(customerID);
+		vehicles = await vehicleData.GetVehiclesByCustomerID(customerID);
+	}
+
+	private void ToggleEdit()
+	{
+		isFormDisabled = !isFormDisabled;
+	}
+
+	private async Task HandleValidSubmit()
+	{
+		await customerData.UpdateCustomer(customer);
+		isFormDisabled = true;
+	}
+
+	private void GoToVehicle(int vehicleID)
+	{
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+	}
 }
