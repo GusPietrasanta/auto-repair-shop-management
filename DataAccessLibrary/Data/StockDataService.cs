@@ -50,5 +50,26 @@ namespace DataAccessLibrary.Data
 
             return stockItems.ToList<IStockItemModel>();
         }
-    }
+
+		public async Task<IStockItemModel> GetStockItemByID(int id)
+		{
+			var stockItem = await _dataAccess.LoadData<StockItemModel, dynamic>("dbo.spStock_Read_ByID", new { ID = id }, "SQLDB");
+
+			return stockItem.FirstOrDefault();
+        }
+
+		public async Task UpdateItemByID(IStockItemModel item)
+		{
+			var i = new
+			{
+				item.ID,
+				item.ItemName,
+				item.Quantity,
+				item.Unit,
+				item.AlarmMinimum
+			};
+
+			await _dataAccess.SaveData<dynamic>("spStock_Update_ByID", i, "SQLDB");
+		}
+	}
 }

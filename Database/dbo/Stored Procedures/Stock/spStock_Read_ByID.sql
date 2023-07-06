@@ -1,0 +1,9 @@
+﻿CREATE PROCEDURE [dbo].[spStock_Read_ByID]
+	@ID INT
+AS	
+BEGIN
+
+	SELECT * FROM dbo.Stock WHERE ID = @ID;
+
+END
+RETURN 0
