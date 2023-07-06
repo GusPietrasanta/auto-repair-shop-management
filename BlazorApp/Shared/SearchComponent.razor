@@ -1,0 +1,126 @@
+﻿@inject IVehicleDataService vehicleData
+@inject ICustomerDataService customerData
+@inject IStockDataService stockData
+@inject NavigationManager NavigationManager
+@inject IManagerSessionData managerSession
+
+<div class="search-bar-container">
+    <div class="input-wrapper">
+        <span class="oi oi-magnifying-glass"></span>
+        <input class="search-bar" value="@searchTerm" @onblur="HandleOnBlur" @oninput="HandleInput" type="text" placeholder="Search customers, vehicles or stock items..." />
+    </div>
+    <div class="results-list">
+        @if (vehicles != null)
+        {
+            @if (vehicles.Count > 0)
+            {
+                <div class="search-result-separator">Vehicles</div>
+            }
+            
+            @foreach (var v in vehicles)
+            {
+                <a class="fill-div" href="#">
+                <div class="search-result" @onclick="(() => GoToVehicle(v.ID))"><b>@v.NumberPlate</b> - @v.Make @v.Model</div>
+                </a>
+            }
+
+        }        
+        @if (customers != null)
+        {
+            @if (customers.Count > 0)
+            {
+                <div class="search-result-separator">Customers</div>
+            }
+            @foreach (var c in customers)
+            {
+                <a class="fill-div" href="#">
+                    <div class="search-result" @onclick="(() => GoToCustomer(c.ID))"><b>@c.FirstName @c.LastName</b></div>
+                </a>
+            }
+        }  
+        @if (items != null)
+        {
+            @if (items.Count > 0)
+            {
+                <div class="search-result-separator">Inventory</div>
+            }
+            @foreach (var i in items)
+            {
+                <a class="fill-div" href="#">
+                    <div class="search-result" @onclick="(() => GoToItem(i.ID))"><b>@i.ItemName</b> - @i.Quantity @i.Unit</div>
+                </a>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private string searchTerm = "";
+
+    private List<ICustomerModel> customers;
+    private List<IVehicleModel> vehicles;
+    private List<IStockItemModel> items;
+
+    private async Task HandleInput(ChangeEventArgs args)
+    {
+
+        searchTerm = args.Value.ToString();
+
+        if (searchTerm.Length > 0)
+        {
+            // Populate customers
+            customers = await customerData.GetCustomersListForSearchBar(searchTerm);
+
+            // Populate vehicles
+            vehicles = await vehicleData.GetVehiclesListForSearchBar(searchTerm);
+
+            // Populate items
+            items = await stockData.GetStockListForSearchBar(searchTerm);
+        }
+        else
+        {
+            customers = null;
+            vehicles = null;
+            items = null;
+        }
+    }
+
+    private void GoToVehicle(int vehicleID)
+    {
+        managerSession.SetLastPage(NavigationManager.Uri.ToString());
+        NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+        customers = null;
+        vehicles = null;
+        items = null;
+        searchTerm = "";
+    }
+
+    private void GoToCustomer(int customerID)
+    {
+        managerSession.SetLastPage(NavigationManager.Uri.ToString());
+        NavigationManager.NavigateTo($"/Customer/{customerID}");
+        customers = null;
+        vehicles = null;
+        items = null;
+        searchTerm = "";
+    }
+
+    private void GoToItem(int itemID)
+    {
+        managerSession.SetLastPage(NavigationManager.Uri.ToString());
+        NavigationManager.NavigateTo($"/StockItem/{itemID}");
+        customers = null;
+        vehicles = null;
+        items = null;
+        searchTerm = "";
+    }
+
+    private void HandleOnBlur()
+    {
+        Thread.Sleep(100);
+        searchTerm = "";
+        customers = null;
+        vehicles = null;
+        items = null;
+    }
+}

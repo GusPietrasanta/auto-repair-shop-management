@@ -1,0 +1,22 @@
+﻿@attribute [Authorize(Roles="Manager")]
+@page "/StockItem/{itemID:int}"
+@inject IStockDataService stockData
+@inject NavigationManager NavigationManager
+@inject IManagerSessionData managerSession
+
+<h3>Stock Item</h3>
+
+<p>Stock Item ID: @itemID</p>
+
+<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+
+@code {
+	[Parameter]
+	public int itemID { get; set; }
+
+	private void previousPage()
+	{
+		NavigationManager.NavigateTo(managerSession.GetLastPage());
+	}
+
+}

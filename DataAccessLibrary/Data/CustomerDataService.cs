@@ -56,5 +56,13 @@ namespace DataAccessLibrary.Data
 		{
 			await _dataAccess.SaveData("spCustomer_Update", customer, "SQLDB");
 		}
+
+		//spCustomer_Read_SearchBar
+		public async Task<List<ICustomerModel>> GetCustomersListForSearchBar(string searchTerm)
+		{
+			var customers = await _dataAccess.LoadData<CustomerModel, dynamic>("spCustomer_Read_SearchBar", new { SearchTerm = searchTerm }, "SQLDB");
+
+			return customers.ToList<ICustomerModel>();
+		}
 	}
 }

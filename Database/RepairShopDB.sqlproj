@@ -113,6 +113,9 @@
     <Build Include="dbo\Stored Procedures\Report\spReport_Read_By_VehicleID.sql" />
     <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_Update.sql" />
     <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_ReadAll.sql" />
+    <Build Include="dbo\Stored Procedures\Vehicle\spVehicle_Read_SearchBar.sql" />
+    <Build Include="dbo\Stored Procedures\Customer\spCustomer_Read_SearchBar.sql" />
+    <Build Include="dbo\Stored Procedures\Stock\spStock_Read_SearchBar.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

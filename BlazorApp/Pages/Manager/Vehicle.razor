@@ -168,6 +168,12 @@
 		reports = await reportData.GetReportsByVehicleID(vehicleID);
 	}
 
+	protected async override Task OnParametersSetAsync()
+	{
+		vehicle = await vehicleData.GetVehicleDetailsByID(vehicleID);
+		reports = await reportData.GetReportsByVehicleID(vehicleID);
+	}
+
 	private void previousPage()
 	{
 		NavigationManager.NavigateTo(managerSession.GetLastPage());
@@ -175,7 +181,8 @@
 
 	private void SeeReport(int reportID)
 	{
-		managerSession.SetLastPage($"/Vehicle/{vehicleID}");
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		//managerSession.SetLastPage($"/Vehicle/{vehicleID}");
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}
 }

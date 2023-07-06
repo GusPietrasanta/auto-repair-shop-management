@@ -224,7 +224,8 @@
 	{
 		// Get inspection number by appointmentID
 		int reportID = await reportData.GetReportIDFromAppointmentIDAsync(appointmentID);
-		managerSession.SetLastPage("/");
+		// managerSession.SetLastPage("/");
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
 		// Redirect to inspection page
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}
@@ -238,13 +239,15 @@
 
 	private void GoToInventory()
 	{
-		managerSession.SetLastPage("/");
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		// managerSession.SetLastPage("/");
 		NavigationManager.NavigateTo("/ReadStock");
 	}	
 	
 	private void SeeReport(int reportID)
 	{
-		managerSession.SetLastPage("/");
+		//managerSession.SetLastPage("/");
+		managerSession.SetLastPage(NavigationManager.Uri.ToString());
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}
 

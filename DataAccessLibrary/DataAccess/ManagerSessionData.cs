@@ -17,9 +17,17 @@ namespace DataAccessLibrary.DataAccess
 
 		public string GetLastPage()
 		{
-			string output = history[history.Count - 1];
-			history.RemoveAt(history.Count - 1);
-			return output;
+			if (history.Count > 0)
+			{
+
+                string output = history[history.Count - 1];
+                history.RemoveAt(history.Count - 1);
+                return output;
+            }
+			else
+			{
+				return "/";
+			}
 		}
 	}
 }

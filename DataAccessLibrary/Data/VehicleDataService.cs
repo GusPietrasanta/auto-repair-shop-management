@@ -98,6 +98,11 @@ namespace DataAccessLibrary.Data
 
 		}
 
+        public async Task<List<IVehicleModel>> GetVehiclesListForSearchBar(string searchTerm)
+		{
+            var vehicles = await _dataAccess.LoadData<VehicleModel, dynamic>("spVehicle_Read_SearchBar", new { SearchTerm = searchTerm }, "SQLDB");
 
+            return vehicles.ToList<IVehicleModel>();
+        }
 	}
 }
