@@ -7,111 +7,167 @@
 @inject IAppointmentDataService appointmentData
 @attribute [Authorize(Roles = "Mechanic")]
 
-<h1>Report Form</h1>
+<div class="container text-center">
+	<h1>Report Form</h1>
+
 
 @if (vehicleDetails != null)
 {
-	<h2>@vehicleDetails.NumberPlate</h2>
-	<h2>@vehicleDetails.Make - @vehicleDetails.Model</h2>
-	<h2>@vehicleDetails.Year</h2>
-	<h3>@vehicleDetails.BodyType</h3>
-	<h3>Engine: @vehicleDetails.EngineDescription</h3>
-	<h3>Fuel type: @vehicleDetails.FuelType</h3>
-	<h3>Transmission Type: @vehicleDetails.TransmissionType</h3>
-	<h3>Cylinders: @vehicleDetails.Cylinders - Displacement: @vehicleDetails.SizeLitres Litres</h3>
-	<h3>VIN: @vehicleDetails.VIN</h3>
+	<div class="row justify-content-center">
 
-	@if (@vehicleDetails.FirstVisit.ToShortDateString() == "1/01/0001")
-	{
-		<h3>First time at the shop.</h3>
-	}
-	else
-	{
-		<h3>First visit: @vehicleDetails.FirstVisit.ToShortDateString()</h3>
-	}
-	
-}
+		<div class="col-10">
 
-<div class="row">
-	<div class="col-md-6">
+				<hr />
+
+		<table class="table table-striped table-hover mx-auto w-75">
+			<thead>
+				<tr>
+					<th colspan="2" class="h2 text-center">Car Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="h5 fw-bold">Number Plate</td>
+					<td class="h5">@vehicleDetails.NumberPlate</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Make and Model</td>
+					<td class="h5">@vehicleDetails.Make - @vehicleDetails.Model</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Year</td>
+					<td class="h5">@vehicleDetails.Year</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Body Type</td>
+					<td class="h5">@vehicleDetails.BodyType</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Engine</td>
+					<td class="h5">@vehicleDetails.EngineDescription</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Fuel Type</td>
+					<td class="h5">@vehicleDetails.FuelType</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Transmission Type</td>
+					<td class="h5">@vehicleDetails.TransmissionType</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Cylinders</td>
+					<td class="h5">@vehicleDetails.Cylinders</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Displacement</td>
+					<td class="h5">@vehicleDetails.SizeLitres Litres</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">VIN</td>
+					<td class="h5">@vehicleDetails.VIN</td>
+				</tr>
+
+				@if (@vehicleDetails.FirstVisit.ToShortDateString() == "1/01/0001")
+				{
+					<tr>
+						<td class="h5 fw-bold" colspan="2">First time at the shop.</td>
+					</tr>
+				}
+				else
+				{				
+					<tr>
+						<td class="h5 fw-bold">First Visit</td>
+						<td class="h5">@vehicleDetails.FirstVisit.ToString("dd/MM/yyyy")</td>
+					</tr>
+				}
+
+			</tbody>
+		</table>
+		<hr>
+
+		<div class="row justify-content-center">
+
+	<div class="col-8">
 		<EditForm Model="report" OnValidSubmit="HandleValidSubmit">
 			<DataAnnotationsValidator/>
-			<ValidationSummary/>
 
-			<div class="mb-6">
-				<label>Odometer:</label>
-				<InputNumber @bind-Value="report.Odometer" class="form-control" />
+			<div class="mb-3">
+				<label class="form-label h4">Odometer:</label>
+				<div class="input-group">
+					<InputNumber @bind-Value="report.Odometer" style="text-align: right;" class="form-control" />
+					<span class="input-group-text">kms</span>
+				</div>
 			</div>
 
-			<div class="mb-6">
-				<label>Road Test Comments:</label>
+			<div class="mb-3">
+				<label class="form-label h4">Road Test Comments:</label>
 				<InputTextArea @bind-Value="report.RoadTestComments" class="form-control" />
 			</div>
 
-			<div class="mb-6">
-				<label>General Comments:</label>
+			<div class="mb-3">
+				<label class="form-label h4">General Comments:</label>
 				<InputTextArea @bind-Value="report.GeneralComments" class="form-control" />
 			</div>
 
-			<div class="mb-6">
-				<label>Stored Fault Codes:</label>
+			<div class="mb-3">
+				<label class="form-label h4">Stored Fault Codes:</label>
 				<InputTextArea @bind-Value="report.StoredFaultCodes" class="form-control" />
 			</div>
 
-			<br />
-			<div class="p-2 mb-6 border border-dark">
-				<label>Air Conditioning:</label>
-				<InputRadioGroup @bind-Value="report.AirConditioning" class="form-control">
-					<button type="button" class="btn btn-success">
-					<InputRadio Value="@ok" /> Ok
-					</button>
-					<button type="button" class="btn btn-warning">
-					<InputRadio Value="@average" /> Average
-					</button>
-					<button type="button" class="btn btn-danger">
-					<InputRadio Value="@bad" /> Bad
-					</button>
-				</InputRadioGroup>
-			</div>
-			<br/>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Lights:</label>
-				<InputRadioGroup @bind-Value="report.Lights" class="form-control">
-					<button type="button" class="btn btn-success">
-					<InputRadio Value="@ok" /> Ok
-					</button>
-					<button type="button" class="btn btn-warning">
-					<InputRadio Value="@average" /> Average
-					</button>
-					<button type="button" class="btn btn-danger">
-					<InputRadio Value="@bad" /> Bad
-					</button>
-				</InputRadioGroup>
+			<div>
+				<label class="form-label h4">Air Conditioning:</label><br />
+				<div class="mb-3 btn-group btn-group-lg">
+					<InputRadioGroup @bind-Value="report.AirConditioning">
+						<InputRadio class="btn-check" id="btnradio1" Value="@ok" />
+						<label class="btn btn-outline-success" for="btnradio1" style="width: 200px">Ok</label>
+
+						<InputRadio class="btn-check" id="btnradio2" Value="@average" />
+						<label class="btn btn-outline-warning" for="btnradio2" style="width: 200px">Average</label>
+
+						<InputRadio class="btn-check" id="btnradio3" Value="@bad" />
+						<label class="btn btn-outline-danger" for="btnradio3" style="width: 200px">Bad</label>
+					</InputRadioGroup>
+				</div>
 			</div>
 
-			<div class="mb-6">
-				<label>Lights Comments:</label>
+			<div>
+				<label class="form-label h4">Lights:</label><br />
+				<div class="mb-3 btn-group btn-group-lg">
+					<InputRadioGroup @bind-Value="report.Lights">
+						<InputRadio class="btn-check" id="btnradio1" Value="@ok" />
+						<label class="btn btn-outline-success" for="btnradio1" style="width: 200px">Ok</label>
+
+						<InputRadio class="btn-check" id="btnradio2" Value="@average" />
+						<label class="btn btn-outline-warning" for="btnradio2" style="width: 200px">Average</label>
+
+						<InputRadio class="btn-check" id="btnradio3" Value="@bad" />
+						<label class="btn btn-outline-danger" for="btnradio3" style="width: 200px">Bad</label>
+					</InputRadioGroup>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label h4">Lights Comments:</label>
 				<InputTextArea @bind-Value="report.LightsComments" class="form-control" />
 			</div>
-			<br/>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Front Wipers:</label>
-				<InputRadioGroup @bind-Value="report.FrontWipers" class="form-control">
-					<button type="button" class="btn btn-success">
-						<InputRadio Value="@ok" /> Ok
-					</button>
-					<button type="button" class="btn btn-warning">
-						<InputRadio Value="@average" /> Average
-					</button>
-					<button type="button" class="btn btn-danger">
-						<InputRadio Value="@bad" /> Bad
-					</button>
-				</InputRadioGroup>
+			<div>
+				<label class="form-label h4">Front Wipers:</label><br />
+				<div class="mb-3 btn-group btn-group-lg">
+					<InputRadioGroup @bind-Value="report.FrontWipers">
+						<InputRadio class="btn-check" id="btnradio1" Value="@ok" />
+						<label class="btn btn-outline-success" for="btnradio1" style="width: 200px">Ok</label>
+
+						<InputRadio class="btn-check" id="btnradio2" Value="@average" />
+						<label class="btn btn-outline-warning" for="btnradio2" style="width: 200px">Average</label>
+
+						<InputRadio class="btn-check" id="btnradio3" Value="@bad" />
+						<label class="btn btn-outline-danger" for="btnradio3" style="width: 200px">Bad</label>
+					</InputRadioGroup>
+				</div>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Rear Wipers:</label>
 				<InputRadioGroup @bind-Value="report.RearWiper" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -125,9 +181,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Battery:</label>
 				<InputRadioGroup @bind-Value="report.Battery" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -142,14 +197,13 @@
 				</InputRadioGroup>
 			</div>
 
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Battery Comments:</label>
 				<InputTextArea @bind-Value="report.BatteryComments" class="form-control" />
 			</div>
-			<br />
 
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Air Filter:</label>
 				<InputRadioGroup @bind-Value="report.AirFilter" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -163,9 +217,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Cabin Filter:</label>
 				<InputRadioGroup @bind-Value="report.CabinFilter" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -179,9 +232,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Drive Belt/s:</label>
 				<InputRadioGroup @bind-Value="report.DriveBelts" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -195,9 +247,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Timing Belt:</label>
 				<InputRadioGroup @bind-Value="report.TimingBelt" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -211,9 +262,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Radiator:</label>
 				<InputRadioGroup @bind-Value="report.Radiator" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -227,9 +277,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Hoses:</label>
 				<InputRadioGroup @bind-Value="report.Hoses" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -243,16 +292,14 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Hoses Comments:</label>
 				<InputTextArea @bind-Value="report.HosesComments" class="form-control" />
 			</div>
-			<br />
 
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Engine Oil:</label>
 				<InputRadioGroup @bind-Value="report.EngineOil" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -266,10 +313,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Coolant:</label>
 				<InputRadioGroup @bind-Value="report.Coolant" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -283,9 +329,8 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Brake Fluid:</label>
 				<InputRadioGroup @bind-Value="report.BrakeFluid" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -299,9 +344,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="p-2 mb-6 border border-dark">
+			
+			<div class="p-2 mb-3 border border-dark">
 				<label>Power Steering Fluid:</label>
 				<InputRadioGroup @bind-Value="report.PowerSteeringFluid" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -315,9 +360,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="p-2 mb-6 border border-dark">
+			
+			<div class="p-2 mb-3 border border-dark">
 				<label>Transmission Fluid:</label>
 				<InputRadioGroup @bind-Value="report.TransmissionFluid" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -331,9 +376,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Windscreen Washer Fluid:</label>
 				<InputRadioGroup @bind-Value="report.WindscreenWasherFluid" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -347,17 +392,17 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
 
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Fluids Comments:</label>
 				<InputTextArea @bind-Value="report.FluidsComments" class="form-control" />
 			</div>
-			<br />
+			
 
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Spark Plugs:</label>
 				<InputRadioGroup @bind-Value="report.SparkPlugs" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -371,10 +416,10 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Fuel Filter:</label>
 				<InputRadioGroup @bind-Value="report.FuelFilter" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -388,9 +433,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Front Suspension:</label>
 				<InputRadioGroup @bind-Value="report.FrontSuspension" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -404,16 +449,16 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
 			
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Front Suspension Comments:</label>
 				<InputTextArea @bind-Value="report.FrontSuspensionComments" class="form-control" />
 			</div>
-			<br />
 			
-			<div class="p-2 mb-6 border border-dark">
+			
+			<div class="p-2 mb-3 border border-dark">
 				<label>Rear Suspension:</label>
 				<InputRadioGroup @bind-Value="report.RearSuspension" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -427,16 +472,16 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Rear Suspension Comments:</label>
 				<InputTextArea @bind-Value="report.RearSuspensionComments" class="form-control" />
 			</div>
-			<br />
+			
 
 						
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Front Brakes:</label>
 				<InputRadioGroup @bind-Value="report.FrontBrakes" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -450,16 +495,16 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Front Brakes Comments:</label>
 				<InputTextArea @bind-Value="report.FrontBrakesComments" class="form-control" />
 			</div>
-			<br />
+			
 			
 						
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Rear Brakes:</label>
 				<InputRadioGroup @bind-Value="report.RearBrakes" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -473,19 +518,19 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Rear Brakes Comments:</label>
 				<InputTextArea @bind-Value="report.RearBrakesComments" class="form-control" />
 			</div>
-			<br />
+			
 
 
 			@*Tyres Section*@
 
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>RHF Tyre:</label>
 				<InputRadioGroup @bind-Value="report.RHFTyre" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -499,9 +544,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>LHF Tyre:</label>
 				<InputRadioGroup @bind-Value="report.LHFTyre" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -515,9 +560,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>RHR Tyre:</label>
 				<InputRadioGroup @bind-Value="report.RHRTyre" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -531,9 +576,9 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>LHR Tyre:</label>
 				<InputRadioGroup @bind-Value="report.LHRTyre" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -547,21 +592,21 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
+			
 
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Tyres Comments:</label>
 				<InputTextArea @bind-Value="report.TyresComments" class="form-control" />
 			</div>
 
-			<br />
+			
 
 			<InputCheckbox @bind-Value="report.NeedsAlignment" /> Needs Alignment
 
-			<br />
+			
 
 			
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Exhaust:</label>
 				<InputRadioGroup @bind-Value="report.Exhaust" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -575,15 +620,15 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Exhaust Comments:</label>
 				<InputTextArea @bind-Value="report.ExhaustComments" class="form-control" />
 			</div>
-			<br />			
+						
 
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Drivetrain:</label>
 				<InputRadioGroup @bind-Value="report.Drivetrain" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -597,15 +642,15 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Drivetrain Comments:</label>
 				<InputTextArea @bind-Value="report.DrivetrainComments" class="form-control" />
 			</div>
-			<br />
 			
-			<div class="p-2 mb-6 border border-dark">
+			
+			<div class="p-2 mb-3 border border-dark">
 				<label>Oil Leaks:</label>
 				<InputRadioGroup @bind-Value="report.OilLeaks" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -619,15 +664,15 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Oil Leaks Comments:</label>
 				<InputTextArea @bind-Value="report.OilLeaksComments" class="form-control" />
 			</div>
-			<br />		
+					
 			
-			<div class="p-2 mb-6 border border-dark">
+			<div class="p-2 mb-3 border border-dark">
 				<label>Coolant Leaks:</label>
 				<InputRadioGroup @bind-Value="report.CoolantLeaks" class="form-control">
 					<button type="button" class="btn btn-success">
@@ -641,36 +686,43 @@
 					</button>
 				</InputRadioGroup>
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Coolant Leaks Comments:</label>
 				<InputTextArea @bind-Value="report.CoolantLeaksComments" class="form-control" />
 			</div>
-			<br />		
+					
 			
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Other Leaks Comments:</label>
 				<InputTextArea @bind-Value="report.OtherLeaksComments" class="form-control" />
 			</div>
-			<br />
+			
 
-			<div class="mb-6">
+			<div class="mb-3">
 				<label>Other Comments:</label>
 				<InputTextArea @bind-Value="report.Other" class="form-control" />
 			</div>
-			<br />
 			
-			<div class="mb-6">
+			
+			<div class="mb-3">
 				<label>Other Inspection Comments:</label>
 				<InputTextArea @bind-Value="report.OtherInspectionComments" class="form-control" />
 			</div>
-			<br />
+			
 
+							<ValidationSummary />
 
 			<button type="submit">Save Report</button>
 		</EditForm>
 	</div>
+</div>
+
+			</div>
+		</div>
+	}
+
 </div>
 
 @code {

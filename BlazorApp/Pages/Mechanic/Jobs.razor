@@ -5,36 +5,42 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Mechanic")]
 
-<h2>View Assigned Job Cards</h2>
+<PageTitle>Assigned Jobs</PageTitle>
 
-@if (mechanicSession.GetAppointmentToWorkOn() != null)
-{
-	<h3>Inspection Report for vehicle @mechanicSession.GetAppointmentToWorkOn().NumberPlate successfully submitted!</h3>
-}
+<h1 class="text-center">View Assigned Job Cards</h1>
 
-@if (appointments == null)
-{
-	<p>Loading appointments...</p>
-}
-else
-{
-	@foreach (var a in appointments)
-	{
-		<div class="details @(@a.MechanicID > 0 ? "alert-success" : "alert-warning")">
-			Appointment ID: @a.ID
-			<br />
-			Date: @a.Date.ToShortDateString()
-			<br />
-			Customer: @a.FirstName @a.LastName
-			<br />
-			Vehicle: @a.NumberPlate<br />
-			@a.Make - @a.Model<br />
+<div class="row justify-content-center">
+	<div class="col-6">
 
-			<button @onclick="(() => GoToReportForm(a))">Start Job</button>
-		</div>
-		<br />
-	}
-}
+		@if (mechanicSession.GetAppointmentToWorkOn() != null)
+		{
+			<h3>Inspection Report for vehicle @mechanicSession.GetAppointmentToWorkOn().NumberPlate successfully submitted!</h3>
+		}
+
+		@if (appointments == null)
+		{
+			<p>Loading appointments...</p>
+		}
+		else
+		{
+			@foreach (var a in appointments)
+			{
+				<div class="alert alert-info text-center">
+					@*<p>Report ID: @r.ID</p>*@
+					<p>
+						Appointment ID: @a.ID <br>
+						Date: @a.Date.ToShortDateString() <br>
+						Customer: @a.FirstName @a.LastName <br>
+						Vehicle: @a.NumberPlate <br>
+						@a.Make - @a.Model <br>
+					</p>
+					<button class="btn btn-success" @onclick="(() => GoToReportForm(a))">Start Job</button>
+				</div>
+			}
+		}
+
+	</div>
+</div>
 
 
 @code {

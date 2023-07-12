@@ -1,5 +1,14 @@
 ﻿@page "/WatchReport"
-<PageTitle>Report For @sessionData.GetSearchDetails().NumberPlate On @report.TimeStarted.ToString("dd/MM/yy")</PageTitle>
+
+@if (@sessionData.GetSearchDetails() != null)
+{
+	<PageTitle>Report For @sessionData.GetSearchDetails().NumberPlate On @report.TimeStarted.ToString("dd/MM/yy")</PageTitle>
+}
+else
+{
+	<PageTitle>Past Reports</PageTitle>
+}
+
 
 @inject ICustomerSessionData sessionData
 @inject NavigationManager NavigationManager
@@ -37,7 +46,7 @@
 
 				<tr>
 					<td class="h5 fw-bold">Mileage:</td>
-					<td class="h5">@report.Odometer.ToString("N0") kms.</td>
+					<td class="h5">@report.Odometer.ToString("N0") kms</td>
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">Date:</td>
@@ -450,50 +459,50 @@
 				}
 
 
-						@if (report.TransmissionFluid == ok)
-						{
-							<tr class="table-success" style="height: 4.5rem;">
-								<td class="h5 fw-bold">Transmission Fluid:</td>
-								<td class="h5">Inspected And Ok</td>
-							</tr>
-						}
-						else if (report.TransmissionFluid == average)
-						{
-							<tr class="table-warning" style="height: 4.5rem;">
-								<td class="h5 fw-bold">Transmission Fluid:</td>
-								<td class="h5">May Require Future Attention</td>
-							</tr>
-						}
-						else if (report.TransmissionFluid == bad)
-						{
-							<tr class="table-danger" style="height: 4.5rem;">
-								<td class="h5 fw-bold">Transmission Fluid:</td>
-								<td class="h5">Requires Immediate Attention</td>
-							</tr>
-						}
+				@if (report.TransmissionFluid == ok)
+				{
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Transmission Fluid:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
+				}
+				else if (report.TransmissionFluid == average)
+				{
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Transmission Fluid:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
+				}
+				else if (report.TransmissionFluid == bad)
+				{
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Transmission Fluid:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
+				}
 
 
-						@if (report.WindscreenWasherFluid == ok)
-						{
-							<tr class="table-success" style="height: 4.5rem;">
-								<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
-								<td class="h5">Inspected And Ok</td>
-							</tr>
-						}
-						else if (report.WindscreenWasherFluid == average)
-						{
-							<tr class="table-warning" style="height: 4.5rem;">
-								<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
-								<td class="h5">May Require Future Attention</td>
-							</tr>
-						}
-						else if (report.WindscreenWasherFluid == bad)
-						{
-							<tr class="table-danger" style="height: 4.5rem;">
-								<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
-								<td class="h5">Requires Immediate Attention</td>
-							</tr>
-						}
+				@if (report.WindscreenWasherFluid == ok)
+				{
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
+				}
+				else if (report.WindscreenWasherFluid == average)
+				{
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
+				}
+				else if (report.WindscreenWasherFluid == bad)
+				{
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
+				}
 
 				<tr class="@(report.FluidsComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
 					<td class="h5 fw-bold">Fluids Comments:</td>
@@ -746,6 +755,11 @@
 					</tr>
 				}
 
+				<tr class="@(report.NeedsAlignment == false ? "table-success" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Needs Alignment:</td>
+					<td class="h5">@((report.NeedsAlignment == false) ? "No" : "Yes")</td>
+				</tr>
+
 				<tr class="@(report.TyresComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
 					<td class="h5 fw-bold">Tyres Comments:</td>
 					<td class="h5">@((report.TyresComments == null) ? "N/A" : report.TyresComments)</td>
@@ -877,10 +891,9 @@
 				</table>
 		</div>
 	</div>
+
+	<button class="btn btn-primary my-2" @onclick="(() => previousPage())">Go to previous page</button>
 }
-
-<button class="btn btn-primary my-2" @onclick="(() => previousPage())">Go to previous page</button>
-
 </div>
 
 @code {
