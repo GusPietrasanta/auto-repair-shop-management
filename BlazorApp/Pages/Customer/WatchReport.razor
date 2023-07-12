@@ -3,22 +3,59 @@
 @inject ICustomerSessionData sessionData
 @inject NavigationManager NavigationManager
 
-<h3>Watch Report</h3>
+<div class="container text-center">
+	<h2 class="display-5">Watch Report</h2>
 
-<button class="btn btn-primary" @onclick="(() => previousPage())">Go to previous page</button>
+	<button class="btn btn-primary" @onclick="(() => previousPage())">Go to previous page</button>
+
+	
 
 @if (report != null)
 {
-	<div class="row">
+	<div class="row justify-content-center">
 
 		<div class="col-md-6">
 
-		<p>Report ID: @report.ID</p>
-		<p>Date: @report.TimeStarted.ToShortDateString()</p>
-		<p>Time Started: @report.TimeStarted.ToShortTimeString()</p>
-		<p>Time Finished: @report.TimeFinished.ToShortTimeString()</p>
-		<p>Number Plate: @sessionData.GetSearchDetails().NumberPlate</p>
-		<p>Mileage: @report.Odometer kms</p>
+				<hr />
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th colspan="2" class="display-6 text-center">Report Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="h5 fw-bold">Report ID:</td>
+					<td class="h5">@report.ID</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Number Plate:</td>
+					<td class="h5">@sessionData.GetSearchDetails().NumberPlate</td>
+				</tr>
+
+				<tr>
+					<td class="h5 fw-bold">Mileage:</td>
+					<td class="h5">@report.Odometer.ToString("N0") kms.</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Date:</td>
+					<td class="h5">@report.TimeStarted.ToLongDateString()</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Time Started:</td>
+					<td class="h5">@report.TimeStarted.ToShortTimeString()</td>
+				</tr>
+				<tr>
+					<td class="h5 fw-bold">Time Finished:</td>
+					<td class="h5">@report.TimeFinished.ToShortTimeString()</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<hr>
+
+		<h3 class="display-6">Inspection Report</h3>
 
 		<div class="p-2 mb-6 border border-dark">
 		<label>Road Test Comments:</label>
@@ -750,10 +787,11 @@
 			</div>
 		</div>
 	</div>
-	
 }
 
-<button @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-primary my-2" @onclick="(() => previousPage())">Go to previous page</button>
+
+</div>
 
 @code {
 	const string ok = "Inspected and ok";
