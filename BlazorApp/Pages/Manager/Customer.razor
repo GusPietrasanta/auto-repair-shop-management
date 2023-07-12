@@ -1,45 +1,44 @@
 ﻿@attribute [Authorize(Roles="Manager")]
 @page "/Customer/{customerID:int}"
-@inject ICustomerDataService customerData
+@inject ICustomerDataService CustomerData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
-@inject IVehicleDataService vehicleData
-@inject NavigationManager NavigationManager
+@inject IManagerSessionData ManagerSession
+@inject IVehicleDataService VehicleData
 
-<h1>CustomerID: @customerID</h1>
+<h1>CustomerID: @CustomerId</h1>
 
-@if(customer != null)
+@if(_customer != null)
 {
 	<div class="row">
 
 		<div class="col-md-6">
 			<form>
-				<fieldset disabled="@isFormDisabled">
+				<fieldset disabled="@_isFormDisabled">
 					<h3>Customer Details: </h3>
 
 						<div class="form-group">
 							<label>First Name:</label>
-							<InputText @bind-Value="customer.FirstName" class="form-control" />
+							<InputText @bind-Value="_customer.FirstName" class="form-control" />
 						</div>
 
 						<div class="form-group">
 							<label>Last Name:</label>
-							<InputText @bind-Value="customer.LastName" class="form-control" />
+							<InputText @bind-Value="_customer.LastName" class="form-control" />
 						</div>
 						
 						<div class="form-group">
 							<label>Email:</label>
-							<InputText @bind-Value="customer.Email" class="form-control" />
+							<InputText @bind-Value="_customer.Email" class="form-control" />
 						</div>
 
 						<div class="form-group">
 							<label>Phone Number:</label>
-							<InputText @bind-Value="customer.PhoneNumber" class="form-control" />
+							<InputText @bind-Value="_customer.PhoneNumber" class="form-control" />
 						</div>
 
 						<div class="form-group">
 							<label>Address:</label>
-							<InputText @bind-Value="customer.Address" class="form-control" />
+							<InputText @bind-Value="_customer.Address" class="form-control" />
 						</div>
 
 
@@ -49,7 +48,7 @@
 			<br />
 			<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
 
-			@if (isFormDisabled == false)
+			@if (_isFormDisabled == false)
 			{
 				<button class="btn btn-success ms-2" type="submit" @onclick="(() => HandleValidSubmit())">Save</button>
 			}
@@ -60,7 +59,7 @@
 
 		<div class="col-md-6">
 			<h3>Customer Vehicles:</h3>
-			@foreach (var v in vehicles)
+			@foreach (var v in _vehicles)
 				{
 					<a class="fill-div" href="#">
 					<div class="alert-info" @onclick="(() => GoToVehicle(v.ID))">
@@ -78,42 +77,42 @@
 
 <br/>
 
-<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
 
 @code {
 	[Parameter]
-	public int customerID { get; set; }
+	public int CustomerId { get; set; }
 
-	private bool isFormDisabled = true;
+	private bool _isFormDisabled = true;
 
-	private ICustomerModel customer;
-	private List<IVehicleModel> vehicles;
+	private ICustomerModel _customer;
+	private List<IVehicleModel> _vehicles;
 
-	private void previousPage()
+	private void PreviousPage()
 	{
-		NavigationManager.NavigateTo(managerSession.GetLastPage());
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 
 	protected override async Task OnInitializedAsync()
 	{
-		customer = await customerData.ReadCustomerByID(customerID);
-		vehicles = await vehicleData.GetVehiclesByCustomerID(customerID);
+		_customer = await CustomerData.ReadCustomerByID(CustomerId);
+		_vehicles = await VehicleData.GetVehiclesByCustomerID(CustomerId);
 	}
 
 	private void ToggleEdit()
 	{
-		isFormDisabled = !isFormDisabled;
+		_isFormDisabled = !_isFormDisabled;
 	}
 
 	private async Task HandleValidSubmit()
 	{
-		await customerData.UpdateCustomer(customer);
-		isFormDisabled = true;
+		await CustomerData.UpdateCustomer(_customer);
+		_isFormDisabled = true;
 	}
 
-	private void GoToVehicle(int vehicleID)
+	private void GoToVehicle(int vehicleId)
 	{
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
-		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+		ManagerSession.SetLastPage(NavigationManager.Uri);
+		NavigationManager.NavigateTo($"/Vehicle/{vehicleId}");
 	}
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="21a08bee-f287-4ffc-a62a-66e97130528a" name="RepairShopDB Mapping">
+      <data-sources db="3c6a1437-d755-467a-bef3-06a6f4815a6e" ddl="faeffcae-9bbc-42a9-8c4f-a8ab26ecd947" />
+      <scope>
+        <node kind="database" negative="1">
+          <node kind="schema" negative="1" />
+        </node>
+      </scope>
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="faeffcae-9bbc-42a9-8c4f-a8ab26ecd947" />
+          <option name="name" value="RepairShopDB" />
+          <option name="dbmsName" value="MSSQL" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Customer.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Vehicle.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Appointment.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Mechanic.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Report.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Message.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Tables/Stock.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_Create.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_ReadAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_ReadLows.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_Read_SearchBar.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_Read_ByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_Update_ByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Stock/spStock_Delete.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Create.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_ReadAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Details_ReadAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_DeleteByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_AssignMechanicByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Details_ReadByUserName.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_UpdateCompletedById.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_CountByMechanicToday.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Today_Details.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_Create.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_ReadByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_UpdateFirstVisitByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_ReadByCustomerID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_Update.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_ReadAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_Read_SearchBar.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Create.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_ReadAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Read_By_ID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_DeleteByID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Update.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Read_SearchBar.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Mechanic/spMechanic_ReadAllBasic.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Create.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchByLastName_Rego.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchAllDashboard.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_ID_From_AppointmentID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Read_By_ID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Archive.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Read_By_VehicleID.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchAllDashboardNonArchived.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Message/spMessage_Create.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Message/spMessage_ReadAll.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Message/spMessage_MarkAsRead.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Statistics/spStatisticsGetVehicleCountByBrand.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Statistics/spStatisticsGetTopImmediateAttentionItems.sql" />
+            </array>
+          </option>
+          <option name="remarks" value="Database Project" />
+          <option name="outPath" value="$PROJECT_DIR$/Database" />
+          <option name="codeStyleName" value="Visual Studio Database Project" />
+          <option name="outLayout" value="File per object by schema.groovy" />
+          <option name="scriptOptions">
+            <map>
+              <entry key="ConstraintContext" value="CONSTRAINT_IN_TABLE" />
+              <entry key="MsVsDdlCompatibility" value="1" />
+              <entry key="QualifyWithSchema" value="ALWAYS" />
+              <entry key="Reformat" value="1" />
+              <entry key="UseSemicolon" value="1" />
+            </map>
+          </option>
+        </State>
+      </list>
+    </option>
+  </component>
+</project>

@@ -14,7 +14,9 @@
 
 		@if (mechanicSession.GetAppointmentToWorkOn() != null)
 		{
-			<h3>Inspection Report for vehicle @mechanicSession.GetAppointmentToWorkOn().NumberPlate successfully submitted!</h3>
+			<div class="alert alert-success text-center" role="alert">
+				<h3>Inspection Report for vehicle <b>@mechanicSession.GetAppointmentToWorkOn().NumberPlate</b> successfully submitted!</h3>
+			</div>
 		}
 
 		@if (appointments == null)
