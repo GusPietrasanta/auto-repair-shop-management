@@ -1,5 +1,23 @@
 ﻿@page "/PastReports"
 
+
+@if (searchDetails.NumberPlate != null && reports != null)
+{
+	@if (reports.Count > 0)
+	{
+		<PageTitle>Reports for @searchNumberPlate</PageTitle>
+	}
+	else
+	{
+		<PageTitle>Past Reports</PageTitle>
+	}
+}
+else
+{
+	<PageTitle>Past Reports</PageTitle>
+}
+
+
 @inject NavigationManager NavigationManager
 @inject IReportDataService reportData
 @inject ICustomerSessionData sessionData
@@ -34,17 +52,19 @@
 {
 	@if (reports != null)
 	{
+		<hr>
 		@if (reports.Count == 0)
 		{
-			<h2>No reports were found with the provided details.</h2>
-			<h3>Please try again.</h3>
+			<div class="alert alert-warning text-center" role="alert">
+				<h3>No reports were found with the provided details.</h3>
+				<h3>Please try again.</h3>
+			</div>
 		}
 		else
 		{
-			<hr>
 
 			<div>
-				<h3 class="display-6 text-center">Reports found for vehicle @searchDetails.NumberPlate</h3>
+						<h3 class="display-6 text-center">Reports found for vehicle @searchNumberPlate</h3>
 
 				@foreach (var r in reports)
 				{				
@@ -80,6 +100,7 @@
 	private ISearchReporstByLastNameAndRego searchDetails = new UISearchReporstByLastNameAndRego();
 	private List<IFullReportModel> reports;
 	private bool wasSearchButtonClicked = false;
+	private string searchNumberPlate = "";
 
 	private DateTime previousReportDate;
 	private int previousReportOdometer;
@@ -107,6 +128,8 @@
 		sessionData.SetReports(reports);
 		sessionData.SetSearchButtonClickedToTrue();
 		sessionData.SetSearchDetails(searchDetails);
+
+		searchNumberPlate = searchDetails.NumberPlate;
 
 		wasSearchButtonClicked = true;
 	}

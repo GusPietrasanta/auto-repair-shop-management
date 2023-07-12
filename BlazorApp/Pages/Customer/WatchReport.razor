@@ -1,4 +1,5 @@
 ﻿@page "/WatchReport"
+<PageTitle>Report For @sessionData.GetSearchDetails().NumberPlate On @report.TimeStarted.ToString("dd/MM/yy")</PageTitle>
 
 @inject ICustomerSessionData sessionData
 @inject NavigationManager NavigationManager
@@ -14,11 +15,11 @@
 {
 	<div class="row justify-content-center">
 
-		<div class="col-md-6">
+		<div class="col-10">
 
 				<hr />
 
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover mx-auto w-75">
 			<thead>
 				<tr>
 					<th colspan="2" class="display-6 text-center">Report Details</th>
@@ -55,736 +56,825 @@
 
 		<hr>
 
-		<h3 class="display-6">Inspection Report</h3>
+        <table class="table table-hover align-middle">
 
-		<div class="p-2 mb-6 border border-dark">
-		<label>Road Test Comments:</label>
-		@if (report.RoadTestComments == null)
-			{
-				<p>N/A</p>
-			}
-			else
-			{
-				<p>@report.RoadTestComments</p>
-			}
-		</div>
+            <thead>
+                <tr>
+                    <th colspan="2" class="display-6 text-center">Inspection Report</th>
+                </tr>
+            </thead>
+
+            <tbody>
+				<tr class="@(report.RoadTestComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Road Test Comments:</td>
+					<td class="h5">@((report.RoadTestComments == null) ? "N/A" : report.RoadTestComments)</td>
+				</tr>
+
+				<tr class="@(report.GeneralComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">General Comments:</td>
+					<td class="h5">@((report.GeneralComments == null) ? "N/A" : report.GeneralComments)</td>
+				</tr>
 		
-		<div class="p-2 mb-6 border border-dark">
-		<label>General Comments:</label>
-				@if (report.GeneralComments == null)
+				<tr class="@(report.StoredFaultCodes == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Stored Fault Codes:</td>
+					<td class="h5">@((report.StoredFaultCodes == null) ? "N/A" : report.StoredFaultCodes)</td>
+				</tr>
+
+
+				@if (report.AirConditioning == ok)
 				{
-				<p>N/A</p>
-			}
-			else
-			{
-				<p>@report.GeneralComments</p>
-			}
-		</div>
-		
-		<div class="p-2 mb-6 border border-dark">
-		<label>Stored Fault Codes:</label>
-			@if (report.StoredFaultCodes == null)
-			{
-			<p>N/A</p>
-			}
-			else
-			{
-				<p>@report.StoredFaultCodes</p>
-			}
-		</div>
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Air Conditioning:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
+				}
+				else if (report.AirConditioning == average)
+				{
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Air Conditioning:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
+				}
+				else if (report.AirConditioning == bad)
+				{
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Air Conditioning:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
+				}
 
-		<div class="p-2 mb-6 border border-dark">
-			<label>Air Conditioning:</label>
-			@if (report.AirConditioning == ok)
-			{
-				@((MarkupString)okDiv)
-			}
-			else if (report.AirConditioning == average)
-			{
-				@((MarkupString)averageDiv)
-			}
-			else if (report.AirConditioning == bad)
-			{
-				@((MarkupString)badDiv)
-			}
-		</div>
-		
-		<div class="p-2 mb-6 border border-dark">
-			<label>Lights:</label>
-			@if (report.Lights == ok)
-			{
-				@((MarkupString)okDiv)
-			}
-				else if (@report.Lights == @average)
-			{
-				@((MarkupString)averageDiv)
-			}
-				else if (@report.Lights == @bad)
-			{
-				@((MarkupString)badDiv)
-			}
-		</div>
+				@if (report.Lights == ok)
+				{
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Lights:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
+				}
+				else if (report.Lights == average)
+				{
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Lights:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
+				}
+				else if (report.Lights == bad)
+				{
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Lights:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
+				}
 
-		<div class="p-2 mb-6 border border-dark">
-			<label>Lights Comments:</label>
-			@if (report.LightsComments == null)
-			{
-				<p>N/A</p>
-			}
-			else
-			{
-					<p>@report.LightsComments</p>
-			}
-		</div>
+						<tr class="@(report.LightsComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Lights Comments:</td>
+							<td class="h5">@((report.LightsComments == null) ? "N/A" : report.LightsComments)</td>
+				</tr>
 
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Front Wipers:</label>
 				@if (report.FrontWipers == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Wipers:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.FrontWipers == @average)
+				else if (report.FrontWipers == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Wipers:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.FrontWipers == @bad)
+				else if (report.FrontWipers == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Wipers:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Rear Wipers:</label>
+
 				@if (report.RearWiper == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Wiper:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.RearWiper == @average)
+				else if (report.RearWiper == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Wiper:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.RearWiper == @bad)
+				else if (report.RearWiper == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Wiper:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
 				else
 				{
-					<p>N/A</p>
+					<tr class="table-secondary" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Wiper:</td>
+						<td class="h5">N/A</td>
+					</tr>
 				}
-			</div>
-			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Battery:</label>
+
 				@if (report.Battery == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Battery:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.Battery == @average)
+				else if (report.Battery == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Battery:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.Battery == @bad)
+				else if (report.Battery == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Battery:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Battery Comments:</label>
-				@if (report.BatteryComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.BatteryComments</p>
-				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Air Filter:</label>
+				<tr class="@(report.BatteryComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Battery Comments:</td>
+					<td class="h5">@((report.BatteryComments == null) ? "N/A" : report.BatteryComments)</td>
+				</tr>
+
 				@if (report.AirFilter == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Air Filter:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.AirFilter == @average)
+				else if (report.AirFilter == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Air Filter:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.AirFilter == @bad)
+				else if (report.AirFilter == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Air Filter:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Cabin Filter:</label>
+
 				@if (report.CabinFilter == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Cabin Filter:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.CabinFilter == @average)
+				else if (report.CabinFilter == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Cabin Filter:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.CabinFilter == @bad)
+				else if (report.CabinFilter == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Cabin Filter:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Drive Belt/s:</label>
+
 				@if (report.DriveBelts == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Drive Belts:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.DriveBelts == @average)
+				else if (report.DriveBelts == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Drive Belts:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.DriveBelts == @bad)
+				else if (report.DriveBelts == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Drive Belts:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Timing Belt:</label>
+
 				@if (report.TimingBelt == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Timing Belt:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.TimingBelt == @average)
+				else if (report.TimingBelt == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Timing Belt:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.TimingBelt == @bad)
+				else if (report.TimingBelt == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Timing Belt:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
 				else
 				{
-					<p>N/A</p>
+					<tr class="table-secondary" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Wiper:</td>
+						<td class="h5">N/A</td>
+					</tr>
 				}
-			</div>
 
-
-			<div class="p-2 mb-6 border border-dark">
-				<label>Radiator:</label>
 				@if (report.Radiator == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Radiator:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.Radiator == @average)
+				else if (report.Radiator == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Radiator:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.Radiator == @bad)
+				else if (report.Radiator == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Radiator:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Hoses:</label>
+
 				@if (report.Hoses == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Hoses:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.Hoses == @average)
+				else if (report.Hoses == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Hoses:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.Hoses == @bad)
+				else if (report.Hoses == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Hoses:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Hoses Comments:</label>
-				@if (report.HosesComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.HosesComments</p>
-				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Engine Oil:</label>
+
+				<tr class="@(report.HosesComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Hose Comments:</td>
+					<td class="h5">@((report.HosesComments == null) ? "N/A" : report.HosesComments)</td>
+				</tr>
+
 				@if (report.EngineOil == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Engine Oil:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.EngineOil == @average)
+				else if (report.EngineOil == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Engine Oil:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.EngineOil == @bad)
+				else if (report.EngineOil == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Engine Oil:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Coolant:</label>
 				@if (report.Coolant == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Coolant:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.Coolant == @average)
+				else if (report.Coolant == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Coolant:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.Coolant == @bad)
+				else if (report.Coolant == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Coolant:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Brake Fluid:</label>
+
 				@if (report.BrakeFluid == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Brake Fluid:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.BrakeFluid == @average)
+				else if (report.BrakeFluid == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Brake Fluid:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.BrakeFluid == @bad)
+				else if (report.BrakeFluid == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Brake Fluid:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Power Steering Fluid:</label>
+
+
 				@if (report.PowerSteeringFluid == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Power Steering Fluid:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.PowerSteeringFluid == @average)
+				else if (report.PowerSteeringFluid == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Power Steering Fluid:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.PowerSteeringFluid == @bad)
+				else if (report.PowerSteeringFluid == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Power Steering Fluid:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Transmission Fluid:</label>
-				@if (report.TransmissionFluid == ok)
-				{
-					@((MarkupString)okDiv)
-				}
-				else if (@report.TransmissionFluid == @average)
-				{
-					@((MarkupString)averageDiv)
-				}
-				else if (@report.TransmissionFluid == @bad)
-				{
-					@((MarkupString)badDiv)
-				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Windscreen Washer Fluid:</label>
-				@if (report.WindscreenWasherFluid == ok)
-				{
-					@((MarkupString)okDiv)
-				}
-				else if (@report.WindscreenWasherFluid == @average)
-				{
-					@((MarkupString)averageDiv)
-				}
-				else if (@report.WindscreenWasherFluid == @bad)
-				{
-					@((MarkupString)badDiv)
-				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Fluids Comments:</label>
-				@if (report.FluidsComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.FluidsComments</p>
-				}
-			</div>
+						@if (report.TransmissionFluid == ok)
+						{
+							<tr class="table-success" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Transmission Fluid:</td>
+								<td class="h5">Inspected And Ok</td>
+							</tr>
+						}
+						else if (report.TransmissionFluid == average)
+						{
+							<tr class="table-warning" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Transmission Fluid:</td>
+								<td class="h5">May Require Future Attention</td>
+							</tr>
+						}
+						else if (report.TransmissionFluid == bad)
+						{
+							<tr class="table-danger" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Transmission Fluid:</td>
+								<td class="h5">Requires Immediate Attention</td>
+							</tr>
+						}
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Spark Plugs:</label>
+
+						@if (report.WindscreenWasherFluid == ok)
+						{
+							<tr class="table-success" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
+								<td class="h5">Inspected And Ok</td>
+							</tr>
+						}
+						else if (report.WindscreenWasherFluid == average)
+						{
+							<tr class="table-warning" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
+								<td class="h5">May Require Future Attention</td>
+							</tr>
+						}
+						else if (report.WindscreenWasherFluid == bad)
+						{
+							<tr class="table-danger" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Windscreen Washer Fluid:</td>
+								<td class="h5">Requires Immediate Attention</td>
+							</tr>
+						}
+
+				<tr class="@(report.FluidsComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Fluids Comments:</td>
+							<td class="h5">@((report.FluidsComments == null) ? "N/A" : report.FluidsComments)</td>
+				</tr>
+
 				@if (report.SparkPlugs == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Spark Plugs:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.SparkPlugs == @average)
+				else if (report.SparkPlugs == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Spark Plugs:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.SparkPlugs == @bad)
+				else if (report.SparkPlugs == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Spark Plugs:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
 				else
 				{
-					<p>N/A</p>
+				<tr class="table-secondary" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Spark Plugs:</td>
+					<td class="h5">N/A</td>
+				</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Fuel Filter:</label>
 				@if (report.FuelFilter == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Fuel Filter:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.FuelFilter == @average)
+				else if (report.FuelFilter == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Fuel Filter:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.FuelFilter == @bad)
+				else if (report.FuelFilter == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Fuel Filter:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Front Suspension:</label>
+
 				@if (report.FrontSuspension == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Suspension:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.FrontSuspension == @average)
+				else if (report.FrontSuspension == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Suspension:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.FrontSuspension == @bad)
+				else if (report.FrontSuspension == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Suspension:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Front Suspension Comments:</label>
-				@if (report.FrontSuspensionComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.FrontSuspensionComments</p>
-				}
-			</div>
-			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Rear Suspension:</label>
+				<tr class="@(report.FrontSuspensionComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Front Suspension Comments:</td>
+					<td class="h5">@((report.FrontSuspensionComments == null) ? "N/A" : report.FrontSuspensionComments)</td>
+				</tr>
+
 				@if (report.RearSuspension == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Suspension:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.RearSuspension == @average)
+				else if (report.RearSuspension == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Suspension:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.RearSuspension == @bad)
+				else if (report.RearSuspension == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Suspension:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Rear Suspension Comments:</label>
-				@if (report.RearSuspensionComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.RearSuspensionComments</p>
-				}
-			</div>
+				<tr class="@(report.RearSuspensionComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Rear Suspension Comments:</td>
+					<td class="h5">@((report.RearSuspensionComments == null) ? "N/A" : report.RearSuspensionComments)</td>
+				</tr>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Front Brakes:</label>
 				@if (report.FrontBrakes == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Brakes:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.FrontBrakes == @average)
+				else if (report.FrontBrakes == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Brakes:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.FrontBrakes == @bad)
+				else if (report.FrontBrakes == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Front Brakes:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Front Brakes Comments:</label>
-				@if (report.FrontBrakesComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.FrontBrakesComments</p>
-				}
-			</div>
+				<tr class="@(report.FrontBrakesComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Front Brakes Comments:</td>
+					<td class="h5">@((report.FrontBrakesComments == null) ? "N/A" : report.FrontBrakesComments)</td>
+				</tr>
 			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Rear Brakes:</label>
 				@if (report.RearBrakes == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Brakes:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.RearBrakes == @average)
+				else if (report.RearBrakes == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Rear Brakes:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.RearBrakes == @bad)
+						else if (report.RearBrakes == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+								<td class="h5 fw-bold">Rear Brakes:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
-			<div class="p-2 mb-6 border border-dark">
-				<label>Rear Brakes Comments:</label>
-				@if (report.RearBrakesComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.RearBrakesComments</p>
-				}
-			</div>
+				<tr class="@(report.RearBrakesComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Rear Brakes Comments:</td>
+					<td class="h5">@((report.RearBrakesComments == null) ? "N/A" : report.RearBrakesComments)</td>
+				</tr>
 
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Right Hand Front Tyre:</label>
 				@if (report.RHFTyre == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Right Hand Front Tyre:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.RHFTyre == @average)
+				else if (report.RHFTyre == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Right Hand Front Tyre:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.RHFTyre == @bad)
+				else if (report.RHFTyre == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Right Hand Front Tyre:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Left Hand Front Tyre:</label>
+
 				@if (report.LHFTyre == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Left Hand Front Tyre:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.LHFTyre == @average)
+				else if (report.LHFTyre == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Left Hand Front Tyre:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.LHFTyre == @bad)
+				else if (report.LHFTyre == bad)
 				{
-					@((MarkupString)badDiv)
-				}
-			</div>
-			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Right Hand Rear Tyre:</label>
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Left Hand Front Tyre:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
+				}						
+						
 				@if (report.RHRTyre == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Right Hand Rear Tyre:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.RHRTyre == @average)
+				else if (report.RHRTyre == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Right Hand Rear Tyre:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.RHRTyre == @bad)
+				else if (report.RHRTyre == bad)
 				{
-					@((MarkupString)badDiv)
-				}
-			</div>
-
-			<div class="p-2 mb-6 border border-dark">
-				<label>Left Hand Rear Tyre:</label>
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Right Hand Rear Tyre:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
+				}						
+						
 				@if (report.LHRTyre == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Left Hand Rear Tyre:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.LHRTyre == @average)
+				else if (report.LHRTyre == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Left Hand Rear Tyre:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.LHRTyre == @bad)
+				else if (report.LHRTyre == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Left Hand Rear Tyre:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Tyres Comments:</label>
-				@if (report.TyresComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.TyresComments</p>
-				}
-			</div>
+				<tr class="@(report.TyresComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Tyres Comments:</td>
+					<td class="h5">@((report.TyresComments == null) ? "N/A" : report.TyresComments)</td>
+				</tr>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Exhaust:</label>
 				@if (report.Exhaust == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Exhaust:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.Exhaust == @average)
+				else if (report.Exhaust == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Exhaust:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.Exhaust == @bad)
+				else if (report.Exhaust == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Exhaust:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Exhaust Comments:</label>
-				@if (report.ExhaustComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.ExhaustComments</p>
-				}
-			</div>
-			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Drivetrain:</label>
+
+				<tr class="@(report.ExhaustComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Exhaust Comments:</td>
+					<td class="h5">@((report.ExhaustComments == null) ? "N/A" : report.ExhaustComments)</td>
+				</tr>
+
 				@if (report.Drivetrain == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Drivetrain:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.Drivetrain == @average)
+				else if (report.Drivetrain == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Drivetrain:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.Drivetrain == @bad)
+				else if (report.Drivetrain == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Drivetrain:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Drivetrain Comments:</label>
-				@if (report.DrivetrainComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.DrivetrainComments</p>
-				}
-			</div>
+				<tr class="@(report.DrivetrainComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Drivetrain Comments:</td>
+					<td class="h5">@((report.DrivetrainComments == null) ? "N/A" : report.DrivetrainComments)</td>
+				</tr>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Oil Leaks:</label>
 				@if (report.OilLeaks == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Oil Leaks:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.OilLeaks == @average)
+				else if (report.OilLeaks == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Oil Leaks:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.OilLeaks == @bad)
+				else if (report.OilLeaks == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Oil Leaks:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Oil Leaks Comments:</label>
-				@if (report.OilLeaksComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.OilLeaksComments</p>
-				}
-			</div>
 
-			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Coolant Leaks:</label>
+				<tr class="@(report.OilLeaksComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Oil Leaks Comments:</td>
+					<td class="h5">@((report.OilLeaksComments == null) ? "N/A" : report.OilLeaksComments)</td>
+				</tr>
+
+
 				@if (report.CoolantLeaks == ok)
 				{
-					@((MarkupString)okDiv)
+					<tr class="table-success" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Coolant Leaks:</td>
+						<td class="h5">Inspected And Ok</td>
+					</tr>
 				}
-				else if (@report.CoolantLeaks == @average)
+				else if (report.CoolantLeaks == average)
 				{
-					@((MarkupString)averageDiv)
+					<tr class="table-warning" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Coolant Leaks:</td>
+						<td class="h5">May Require Future Attention</td>
+					</tr>
 				}
-				else if (@report.CoolantLeaks == @bad)
+				else if (report.CoolantLeaks == bad)
 				{
-					@((MarkupString)badDiv)
+					<tr class="table-danger" style="height: 4.5rem;">
+						<td class="h5 fw-bold">Coolant Leaks:</td>
+						<td class="h5">Requires Immediate Attention</td>
+					</tr>
 				}
-			</div>			
-			<div class="p-2 mb-6 border border-dark">
-				<label>Coolant Leaks Comments:</label>
-				@if (report.CoolantLeaksComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.CoolantLeaksComments</p>
-				}
-			</div>
+				<tr class="@(report.CoolantLeaksComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Coolant Leaks Comments:</td>
+					<td class="h5">@((report.CoolantLeaksComments == null) ? "N/A" : report.CoolantLeaksComments)</td>
+				</tr>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Other Leaks Comments:</label>
-				@if (report.CoolantLeaksComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.OtherLeaksComments</p>
-				}
-			</div>
+				<tr class="@(report.OtherLeaksComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Other Leaks Comments:</td>
+					<td class="h5">@((report.OtherLeaksComments == null) ? "N/A" : report.OtherLeaksComments)</td>
+				</tr>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Other Comments:</label>
-				@if (report.Other == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.Other</p>
-				}
-			</div>
+				<tr class="@(report.Other == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Other Comments:</td>
+					<td class="h5">@((report.Other == null) ? "N/A" : report.Other)</td>
+				</tr>
 
-			<div class="p-2 mb-6 border border-dark">
-				<label>Other Inspection Comments:</label>
-				@if (report.OtherInspectionComments == null)
-				{
-					<p>N/A</p>
-				}
-				else
-				{
-					<p>@report.OtherInspectionComments</p>
-				}
-			</div>
+				<tr class="@(report.OtherInspectionComments == null ? "table-light" : "table-info")" style="height: 4.5rem;">
+					<td class="h5 fw-bold">Other Inspection Comments:</td>
+					<td class="h5">@((report.OtherInspectionComments == null) ? "N/A" : report.OtherInspectionComments)</td>
+				</tr>
+
+					</tbody>
+				</table>
 		</div>
 	</div>
 }
@@ -798,7 +888,7 @@
 	const string average = "May require future attention";
 	const string bad = "Requires immediate attention";
 
-	const string okDiv = "<div class='p-3 mb-2 bg-success text-white'>Inspected and ok</div>";
+	const string okDiv = "<tr class='table-success' style='height: 4.5rem;'><td class='h5 fw-bold'>:</td><td class='h5'>Inspected And Ok</td></tr>";
 	const string averageDiv = "<div class='p-3 mb-2 bg-warning text-dark'>May require future attention</div>";
 	const string badDiv = "<div class='p-3 mb-2 bg-danger text-white'>Requires immediate attention</div>";
 
