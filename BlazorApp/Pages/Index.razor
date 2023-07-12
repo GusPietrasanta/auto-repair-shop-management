@@ -5,7 +5,41 @@
 <AuthorizeView>
 	<NotAuthorized>
 
-		<h1>Customer Index</h1>
+        <div>
+
+			<h1 class="text-center display-3">Welcome to Gus' Auto Repairs!</h1>
+
+			<hr />
+
+			<div class="row mt-4 justify-content-center">
+				<div class="col-4 text-center">
+					<img src="./Images/car.jpg" class="rounded img-fluid"/>
+				</div>
+
+				<div class="col-4 text-end">
+					<h2 class="display-6 fw-normal">Services</h2>
+					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et mi dolor. Aenean gravida dolor at dictum gravida. Pellentesque auctor, lacus ac interdum consectetur, est mi condimentum erat, et accumsan nibh lectus non nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean venenatis ultrices massa eget iaculis.</p>
+				</div>
+			</div>
+
+			<div class="row mt-4 justify-content-center">
+				<div class="col-4">
+					<h2 class="display-6 fw-normal">About Me</h2>
+					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et mi dolor. Aenean gravida dolor at dictum gravida. Pellentesque auctor, lacus ac interdum consectetur, est mi condimentum erat, et accumsan nibh lectus non nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean venenatis ultrices massa eget iaculis.</p>
+				</div>
+
+				<div class="col-4 text-center">
+					<img src="./Images/me.jpg" class="rounded img-fluid"/>
+				</div>
+			</div>
+
+			<BlazorApp.Pages.Customer.Carousel/>
+
+			<hr />	
+
+		</div>
+
+
 
 	</NotAuthorized>
 </AuthorizeView>

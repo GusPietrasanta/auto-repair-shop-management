@@ -6,75 +6,124 @@
 @inject ICustomerSessionData sessionData
 @inject NavigationManager NavigationManager
 
-<h3>Book An Appointment</h3>
+<div class="text-center">
+	<h2 class="display-3">Book An Appointment With Us!</h2>
+</div>
 
-<div class="row">
-	<div class="col-md-6">
+
+<div class="row mt-4 justify-content-between">
+	<div class="col-md-6 p-4 bg-info-subtle rounded-4">
 		<EditForm Model="@newAppointment" OnValidSubmit="HandleValidSubmit">
 			<DataAnnotationsValidator/>
 			<ValidationSummary/>
 
-			<div class="mb-3">
-				<label>First Name:</label>
-				<InputText @bind-Value="newAppointment.FirstName" class="form-control" />
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="newAppointment.FirstName" id="firstName" placeholder="First Name" class="form-control" />
+				<label for="firstName" class="form-label">First Name</label>
 			</div>
 
-			<div class="mb-3">
-				<label>Last Name:</label>
-				<InputText @bind-Value="newAppointment.LastName" class="form-control" />
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="newAppointment.LastName" id="lastName" placeholder="Last Name" class="form-control" />
+				<label for="lastName" class="form-label">Last Name</label>
 			</div>
 
-			<div class="mb-3">
-				<label>Email:</label>
-				<InputText @bind-Value="newAppointment.Email" class="form-control" />
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="newAppointment.Email" id="email" placeholder="Email" class="form-control" />
+				<label for="email" class="form-label">Email</label>
 			</div>
 
-			<div class="mb-3">
-				<label>Phone Number:</label>
-				<InputText @bind-Value="newAppointment.PhoneNumber" class="form-control" />
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="newAppointment.PhoneNumber" id="phoneNumber" placeholder="Phone Number" class="form-control" />
+				<label for="phoneNumber" class="form-label">Phone Number</label>
 			</div>
 
-			<div class="mb-3">
-				<label>Address:</label>
-				<InputText @bind-Value="newAppointment.Address" class="form-control" />
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="newAppointment.Address" id="address" placeholder="Address" class="form-control" />
+				<label for="address" class="form-label">Address</label>
 			</div>
 
-			<div class="mb-3">
-				<label>Vehicle Plate Number (Rego):</label>
-				<InputText @bind-Value="newAppointment.NumberPlate" @onfocusout="RetrieveVehicleData" class="form-control" />
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="newAppointment.NumberPlate" @onfocusout="RetrieveVehicleData" id="numberPlate" placeholder="Vehicle Number Plate" class="form-control" />
+				<label for="numberPlate" class="form-label">Vehicle Number Plate</label>
 			</div>
 
-			<div class="mb-3">
-				<label>Date:</label>
-				<InputDate @bind-Value="newAppointment.Date" class="form-control"/>
+			<div class="mb-3 form-floating">
+				<InputDate @bind-Value="newAppointment.Date" id="date" placeholder="Date" class="form-control" />
+				<label for="date" class="form-label">Date</label>
 			</div>
 
-			<button class="btn btn-primary" type="submit">Book An Appointment!</button>
+			<div class="text-center">
+				<button class="btn btn-primary" type="submit">Book An Appointment!</button>
+			</div>
+			
+
 		</EditForm>
 	</div>
 
 
-	<div class="col-md-6">
+	
 
 		@if (newVehicle != null)
 		{
-			<h1>Vehicle Details:</h1>
-			<h2>Rego: @newVehicle.NumberPlate</h2>
-			<h2>Make: @newVehicle.Make</h2>
-			<h2>Model: @newVehicle.Model</h2>
-			<h2>Year: @newVehicle.Year</h2>
-			<h3>VIN: @newVehicle.VIN</h3>
-			<h3>Engine: @newVehicle.EngineDescription</h3>
-			<h3>Body: @newVehicle.BodyType</h3>
-			<h3>Transmission: @newVehicle.TransmissionType</h3>
-			<h3>Fuel: @newVehicle.FuelType</h3>
+			<div class="col-md-6 p-4 rounded-4">
+
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th colspan="2" class="display-5 text-center">Vehicle Details</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="h4 fw-bold">Number Plate:</td>
+						<td class="h4">@newVehicle.NumberPlate</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Make:</td>
+						<td class="h4">@newVehicle.Make</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Model:</td>
+						<td class="h4">@newVehicle.Model</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Year:</td>
+						<td class="h4">@newVehicle.Year</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">VIN:</td>
+						<td class="h4">@newVehicle.VIN</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Engine:</td>
+						<td class="h4">@newVehicle.EngineDescription</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Body:</td>
+						<td class="h4">@newVehicle.BodyType</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Transmission:</td>
+						<td class="h4">@newVehicle.TransmissionType</td>
+					</tr>
+					<tr>
+						<td class="h4 fw-bold">Fuel:</td>
+						<td class="h4">@newVehicle.FuelType</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
 		}
-		@if (apiErrorMessage != "")
+		else if (apiErrorMessage != "")
 		{
-			<h1>@apiErrorMessage</h1>
+		<div class="col-md-6 p-4 bg-alert-subtle rounded-4 text-center">
+			<div class="alert alert-danger" role="alert">
+				@apiErrorMessage
+			</div>
+		</div>
 		}
 
-	</div>
+	
 </div>
 
 @code {
@@ -89,19 +138,22 @@
 
 	private void RetrieveVehicleData()
 	{
-		apiErrorMessage = "";
-
-		newAppointment.NumberPlate = Regex.Replace(newAppointment.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
-
-		try
+		if (newAppointment.NumberPlate != null)
 		{
-			newVehicle = apiCalls.GetVehicleDetails(newAppointment.NumberPlate);
-		}
-		catch (Exception e)
-		{
-			newVehicle = null;
-			Console.WriteLine(e);
-			apiErrorMessage = "Vehicle Not Found";
+			apiErrorMessage = "";
+
+			newAppointment.NumberPlate = Regex.Replace(newAppointment.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
+
+			try
+			{
+				newVehicle = apiCalls.GetVehicleDetails(newAppointment.NumberPlate);
+			}
+			catch (Exception e)
+			{
+				newVehicle = null;
+				Console.WriteLine(e);
+				apiErrorMessage = "Vehicle Not Found";
+			}
 		}
 	}
 
