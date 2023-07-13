@@ -24,12 +24,10 @@
 						<li class="page-item @(_page == 1 ? "disabled" : "")" @onclick="(Previous)"><a class="page-link" href="#" @onclick:preventDefault="true">Previous</a></li>						
 					}
 					
-					@{
-						for (int i = 1; i <= _neededNumberOfPages; i++)
-						{
-							int pageNumber = i;
-							<li class="page-item @(_page == pageNumber ? "active" : "")" @onclick="() => PageNumber(pageNumber)"><a class="page-link" href="#" @onclick:preventDefault="true">@pageNumber</a></li>
-						}	
+					@for (int i = 1; i <= _neededNumberOfPages; i++)
+					{
+						int pageNumber = i;
+						<li class="page-item @(_page == pageNumber ? "active" : "")" @onclick="() => PageNumber(pageNumber)"><a class="page-link" href="#" @onclick:preventDefault="true">@pageNumber</a></li>
 					}
 
 					@if (_numberOfReports > _reportsPerPage * 3)
@@ -39,9 +37,7 @@
 				</ul>
 			</nav>
 		</div>
-		
-		<h2>Page: @_page</h2>
-		
+
 		@if (_inspectionsToShow != null)
 		{
 			@foreach (var c in _inspectionsToShow)
