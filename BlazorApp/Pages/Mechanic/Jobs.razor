@@ -23,6 +23,12 @@
 		{
 			<p>Loading appointments...</p>
 		}
+		else if (_appointments.Count == 0)
+		{
+			<div class="alert alert-success text-center" role="alert">
+            	<h3>All done for today!</h3>
+            </div>
+		}
 		else
 		{
 			@foreach (var a in _appointments)
@@ -49,10 +55,10 @@
 	private List<IDetailedAppointment> _appointments;
 	private string _userName;
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
-		var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
-		var user = authstate.User;
+		var authState = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+		var user = authState.User;
 		_userName = user.Identity!.Name;
 
 		_appointments = await AppointmentData.ReadAllAppointmentsDetailedByUserName(_userName);

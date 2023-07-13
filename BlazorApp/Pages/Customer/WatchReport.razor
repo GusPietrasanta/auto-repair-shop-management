@@ -311,7 +311,7 @@ else
 				}
 				else
 				{
-					<tr class="table-secondary" style="height: 4.5rem;">
+					<tr class="table-light" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Timing Belt:</td>
 						<td class="h5">N/A</td>
 					</tr>
@@ -755,7 +755,7 @@ else
 					</tr>
 				}
 
-				<tr class="@(_report.NeedsAlignment == false ? "table-success" : "table-info")" style="height: 4.5rem;">
+				<tr class="@(_report.NeedsAlignment == false ? "table-success" : "table-danger")" style="height: 4.5rem;">
 					<td class="h5 fw-bold">Needs Alignment:</td>
 					<td class="h5">@((_report.NeedsAlignment == false) ? "No" : "Yes")</td>
 				</tr>

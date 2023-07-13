@@ -14,7 +14,15 @@ namespace DataAccessLibrary.Data
 
 		public async Task CreateMessage(IMessageModel newMessage)
 		{
-			await _dataAccess.SaveData("spMessage_Create", newMessage, "SQLDB");
+			var m = new
+			{
+				newMessage.UserName,
+				newMessage.Content,
+				newMessage.PostedOn,
+				newMessage.Tag
+			};
+			
+			await _dataAccess.SaveData("spMessage_Create", m, "SQLDB");
 		}
 
 		public async Task<List<IMessageModel>> ReadAllUnreadMessages()

@@ -8,24 +8,28 @@
 	<div class="col-md-6">
 		
 		<EditForm OnValidSubmit="HandleMessageValidSubmit" Model="_message">
-			<div class="text-center">
+			<DataAnnotationsValidator/>
+
+			<div class="form-group text-center">
 				<h2>Post a Message</h2>
 				<div>
-					<InputTextArea @bind-Value="_message.Content" cols="50" rows="8"/>
+					<InputTextArea class="form-control" @bind-Value="_message.Content" cols="50" rows="8"/>
 				</div>
-				<br />
+				<br/>
 				<div>
-				<InputSelect @bind-Value="_message.Tag">
-					<option value="">Select a tag for the message...</option>
-					<option value="Safety">Safety</option>
-					<option value="Schedule">Schedule</option>
-					<option value="Inventory">Inventory</option>
-					<option value="Equipment">Equipment</option>
-				</InputSelect>
+					<InputSelect class="form-select" @bind-Value="_message.Tag">
+						<option value="">Select a tag for the message...</option>
+						<option value="Safety">Safety</option>
+						<option value="Schedule">Schedule</option>
+						<option value="Inventory">Inventory</option>
+						<option value="Equipment">Equipment</option>
+					</InputSelect>
+					
+					<ValidationSummary/>
+
 				</div>
-				<br />
 				<div>
-					<button type="submit" class="btn btn-primary">Send</button>
+					<button type="submit" class="m-2 btn btn-primary">Send</button>
 				</div>
 			</div>
 		</EditForm>
@@ -48,7 +52,7 @@
 @code {
 	private int _jobsAssigned;
 	private string _userName;
-	private IMessageModel _message = new UIMessageModel();
+	private UIMessageModel _message = new();
 
 	protected override async Task OnInitializedAsync()
 	{
