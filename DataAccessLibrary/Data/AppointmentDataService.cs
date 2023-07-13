@@ -1,12 +1,5 @@
-﻿using Dapper;
-using DataAccessLibrary.DataAccess;
+﻿using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DataAccessLibrary.Data
 {
 	public class AppointmentDataService : IAppointmentDataService
@@ -29,7 +22,7 @@ namespace DataAccessLibrary.Data
 
 			var newAppointmentId = await _dataAccess.LoadData<AppointmentModel, dynamic>("dbo.spAppointment_Create", p, "SQLDB");
 
-			return newAppointmentId.FirstOrDefault().ID;
+			return newAppointmentId.FirstOrDefault()!.ID;
 		}
 
 		public async Task<List<IAppointmentModel>> ReadAllAppointments()
@@ -75,11 +68,11 @@ namespace DataAccessLibrary.Data
 			return appointmentCount.FirstOrDefault();
 		}
 
-		public async Task<List<IDetailedAppointment>> ReadTodaysAppointmentsDetailed()
+		public async Task<List<IDetailedAppointment>> ReadTodayAppointmentsDetailed()
 		{
-			var todaysDetailedAppointments = await _dataAccess.LoadData<DetailedAppointment, dynamic>("dbo.spAppointment_Today_Details", new { Today = DateTime.Today }, "SQLDB");
+			var todayDetailedAppointments = await _dataAccess.LoadData<DetailedAppointment, dynamic>("dbo.spAppointment_Today_Details", new { DateTime.Today }, "SQLDB");
 
-			return todaysDetailedAppointments.ToList<IDetailedAppointment>();
+			return todayDetailedAppointments.ToList<IDetailedAppointment>();
 		}
 
 	}

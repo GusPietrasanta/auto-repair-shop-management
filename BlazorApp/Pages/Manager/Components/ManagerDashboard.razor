@@ -1,11 +1,11 @@
-﻿@inject IAppointmentDataService appointmentData
-@inject IMessageDataService messageData
-@inject IStockDataService stockData
-@inject IReportDataService reportData
-@inject IMechanicDataService mechanicData
+﻿@inject IAppointmentDataService AppointmentData
+@inject IMessageDataService MessageData
+@inject IStockDataService StockData
+@inject IReportDataService ReportData
+@inject IMechanicDataService MechanicData
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
 <br />
 
@@ -17,11 +17,11 @@
 
 	<div class="col-md-6">
 		<h2>Today's Appointments:</h2>
-		@if (todayAppointments != null)
+		@if (_todayAppointments != null)
 		{
-			@foreach (var a in todayAppointments)
+			@foreach (var a in _todayAppointments)
 			{
-				<div class="@(a.UserName == null ? "alert-danger" : a.Completed != false ? "alert-success" : "alert-warning")">
+				<div class="@(a.UserName == null ? "alert-danger" : a.Completed ? "alert-success" : "alert-warning")">
 				<p>@a.ID</p>
 				<p>Car @a.NumberPlate</p>
 				@if (a.UserName != null && a.Completed == false)
@@ -37,7 +37,7 @@
 					<p>Job not assigned to any mechanic!</p>
 					<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
 						<option value="">Select Mechanic...</option>
-						@foreach (var m in mechanics)
+						@foreach (var m in _mechanics)
 						{
 							<option value="@m.ID">@m.UserName</option>
 						}
@@ -71,9 +71,9 @@
 
 	<div class="col-md-6">
 		<h2>Unread Messages: </h2>
-		@if (messages != null)
+		@if (_messages != null)
 		{
-			@foreach (var m in messages)
+			@foreach (var m in _messages)
 			{
 				<div class="alert-info">
 					<p>Message ID: @m.ID</p>
@@ -102,9 +102,9 @@
 
 	<div class="col-md-6">
 		<h2>Completed Inspections:</h2>
-		@if (completedInspections != null)
+		@if (_completedInspections != null)
 		{
-			@foreach (var c in completedInspections)
+			@foreach (var c in _completedInspections)
 			{
 				<div class="alert-info">
 				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
@@ -125,9 +125,9 @@
 	<div class="col-md-6">
 		<h2>Stock Warnings:</h2>
 
-		@if (stock != null)
+		@if (_stock != null)
 		{
-			@foreach (var i in stock)
+			@foreach (var i in _stock)
 			{
 				@if (i.Quantity == 0)
 				{
@@ -167,52 +167,55 @@
 </div>
 
 @code {
-	private List<IMechanicBasicModel> mechanics;
-	private List<IDetailedAppointment> todayAppointments;
-	private List<IMessageModel> messages;
-	private List<IStockItemModel> stock;
-	private List<IDashboardReportModel> completedInspections;
-	private int mechanicIDToAssign;
+	private List<IMechanicBasicModel> _mechanics;
+	private List<IDetailedAppointment> _todayAppointments;
+	private List<IMessageModel> _messages;
+	private List<IStockItemModel> _stock;
+	private List<IDashboardReportModel> _completedInspections;
+	private int _mechanicIDToAssign;
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
-		todayAppointments = await appointmentData.ReadTodaysAppointmentsDetailed();
-		messages = await messageData.ReadAllUnreadMessages();
-		stock = await stockData.ReadLowStockItems();
-		completedInspections = await reportData.SearchAllReportsDashboard();
-		mechanics = await mechanicData.ReadAllMechanicsBasic();
+		_todayAppointments = await AppointmentData.ReadTodayAppointmentsDetailed();
+		_messages = await MessageData.ReadAllUnreadMessages();
+		_stock = await StockData.ReadLowStockItems();
+		_completedInspections = await ReportData.SearchAllReportsDashboard();
+		_mechanics = await MechanicData.ReadAllMechanicsBasic();
 	}
 
 	private async void ResetAllDropDowns()
 	{
-		mechanicIDToAssign = 0;
+		_mechanicIDToAssign = 0;
 		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 	}
 
 	private void HandleDropDownChange(ChangeEventArgs e)
 	{
-		if (e.Value.ToString() == "")
+		if (e.Value != null)
 		{
-			mechanicIDToAssign = 0;
-		}
-		else
-		{
-			mechanicIDToAssign = int.Parse(e.Value.ToString());
+			if (e.Value.ToString() == "")
+			{
+				_mechanicIDToAssign = 0;
+			}
+			else
+			{
+					_mechanicIDToAssign = int.Parse(e.Value.ToString()!);
+			}
 		}
 	}
 
 	private async void AssignJobCard(int appointmentId)
 	{
 		Console.WriteLine(appointmentId);
-		Console.WriteLine(mechanicIDToAssign);
-		if (mechanicIDToAssign > 0)
+		Console.WriteLine(_mechanicIDToAssign);
+		if (_mechanicIDToAssign > 0)
 		{
-			await appointmentData.AssignJobCardByID(appointmentId, mechanicIDToAssign);
-			var appointment = todayAppointments.Where(x => x.ID == appointmentId).FirstOrDefault();
+			await AppointmentData.AssignJobCardByID(appointmentId, _mechanicIDToAssign);
+			var appointment = _todayAppointments.FirstOrDefault(x => x.ID == appointmentId);
 
-			appointment.MechanicID = mechanicIDToAssign;
+			appointment!.MechanicID = _mechanicIDToAssign;
 
-			appointment.UserName = mechanics.Where(x => x.ID == mechanicIDToAssign).FirstOrDefault().UserName;
+			appointment.UserName = _mechanics.FirstOrDefault(x => x.ID == _mechanicIDToAssign)!.UserName;
 
 			await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 
@@ -223,37 +226,37 @@
 	private async void SeeReportFromAppointment(int appointmentID)
 	{
 		// Get inspection number by appointmentID
-		int reportID = await reportData.GetReportIDFromAppointmentIDAsync(appointmentID);
+		int reportID = await ReportData.GetReportIDFromAppointmentIDAsync(appointmentID);
 		// managerSession.SetLastPage("/");
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		// Redirect to inspection page
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}
 
 	private async Task MarkMessageAsRead(int messageID)
 	{
-		await messageData.MarkMessageAsRead(messageID);
+		await MessageData.MarkMessageAsRead(messageID);
 
-		messages.Remove(messages.Where(x => x.ID == messageID).FirstOrDefault());
+		_messages.Remove(_messages.Where(x => x.ID == messageID).FirstOrDefault());
 	}
 
 	private void GoToInventory()
 	{
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo("/Inventory");
 	}	
 	
 	private void SeeReport(int reportID)
 	{
 		//managerSession.SetLastPage("/");
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}
 
 	private async Task ArchiveInspection(int inspectionID)
 	{
-		await reportData.ArchiveInspection(inspectionID);
+		await ReportData.ArchiveInspection(inspectionID);
 
-		completedInspections.Remove(completedInspections.Where(x => x.ID == inspectionID).FirstOrDefault());
+		_completedInspections.Remove(_completedInspections.Where(x => x.ID == inspectionID).FirstOrDefault());
 	}
 }

@@ -1,11 +1,11 @@
 ﻿@page "/PastReports"
 
 
-@if (searchDetails.NumberPlate != null && reports != null)
+@if (_searchDetails.NumberPlate != null && _reports != null)
 {
-	@if (reports.Count > 0)
+	@if (_reports.Count > 0)
 	{
-		<PageTitle>Reports for @searchNumberPlate</PageTitle>
+		<PageTitle>Reports for @_searchNumberPlate</PageTitle>
 	}
 	else
 	{
@@ -19,8 +19,8 @@ else
 
 
 @inject NavigationManager NavigationManager
-@inject IReportDataService reportData
-@inject ICustomerSessionData sessionData
+@inject IReportDataService ReportData
+@inject ICustomerSessionData SessionData
 
 <div class="row justify-content-center">
 
@@ -29,18 +29,18 @@ else
 	<div class="col-md-6">
 
 		<div class="container text-center">
-			<EditForm Model="searchDetails" OnValidSubmit="HandleValidSubmit">
+			<EditForm Model="_searchDetails" OnValidSubmit="HandleValidSubmit">
 				<DataAnnotationsValidator/>
 				<ValidationSummary/>
 
 				<div class="mb-3">
 					<label>Last Name:</label>
-					<InputText @bind-Value="searchDetails.LastName" class="mx-auto form-control w-50" />
+					<InputText @bind-Value="_searchDetails.LastName" class="mx-auto form-control w-50" />
 				</div>
 
 				<div class="mb-3">
 					<label>Number Plate:</label>
-					<InputText @bind-Value="searchDetails.NumberPlate" class="mx-auto form-control w-50" />
+					<InputText @bind-Value="_searchDetails.NumberPlate" class="mx-auto form-control w-50" />
 				</div>
 
 				<button class="btn btn-primary" type="submit">Search</button>
@@ -48,12 +48,12 @@ else
 			</EditForm>
 		</div>
 
-@if (wasSearchButtonClicked)
+@if (_wasSearchButtonClicked)
 {
-	@if (reports != null)
+	@if (_reports != null)
 	{
 		<hr>
-		@if (reports.Count == 0)
+		@if (_reports.Count == 0)
 		{
 			<div class="alert alert-warning text-center" role="alert">
 				<h3>No reports were found with the provided details.</h3>
@@ -64,28 +64,31 @@ else
 		{
 
 			<div>
-						<h3 class="display-6 text-center">Reports found for vehicle @searchNumberPlate</h3>
+						<h3 class="display-6 text-center">Reports found for vehicle @_searchNumberPlate</h3>
 
-				@foreach (var r in reports)
+				@foreach (var r in _reports)
 				{				
-					@if (r != reports.FirstOrDefault())
+					@if (r != _reports.FirstOrDefault())
 					{
-						int kmsBetweenServices = previousReportOdometer - r.Odometer;
-						int daysBetweenServices = (previousReportDate - r.TimeStarted).Days;
+						int kmsBetweenServices = _previousReportOdometer - r.Odometer;
+						int daysBetweenServices = (_previousReportDate - r.TimeStarted).Days;
 						<div class="alert alert-info text-center">
 							<p class="lead">Kms between services: @kmsBetweenServices.ToString("N0") kms.</p>
 							<p class="lead">Days between services: @daysBetweenServices days.</p>
 						</div>
 					}
-
-					<div class="alert alert-success text-center">
-						@*<p>Report ID: @r.ID</p>*@
-						<p class="lead">Date: @r.TimeStarted.ToShortDateString() | Odometer: @r.Odometer kms</p>
-						<button class="btn btn-primary" @onclick="(() => GoToReport(r))">View Report</button>
-					</div>
-
-					previousReportDate = r.TimeStarted;
-					previousReportOdometer = r.Odometer;
+					
+					@if (r != null)
+					{
+						<div class="alert alert-success text-center">
+							@*<p>Report ID: @r.ID</p>*@
+							<p class="lead">Date: @r.TimeStarted.ToShortDateString() | Odometer: @r.Odometer kms</p>
+							<button class="btn btn-primary" @onclick="(() => GoToReport(r))">View Report</button>
+						</div>
+						
+						_previousReportDate = r.TimeStarted;
+						_previousReportOdometer = r.Odometer;
+					}
 				}
 			</div>
 		}
@@ -97,46 +100,46 @@ else
 
 
 @code {
-	private ISearchReporstByLastNameAndRego searchDetails = new UISearchReporstByLastNameAndRego();
-	private List<IFullReportModel> reports;
-	private bool wasSearchButtonClicked = false;
-	private string searchNumberPlate = "";
+	private ISearchReporstByLastNameAndRego _searchDetails = new UISearchReporstByLastNameAndRego();
+	private List<IFullReportModel> _reports;
+	private bool _wasSearchButtonClicked;
+	private string _searchNumberPlate = "";
 
-	private DateTime previousReportDate;
-	private int previousReportOdometer;
+	private DateTime _previousReportDate;
+	private int _previousReportOdometer;
 
 	protected override void OnInitialized()
 	{
-		if (sessionData.GetReports() != null)
+		if (SessionData.GetReports() != null)
 		{
-			reports = sessionData.GetReports();
-			wasSearchButtonClicked = sessionData.GetSearchButtonClicked();
-			searchDetails = sessionData.GetSearchDetails();
+			_reports = SessionData.GetReports();
+			_wasSearchButtonClicked = SessionData.GetSearchButtonClicked();
+			_searchDetails = SessionData.GetSearchDetails();
 		}
 	}
 
 	private async Task HandleValidSubmit()
 	{
-		searchDetails.LastName = searchDetails.LastName.Trim();
-		searchDetails.LastName = searchDetails.LastName.Substring(0, 1).ToUpper() + searchDetails.LastName.Substring(1).ToLower();
+		_searchDetails.LastName = _searchDetails.LastName.Trim();
+		_searchDetails.LastName = _searchDetails.LastName.Substring(0, 1).ToUpper() + _searchDetails.LastName.Substring(1).ToLower();
 
-		searchDetails.NumberPlate = searchDetails.NumberPlate.Trim();
-		searchDetails.NumberPlate = Regex.Replace(searchDetails.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
+		_searchDetails.NumberPlate = _searchDetails.NumberPlate.Trim();
+		_searchDetails.NumberPlate = Regex.Replace(_searchDetails.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
 
-		reports = await reportData.SearchReports(searchDetails);
+		_reports = await ReportData.SearchReports(_searchDetails);
 
-		sessionData.SetReports(reports);
-		sessionData.SetSearchButtonClickedToTrue();
-		sessionData.SetSearchDetails(searchDetails);
+		SessionData.SetReports(_reports);
+		SessionData.SetSearchButtonClickedToTrue();
+		SessionData.SetSearchDetails(_searchDetails);
 
-		searchNumberPlate = searchDetails.NumberPlate;
+		_searchNumberPlate = _searchDetails.NumberPlate;
 
-		wasSearchButtonClicked = true;
+		_wasSearchButtonClicked = true;
 	}
 
 	private void GoToReport(IFullReportModel reportToSee)
 	{
-		sessionData.SetReport(reportToSee);
+		SessionData.SetReport(reportToSee);
 		NavigationManager.NavigateTo("/WatchReport");
 	}
 }

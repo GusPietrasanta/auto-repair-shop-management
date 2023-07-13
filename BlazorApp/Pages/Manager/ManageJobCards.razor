@@ -1,18 +1,18 @@
 ﻿@page "/ManageJobCards"
 @attribute [Authorize(Roles = "Manager")]
 @inject IJSRuntime JSRuntime
-@inject IAppointmentDataService appointmentData
-@inject IMechanicDataService mechanicData
+@inject IAppointmentDataService AppointmentData
+@inject IMechanicDataService MechanicData
 
 <h3>AssignJobCards</h3>
 
-@if (appointments == null)
+@if (_appointments == null)
 {
 	<p>Loading appointments...</p>
 }
 else
 {
-	@foreach (var a in appointments)
+	@foreach (var a in _appointments)
 	{
 		<div class="details @(@a.MechanicID > 0 ? "alert-success" : "alert-warning")">
 			Appointment ID: @a.ID
@@ -34,7 +34,7 @@ else
 
 			<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
 				<option value="">Select Mechanic...</option>
-				@foreach (var m in mechanics)
+				@foreach (var m in _mechanics)
 				{
 					<option value="@m.ID">@m.UserName</option>
 				}
@@ -42,7 +42,7 @@ else
 
 			<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
 
-			@if (idToDelete == a.ID)
+			@if (_idToDelete == a.ID)
 			{
 				<button class="btn btn-danger" @onclick="(() => DeleteAppointment(a.ID))">
 					Confirm
@@ -50,7 +50,7 @@ else
 			}
 			else
 			{
-				<button class="btn btn-outline-danger mx-2" @onclick="(() => idToDelete = a.ID)">
+				<button class="btn btn-outline-danger mx-2" @onclick="(() => _idToDelete = a.ID)">
 					Delete
 				</button>
 			}
@@ -61,58 +61,58 @@ else
 }
 
 @code {
-	private List<IDetailedAppointment> appointments;
-	private List<IMechanicBasicModel> mechanics;
-	private int idToDelete;
-	private int mechanicIDToAssign;
+	private List<IDetailedAppointment> _appointments;
+	private List<IMechanicBasicModel> _mechanics;
+	private int _idToDelete;
+	private int _mechanicIDToAssign;
 
 	protected override async Task OnInitializedAsync()
 	{
-		appointments = await appointmentData.ReadAllAppointmentsDetailed();
-		mechanics = await mechanicData.ReadAllMechanicsBasic();
+		_appointments = await AppointmentData.ReadAllAppointmentsDetailed();
+		_mechanics = await MechanicData.ReadAllMechanicsBasic();
 	}
 
 	private async void ResetAllDropDowns()
 	{
-		mechanicIDToAssign = 0;
+		_mechanicIDToAssign = 0;
 		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 	}
 
 	private void HandleDropDownChange(ChangeEventArgs e)
 	{
-		if (e.Value.ToString() == "")
+		if (e.Value!.ToString() == "")
 		{
-			mechanicIDToAssign = 0;
+			_mechanicIDToAssign = 0;
 		}
 		else
 		{
-			mechanicIDToAssign = int.Parse(e.Value.ToString());
+			_mechanicIDToAssign = int.Parse(e.Value.ToString()!);
 		}
 	}
 
 	private async void AssignJobCard(int appointmentId)
 	{
 		Console.WriteLine(appointmentId);
-		Console.WriteLine(mechanicIDToAssign);
-		if (mechanicIDToAssign > 0)
+		Console.WriteLine(_mechanicIDToAssign);
+		if (_mechanicIDToAssign > 0)
 		{
-			await appointmentData.AssignJobCardByID(appointmentId, mechanicIDToAssign);
-			var appointment = appointments.Where(x => x.ID == appointmentId).FirstOrDefault();
+			await AppointmentData.AssignJobCardByID(appointmentId, _mechanicIDToAssign);
+			var appointment = _appointments.FirstOrDefault(x => x.ID == appointmentId);
 
-			appointment.MechanicID = mechanicIDToAssign;
-			appointment.UserName = mechanics.Where(x => x.ID == mechanicIDToAssign).FirstOrDefault().UserName;
+			appointment!.MechanicID = _mechanicIDToAssign;
+			appointment.UserName = _mechanics.FirstOrDefault(x => x.ID == _mechanicIDToAssign)!.UserName;
 
 			await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
-			idToDelete = 0;
+			_idToDelete = 0;
 			StateHasChanged();
 		}
 	}
 
 	private async void DeleteAppointment(int id)
 	{
-		await appointmentData.DeleteAppointmentByID(id);
-		appointments.Remove(appointments.Where(x => x.ID == id).FirstOrDefault());
-		idToDelete = 0;
+		await AppointmentData.DeleteAppointmentByID(id);
+		_appointments.Remove(_appointments.Where(x => x.ID == id).FirstOrDefault());
+		_idToDelete = 0;
 		StateHasChanged();
 	}
 }

@@ -1,156 +1,156 @@
 ﻿@attribute [Authorize(Roles = "Manager")]
 @page "/Report/{reportID:int}"
-@inject IReportDataService reportData
-@inject IVehicleDataService vehicleData
-@inject ICustomerDataService customerData
+@inject IReportDataService ReportData
+@inject IVehicleDataService VehicleData
+@inject ICustomerDataService CustomerData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
-<h3>Report Number @reportID</h3>
+<h3>Report Number @ReportID</h3>
 
-<button class="btn btn-info"  @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info"  @onclick="(() => PreviousPage())">Go to previous page</button>
 
-@if (report != null)
+@if (_report != null)
 {
 	<div class="row">
 
 		<div class="col-md-6">
 
 			<h3>Report Info:</h3>
-			<p>Report ID: @report.ID</p>
-			<p>Date: @report.TimeStarted.ToShortDateString()</p>
-			<p>Time Started: @report.TimeStarted.ToShortTimeString()</p>
-			<p>Time Finished: @report.TimeFinished.ToShortTimeString()</p>
-			<p>Mileage: @report.Odometer kms</p>
+			<p>Report ID: @_report.ID</p>
+			<p>Date: @_report.TimeStarted.ToShortDateString()</p>
+			<p>Time Started: @_report.TimeStarted.ToShortTimeString()</p>
+			<p>Time Finished: @_report.TimeFinished.ToShortTimeString()</p>
+			<p>Mileage: @_report.Odometer kms</p>
 
 			<h3>Vehicle Info:</h3>
-			<p>Number Plate: @vehicle.NumberPlate</p>
-			<p>Make: @vehicle.Make</p>
-			<p>Model: @vehicle.Model</p>
-			<p>Year: @vehicle.Year</p>
-			<p>VIN: @vehicle.VIN</p>
-			<p>Engine: @vehicle.EngineDescription</p>
-			<p>Engine Size: @vehicle.SizeLitres Cylinders: @vehicle.Cylinders</p>
-			<p>Fuel Type: @vehicle.FuelType</p>
-			<p>Body: @vehicle.BodyType</p>
-			<p>First Visit: @vehicle.FirstVisit</p>
+			<p>Number Plate: @_vehicle.NumberPlate</p>
+			<p>Make: @_vehicle.Make</p>
+			<p>Model: @_vehicle.Model</p>
+			<p>Year: @_vehicle.Year</p>
+			<p>VIN: @_vehicle.VIN</p>
+			<p>Engine: @_vehicle.EngineDescription</p>
+			<p>Engine Size: @_vehicle.SizeLitres Cylinders: @_vehicle.Cylinders</p>
+			<p>Fuel Type: @_vehicle.FuelType</p>
+			<p>Body: @_vehicle.BodyType</p>
+			<p>First Visit: @_vehicle.FirstVisit</p>
 
 			<h3>Customer Info:</h3>
-			<p>@customer.FirstName @customer.LastName</p>
-			<p>Email: @customer.Email</p>
-			<p>Phone Number: @customer.PhoneNumber</p>
-			<p>Address: @customer.Address</p>
+			<p>@_customer.FirstName @_customer.LastName</p>
+			<p>Email: @_customer.Email</p>
+			<p>Phone Number: @_customer.PhoneNumber</p>
+			<p>Address: @_customer.Address</p>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Road Test Comments:</label>
-				@if (report.RoadTestComments == null)
+				@if (_report.RoadTestComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.RoadTestComments</p>
+					<p>@_report.RoadTestComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>General Comments:</label>
-				@if (report.GeneralComments == null)
+				@if (_report.GeneralComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.GeneralComments</p>
+					<p>@_report.GeneralComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Stored Fault Codes:</label>
-				@if (report.StoredFaultCodes == null)
+				@if (_report.StoredFaultCodes == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.StoredFaultCodes</p>
+					<p>@_report.StoredFaultCodes</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Air Conditioning:</label>
-				@if (report.AirConditioning == ok)
+				@if (_report.AirConditioning == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (report.AirConditioning == average)
+				else if (_report.AirConditioning == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (report.AirConditioning == bad)
+				else if (_report.AirConditioning == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Lights:</label>
-				@if (report.Lights == ok)
+				@if (_report.Lights == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Lights == @average)
+				else if (_report.Lights == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Lights == @bad)
+				else if (_report.Lights == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Lights Comments:</label>
-				@if (report.LightsComments == null)
+				@if (_report.LightsComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.LightsComments</p>
+					<p>@_report.LightsComments</p>
 				}
 			</div>
 
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Front Wipers:</label>
-				@if (report.FrontWipers == ok)
+				@if (_report.FrontWipers == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.FrontWipers == @average)
+				else if (_report.FrontWipers == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.FrontWipers == @bad)
+				else if (_report.FrontWipers == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Wipers:</label>
-				@if (report.RearWiper == ok)
+				@if (_report.RearWiper == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.RearWiper == @average)
+				else if (_report.RearWiper == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.RearWiper == @bad)
+				else if (_report.RearWiper == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 				else
 				{
@@ -160,92 +160,92 @@
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Battery:</label>
-				@if (report.Battery == ok)
+				@if (_report.Battery == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Battery == @average)
+				else if (_report.Battery == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Battery == @bad)
+				else if (_report.Battery == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Battery Comments:</label>
-				@if (report.BatteryComments == null)
+				@if (_report.BatteryComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.BatteryComments</p>
+					<p>@_report.BatteryComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Air Filter:</label>
-				@if (report.AirFilter == ok)
+				@if (_report.AirFilter == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.AirFilter == @average)
+				else if (_report.AirFilter == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.AirFilter == @bad)
+				else if (_report.AirFilter == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Cabin Filter:</label>
-				@if (report.CabinFilter == ok)
+				@if (_report.CabinFilter == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.CabinFilter == @average)
+				else if (_report.CabinFilter == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.CabinFilter == @bad)
+				else if (_report.CabinFilter == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Drive Belt/s:</label>
-				@if (report.DriveBelts == ok)
+				@if (_report.DriveBelts == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.DriveBelts == @average)
+				else if (_report.DriveBelts == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.DriveBelts == @bad)
+				else if (_report.DriveBelts == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Timing Belt:</label>
-				@if (report.TimingBelt == ok)
+				@if (_report.TimingBelt == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.TimingBelt == @average)
+				else if (_report.TimingBelt == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.TimingBelt == @bad)
+				else if (_report.TimingBelt == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 				else
 				{
@@ -256,167 +256,167 @@
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Radiator:</label>
-				@if (report.Radiator == ok)
+				@if (_report.Radiator == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Radiator == @average)
+				else if (_report.Radiator == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Radiator == @bad)
+				else if (_report.Radiator == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Hoses:</label>
-				@if (report.Hoses == ok)
+				@if (_report.Hoses == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Hoses == @average)
+				else if (_report.Hoses == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Hoses == @bad)
+				else if (_report.Hoses == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Hoses Comments:</label>
-				@if (report.HosesComments == null)
+				@if (_report.HosesComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.HosesComments</p>
+					<p>@_report.HosesComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Engine Oil:</label>
-				@if (report.EngineOil == ok)
+				@if (_report.EngineOil == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.EngineOil == @average)
+				else if (_report.EngineOil == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.EngineOil == @bad)
+				else if (_report.EngineOil == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Coolant:</label>
-				@if (report.Coolant == ok)
+				@if (_report.Coolant == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Coolant == @average)
+				else if (_report.Coolant == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Coolant == @bad)
+				else if (_report.Coolant == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Brake Fluid:</label>
-				@if (report.BrakeFluid == ok)
+				@if (_report.BrakeFluid == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.BrakeFluid == @average)
+				else if (_report.BrakeFluid == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.BrakeFluid == @bad)
+				else if (_report.BrakeFluid == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Power Steering Fluid:</label>
-				@if (report.PowerSteeringFluid == ok)
+				@if (_report.PowerSteeringFluid == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.PowerSteeringFluid == @average)
+				else if (_report.PowerSteeringFluid == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.PowerSteeringFluid == @bad)
+				else if (_report.PowerSteeringFluid == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Transmission Fluid:</label>
-				@if (report.TransmissionFluid == ok)
+				@if (_report.TransmissionFluid == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.TransmissionFluid == @average)
+				else if (_report.TransmissionFluid == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.TransmissionFluid == @bad)
+				else if (_report.TransmissionFluid == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Windscreen Washer Fluid:</label>
-				@if (report.WindscreenWasherFluid == ok)
+				@if (_report.WindscreenWasherFluid == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.WindscreenWasherFluid == @average)
+				else if (_report.WindscreenWasherFluid == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.WindscreenWasherFluid == @bad)
+				else if (_report.WindscreenWasherFluid == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Fluids Comments:</label>
-				@if (report.FluidsComments == null)
+				@if (_report.FluidsComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.FluidsComments</p>
+					<p>@_report.FluidsComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Spark Plugs:</label>
-				@if (report.SparkPlugs == ok)
+				@if (_report.SparkPlugs == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.SparkPlugs == @average)
+				else if (_report.SparkPlugs == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.SparkPlugs == @bad)
+				else if (_report.SparkPlugs == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 				else
 				{
@@ -426,378 +426,378 @@
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Fuel Filter:</label>
-				@if (report.FuelFilter == ok)
+				@if (_report.FuelFilter == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.FuelFilter == @average)
+				else if (_report.FuelFilter == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.FuelFilter == @bad)
+				else if (_report.FuelFilter == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Front Suspension:</label>
-				@if (report.FrontSuspension == ok)
+				@if (_report.FrontSuspension == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.FrontSuspension == @average)
+				else if (_report.FrontSuspension == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.FrontSuspension == @bad)
+				else if (_report.FrontSuspension == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Front Suspension Comments:</label>
-				@if (report.FrontSuspensionComments == null)
+				@if (_report.FrontSuspensionComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.FrontSuspensionComments</p>
+					<p>@_report.FrontSuspensionComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Suspension:</label>
-				@if (report.RearSuspension == ok)
+				@if (_report.RearSuspension == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.RearSuspension == @average)
+				else if (_report.RearSuspension == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.RearSuspension == @bad)
+				else if (_report.RearSuspension == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Suspension Comments:</label>
-				@if (report.RearSuspensionComments == null)
+				@if (_report.RearSuspensionComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.RearSuspensionComments</p>
+					<p>@_report.RearSuspensionComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Front Brakes:</label>
-				@if (report.FrontBrakes == ok)
+				@if (_report.FrontBrakes == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.FrontBrakes == @average)
+				else if (_report.FrontBrakes == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.FrontBrakes == @bad)
+				else if (_report.FrontBrakes == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Front Brakes Comments:</label>
-				@if (report.FrontBrakesComments == null)
+				@if (_report.FrontBrakesComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.FrontBrakesComments</p>
+					<p>@_report.FrontBrakesComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Brakes:</label>
-				@if (report.RearBrakes == ok)
+				@if (_report.RearBrakes == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.RearBrakes == @average)
+				else if (_report.RearBrakes == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.RearBrakes == @bad)
+				else if (_report.RearBrakes == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Rear Brakes Comments:</label>
-				@if (report.RearBrakesComments == null)
+				@if (_report.RearBrakesComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.RearBrakesComments</p>
+					<p>@_report.RearBrakesComments</p>
 				}
 			</div>
 
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Right Hand Front Tyre:</label>
-				@if (report.RHFTyre == ok)
+				@if (_report.RHFTyre == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.RHFTyre == @average)
+				else if (_report.RHFTyre == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.RHFTyre == @bad)
+				else if (_report.RHFTyre == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Left Hand Front Tyre:</label>
-				@if (report.LHFTyre == ok)
+				@if (_report.LHFTyre == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.LHFTyre == @average)
+				else if (_report.LHFTyre == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.LHFTyre == @bad)
+				else if (_report.LHFTyre == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Right Hand Rear Tyre:</label>
-				@if (report.RHRTyre == ok)
+				@if (_report.RHRTyre == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.RHRTyre == @average)
+				else if (_report.RHRTyre == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.RHRTyre == @bad)
+				else if (_report.RHRTyre == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Left Hand Rear Tyre:</label>
-				@if (report.LHRTyre == ok)
+				@if (_report.LHRTyre == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.LHRTyre == @average)
+				else if (_report.LHRTyre == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.LHRTyre == @bad)
+				else if (_report.LHRTyre == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Tyres Comments:</label>
-				@if (report.TyresComments == null)
+				@if (_report.TyresComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.TyresComments</p>
+					<p>@_report.TyresComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Exhaust:</label>
-				@if (report.Exhaust == ok)
+				@if (_report.Exhaust == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Exhaust == @average)
+				else if (_report.Exhaust == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Exhaust == @bad)
+				else if (_report.Exhaust == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Exhaust Comments:</label>
-				@if (report.ExhaustComments == null)
+				@if (_report.ExhaustComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.ExhaustComments</p>
+					<p>@_report.ExhaustComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Drivetrain:</label>
-				@if (report.Drivetrain == ok)
+				@if (_report.Drivetrain == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.Drivetrain == @average)
+				else if (_report.Drivetrain == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.Drivetrain == @bad)
+				else if (_report.Drivetrain == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Drivetrain Comments:</label>
-				@if (report.DrivetrainComments == null)
+				@if (_report.DrivetrainComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.DrivetrainComments</p>
+					<p>@_report.DrivetrainComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Oil Leaks:</label>
-				@if (report.OilLeaks == ok)
+				@if (_report.OilLeaks == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.OilLeaks == @average)
+				else if (_report.OilLeaks == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.OilLeaks == @bad)
+				else if (_report.OilLeaks == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Oil Leaks Comments:</label>
-				@if (report.OilLeaksComments == null)
+				@if (_report.OilLeaksComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.OilLeaksComments</p>
+					<p>@_report.OilLeaksComments</p>
 				}
 			</div>
 
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Coolant Leaks:</label>
-				@if (report.CoolantLeaks == ok)
+				@if (_report.CoolantLeaks == Ok)
 				{
-					@((MarkupString)okDiv)
+					@((MarkupString)OkDiv)
 				}
-				else if (@report.CoolantLeaks == @average)
+				else if (_report.CoolantLeaks == Average)
 				{
-					@((MarkupString)averageDiv)
+					@((MarkupString)AverageDiv)
 				}
-				else if (@report.CoolantLeaks == @bad)
+				else if (_report.CoolantLeaks == Bad)
 				{
-					@((MarkupString)badDiv)
+					@((MarkupString)BadDiv)
 				}
 			</div>
 			<div class="p-2 mb-6 border border-dark">
 				<label>Coolant Leaks Comments:</label>
-				@if (report.CoolantLeaksComments == null)
+				@if (_report.CoolantLeaksComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.CoolantLeaksComments</p>
+					<p>@_report.CoolantLeaksComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Other Leaks Comments:</label>
-				@if (report.CoolantLeaksComments == null)
+				@if (_report.CoolantLeaksComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.OtherLeaksComments</p>
+					<p>@_report.OtherLeaksComments</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Other Comments:</label>
-				@if (report.Other == null)
+				@if (_report.Other == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.Other</p>
+					<p>@_report.Other</p>
 				}
 			</div>
 
 			<div class="p-2 mb-6 border border-dark">
 				<label>Other Inspection Comments:</label>
-				@if (report.OtherInspectionComments == null)
+				@if (_report.OtherInspectionComments == null)
 				{
 					<p>N/A</p>
 				}
 				else
 				{
-					<p>@report.OtherInspectionComments</p>
+					<p>@_report.OtherInspectionComments</p>
 				}
 			</div>
 		</div>
 	</div>
-		<button class="btn btn-info"  @onclick="(() => previousPage())">Go to previous page</button>
+		<button class="btn btn-info"  @onclick="(() => PreviousPage())">Go to previous page</button>
 }
 
 @code {
 	[Parameter]
-	public int reportID { get; set; }
+	public int ReportID { get; set; }
 
-	private IFullReportModel report;
-	private IVehicleModel vehicle;
-	private ICustomerModel customer;
+	private IFullReportModel _report;
+	private IVehicleModel _vehicle;
+	private ICustomerModel _customer;
 
-	const string ok = "Inspected and ok";
-	const string average = "May require future attention";
-	const string bad = "Requires immediate attention";
+	const string Ok = "Inspected and ok";
+	const string Average = "May require future attention";
+	const string Bad = "Requires immediate attention";
 
-	const string okDiv = "<div class='p-3 mb-2 bg-success text-white'>Inspected and ok</div>";
-	const string averageDiv = "<div class='p-3 mb-2 bg-warning text-dark'>May require future attention</div>";
-	const string badDiv = "<div class='p-3 mb-2 bg-danger text-white'>Requires immediate attention</div>";
+	const string OkDiv = "<div class='p-3 mb-2 bg-success text-white'>Inspected and ok</div>";
+	const string AverageDiv = "<div class='p-3 mb-2 bg-warning text-dark'>May require future attention</div>";
+	const string BadDiv = "<div class='p-3 mb-2 bg-danger text-white'>Requires immediate attention</div>";
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
-		report = await reportData.GetFullReportFromID(reportID);
-		vehicle = await vehicleData.GetVehicleDetailsByID(report.VehicleID);
-		customer = await customerData.ReadCustomerByID(report.CustomerID);
+		_report = await ReportData.GetFullReportFromID(ReportID);
+		_vehicle = await VehicleData.GetVehicleDetailsByID(_report.VehicleID);
+		_customer = await CustomerData.ReadCustomerByID(_report.CustomerID);
 	}
-	private void previousPage()
+	private void PreviousPage()
 	{
-		NavigationManager.NavigateTo(managerSession.GetLastPage());
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 }

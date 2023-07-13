@@ -1,89 +1,84 @@
 ﻿using DataAccessLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLibrary.DataAccess
 {
 	public class CustomerSessionData : ICustomerSessionData
 	{
-		private int appointmentID;
-		private string appointmentNumberPlate;
-		private DateTime appointmentDate;
-		private IFullReportModel sessionReport;
-		private List<IFullReportModel> allSessionReports;
+		private int _appointmentID;
+		private string _appointmentNumberPlate;
+		private DateTime _appointmentDate;
+		private IFullReportModel _sessionReport;
+		private List<IFullReportModel> _allSessionReports;
 
-		private bool wasSearchButtonClicked = false;
+		private bool _wasSearchButtonClicked;
 
-		private ISearchReporstByLastNameAndRego searchDetails;
+		private ISearchReporstByLastNameAndRego _searchDetails;
 
 
 		public void SetSearchDetails(ISearchReporstByLastNameAndRego newDetails)
 		{
-			searchDetails = newDetails;
+			_searchDetails = newDetails;
 		}
 
 		public ISearchReporstByLastNameAndRego GetSearchDetails()
 		{
-			return searchDetails;
+			return _searchDetails;
 		}
 
 		public void SetSearchButtonClickedToTrue()
 		{
-			wasSearchButtonClicked = true;
+			_wasSearchButtonClicked = true;
 		}
 		
 		public bool GetSearchButtonClicked()
 		{
-			return wasSearchButtonClicked;
+			return _wasSearchButtonClicked;
 		}
 
 
 		public List<IFullReportModel> GetReports()
 		{
-			return allSessionReports;
+			return _allSessionReports;
 		}
 
 		public void SetReports(List<IFullReportModel> newReports)
 		{
-			allSessionReports = newReports;
+			_allSessionReports = newReports;
 		}
 
 		public IFullReportModel GetReport()
 		{
-			return sessionReport;
+			return _sessionReport;
 		}
 
 		public void SetReport(IFullReportModel newReport)
 		{
-			sessionReport = newReport;
+			_sessionReport = newReport;
 		}
 
         public int GetAppointmentID()
 		{
-			return appointmentID;
+			return _appointmentID;
 		}
 		public void SetAppointmentID(int newAppointmentID)
 		{
-			appointmentID = newAppointmentID;
+			_appointmentID = newAppointmentID;
 		}
 		public string GetAppointmentNumberPlate()
 		{
-			return appointmentNumberPlate;
+			return _appointmentNumberPlate;
 		}
 		public void SetAppointmentNumberPlate(string newAppointmentNumberPlate)
 		{
-			appointmentNumberPlate = newAppointmentNumberPlate;
+			_appointmentNumberPlate = newAppointmentNumberPlate;
 		}
 		public DateTime GetAppointmentDate()
 		{
-			return appointmentDate;
+			return _appointmentDate;
 		}
 		public void SetAppointmentDateTime(DateTime newAppointmentDate)
 		{
-			appointmentDate = newAppointmentDate;
+			_appointmentDate = newAppointmentDate;
 		}
 	}
 }

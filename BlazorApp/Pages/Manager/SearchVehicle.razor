@@ -1,8 +1,8 @@
 ﻿@page "/SearchVehicle"
 @attribute [Authorize(Roles = "Manager")]
-@inject IVehicleDataService vehicleData
+@inject IVehicleDataService VehicleData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
 <h3>Search Vehicle</h3>
 
@@ -12,11 +12,11 @@
 <br/>
 <br/>
 
-@if (filteredVehicles == null)
+@if (_filteredVehicles == null)
 {
 	<h4>Loading...</h4>
 }
-else if (filteredVehicles.Count == 0)
+else if (_filteredVehicles.Count == 0)
 {
 	<h4>Vehicle not found.</h4>
 }
@@ -42,7 +42,7 @@ else
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var v in filteredVehicles)
+					@foreach (var v in _filteredVehicles)
 					{
 						<tr>
 							<td>@v.NumberPlate</td>
@@ -67,26 +67,26 @@ else
 
 
 @code {
-	private List<IVehicleModel> allVehicles;
-	private List<IVehicleModel> filteredVehicles;
+	private List<IVehicleModel> _allVehicles;
+	private List<IVehicleModel> _filteredVehicles;
 
 	protected override async Task OnInitializedAsync()
 	{
-		allVehicles = await vehicleData.GetAllVehicles();
-		filteredVehicles = allVehicles;
+		_allVehicles = await VehicleData.GetAllVehicles();
+		_filteredVehicles = _allVehicles;
 	}
 
 	private void HandleInput(ChangeEventArgs args)
 	{
-		if (args.Value.ToString().Length == 0)
+		if (args.Value!.ToString()!.Length == 0)
 		{
-			filteredVehicles = allVehicles;
+			_filteredVehicles = _allVehicles;
 		}
 		else
 		{
-			string searchTerm = args.Value.ToString().ToLower();
+			string searchTerm = args.Value.ToString()!.ToLower();
 
-			var filteredIEnumerable = from x in allVehicles
+			var filteredIEnumerable = from x in _allVehicles
 											where	x.Make.ToLower().Contains(searchTerm) ||
 													x.Model.ToLower().Contains(searchTerm) ||
 													x.Year.ToLower().Contains(searchTerm) ||
@@ -100,13 +100,13 @@ else
 													x.NumberPlate.ToLower().Contains(searchTerm)
 											select x;
 
-			filteredVehicles = filteredIEnumerable.ToList();
+			_filteredVehicles = filteredIEnumerable.ToList();
 		}
 	}
 
 	private void ViewVehicle(int vehicleID)
 	{
-		managerSession.SetLastPage("/SearchVehicle");
+		ManagerSession.SetLastPage("/SearchVehicle");
 		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
 	}
 

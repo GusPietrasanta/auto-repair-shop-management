@@ -1,10 +1,4 @@
 ﻿using DataAccessLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json.Nodes;
 using System.Xml;
 
@@ -18,7 +12,7 @@ namespace DataAccessLibrary.Data.APIs
 
 			string path = Directory.GetCurrentDirectory();
 
-            path = Directory.GetParent(path).ToString();
+            path = Directory.GetParent(path)!.ToString();
 
 			path = $"{path}\\DataAccessLibrary\\Data\\APIs\\TestXMLs";
 
@@ -35,7 +29,7 @@ namespace DataAccessLibrary.Data.APIs
 					if (reader.Name == "vehicleJson")
 					{
 						reader.Read();
-						parsedJson = reader.Value.ToString();
+						parsedJson = reader.Value;
 						break;
 					}
 				}
@@ -48,7 +42,7 @@ namespace DataAccessLibrary.Data.APIs
 			JsonNode vehicleInfoNode = JsonNode.Parse(parsedJson);
 
 			output.NumberPlate = numberPlate;
-			output.Make = vehicleInfoNode["CarMake"]!["CurrentTextValue"]!.GetValue<string>();
+			output.Make = vehicleInfoNode!["CarMake"]!["CurrentTextValue"]!.GetValue<string>();
 			output.Model = vehicleInfoNode["ModelDescription"]!["CurrentTextValue"]!.GetValue<string>();
 			output.Year = vehicleInfoNode["extended"]!["year"]!.GetValue<string>();
 			output.VIN = vehicleInfoNode["VechileIdentificationNumber"]!.GetValue<string>();

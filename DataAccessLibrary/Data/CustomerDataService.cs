@@ -1,10 +1,5 @@
 ﻿using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data
 {
@@ -30,7 +25,7 @@ namespace DataAccessLibrary.Data
 
 			var newCustomerId = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Create", c, "SQLDB");
 
-			return newCustomerId.FirstOrDefault().ID;
+			return newCustomerId.FirstOrDefault()!.ID;
 		}
 
 		public async Task<List<ICustomerModel>> ReadAllCustomers()

@@ -1,16 +1,16 @@
 ﻿@page "/Reports"
 @attribute [Authorize(Roles = "Manager")]
-@inject IReportDataService reportData
+@inject IReportDataService ReportData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
 <h3>Inspections:</h3>
 
 <div class="row">
 	<div class="col-md-6">
-		@if (inspections != null)
+		@if (_inspections != null)
 		{
-			@foreach (var c in inspections)
+			@foreach (var c in _inspections)
 			{
 				<div class="alert-info">
 				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
@@ -30,16 +30,16 @@
 
 
 @code {
-	private List<IDashboardReportModel> inspections;
+	private List<IDashboardReportModel> _inspections;
 
 	protected async override Task OnInitializedAsync()
 	{
-		inspections = await reportData.SearchAllReportsDashboardNonArchived();
+		_inspections = await ReportData.SearchAllReportsDashboardNonArchived();
 	}
 
 		private void SeeReport(int reportID)
 	{
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}
 }

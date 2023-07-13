@@ -1,21 +1,21 @@
 ﻿@inject AuthenticationStateProvider GetAuthenticationStateAsync
-@inject IAppointmentDataService appointmentData
-@inject IMessageDataService messageData
+@inject IAppointmentDataService AppointmentData
+@inject IMessageDataService MessageData
 @inject NavigationManager NavigationManager
 
 <div class="row">
 
 	<div class="col-md-6">
 		
-		<EditForm OnValidSubmit="HandleMessageValidSubmit" Model="message">
+		<EditForm OnValidSubmit="HandleMessageValidSubmit" Model="_message">
 			<div class="text-center">
 				<h2>Post a Message</h2>
 				<div>
-					<InputTextArea @bind-Value="message.Content" cols="50" rows="8"/>
+					<InputTextArea @bind-Value="_message.Content" cols="50" rows="8"/>
 				</div>
 				<br />
 				<div>
-				<InputSelect @bind-Value="message.Tag">
+				<InputSelect @bind-Value="_message.Tag">
 					<option value="">Select a tag for the message...</option>
 					<option value="Safety">Safety</option>
 					<option value="Schedule">Schedule</option>
@@ -36,9 +36,9 @@
 
 		<br/>
 		<div class="text-center">
-			<h2>You have @jobsAssigned jobs assigned for today.</h2>
+			<h2>You have @_jobsAssigned jobs assigned for today.</h2>
 			<br />
-			<button class="btn btn-primary" @onclick="(() => GoToJobs())">Go to Jobs Page</button>
+			<button class="btn btn-primary" @onclick="(GoToJobs)">Go to Jobs Page</button>
 		</div>
 
 	</div>
@@ -46,17 +46,17 @@
 </div>
 
 @code {
-	private int jobsAssigned;
-	private string userName;
-	private IMessageModel message = new UIMessageModel();
+	private int _jobsAssigned;
+	private string _userName;
+	private IMessageModel _message = new UIMessageModel();
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
-		var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
-		var user = authstate.User;
-		userName = user.Identity.Name;
+		var authState = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+		var user = authState.User;
+		_userName = user.Identity!.Name;
 
-		jobsAssigned = await appointmentData.GetTodayAppointmentsCountByUserName(userName);
+		_jobsAssigned = await AppointmentData.GetTodayAppointmentsCountByUserName(_userName);
 	}
 
 	private void GoToJobs()
@@ -66,14 +66,14 @@
 
 	private async void HandleMessageValidSubmit()
 	{
-		message.UserName = userName;
-		message.PostedOn = DateTime.Now;
+		_message.UserName = _userName;
+		_message.PostedOn = DateTime.Now;
 
-		await messageData.CreateMessage(message);
+		await MessageData.CreateMessage(_message);
 
-		message.Tag = "";
-		message.Content = "";
-		message = new UIMessageModel();
+		_message.Tag = "";
+		_message.Content = "";
+		_message = new UIMessageModel();
 
 		StateHasChanged();
 	}

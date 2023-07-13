@@ -1,7 +1,7 @@
 ﻿@page "/Jobs"
 @inject AuthenticationStateProvider GetAuthenticationStateAsync
-@inject IAppointmentDataService appointmentData
-@inject IMechanicSessionData mechanicSession
+@inject IAppointmentDataService AppointmentData
+@inject IMechanicSessionData MechanicSession
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Mechanic")]
 
@@ -12,20 +12,20 @@
 <div class="row justify-content-center">
 	<div class="col-6">
 
-		@if (mechanicSession.GetAppointmentToWorkOn() != null)
+		@if (MechanicSession.GetAppointmentToWorkOn() != null)
 		{
 			<div class="alert alert-success text-center" role="alert">
-				<h3>Inspection Report for vehicle <b>@mechanicSession.GetAppointmentToWorkOn().NumberPlate</b> successfully submitted!</h3>
+				<h3>Inspection Report for vehicle <b>@MechanicSession.GetAppointmentToWorkOn().NumberPlate</b> successfully submitted!</h3>
 			</div>
 		}
 
-		@if (appointments == null)
+		@if (_appointments == null)
 		{
 			<p>Loading appointments...</p>
 		}
 		else
 		{
-			@foreach (var a in appointments)
+			@foreach (var a in _appointments)
 			{
 				<div class="alert alert-info text-center">
 					@*<p>Report ID: @r.ID</p>*@
@@ -46,21 +46,21 @@
 
 
 @code {
-	private List<IDetailedAppointment> appointments;
-	private string userName;
+	private List<IDetailedAppointment> _appointments;
+	private string _userName;
 
 	protected async override Task OnInitializedAsync()
 	{
 		var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
 		var user = authstate.User;
-		userName = user.Identity.Name;
+		_userName = user.Identity!.Name;
 
-		appointments = await appointmentData.ReadAllAppointmentsDetailedByUserName(userName);
+		_appointments = await AppointmentData.ReadAllAppointmentsDetailedByUserName(_userName);
 	}
 
 	private void GoToReportForm(IDetailedAppointment appointmentDetails)
 	{
-		mechanicSession.SetAppointmentToWorkOn(appointmentDetails);
+		MechanicSession.SetAppointmentToWorkOn(appointmentDetails);
 		NavigationManager.NavigateTo("/ReportForm");
 	}
 }

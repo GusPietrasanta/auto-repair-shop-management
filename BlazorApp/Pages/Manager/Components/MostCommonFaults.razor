@@ -1,4 +1,4 @@
-﻿@inject IStatisticsDataService statisticsData
+﻿@inject IStatisticsDataService StatisticsData
 
 <SfChart Title="Most Common 'Requires Immediate Action' Items">
 	<ChartTitleStyle Size="23px" FontFamily="Arial" FontWeight="regular" FontStyle=""></ChartTitleStyle>
@@ -11,7 +11,7 @@
 	</ChartPrimaryYAxis>
 
 	<ChartSeriesCollection>
-		<ChartSeries DataSource="@items" XName="Item" YName="Occurrences" Type="ChartSeriesType.Column">
+		<ChartSeries DataSource="@_items" XName="Item" YName="Occurrences" Type="ChartSeriesType.Column">
 			<ChartMarker>
 				<ChartDataLabel Visible="false"></ChartDataLabel>
 			</ChartMarker>
@@ -22,11 +22,11 @@
 
 @code {
 
-	private List<IImmediateAttentionDataModel> items;
+	private List<IImmediateAttentionDataModel> _items;
 
 
 	protected override async Task OnInitializedAsync()
 	{
-		items = await statisticsData.GetImmediateAttentionStatistics();
+		_items = await StatisticsData.GetImmediateAttentionStatistics();
 	}
 }

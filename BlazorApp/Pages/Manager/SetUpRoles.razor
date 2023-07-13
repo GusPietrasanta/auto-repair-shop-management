@@ -2,9 +2,9 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.Extensions.Configuration
 
-@inject RoleManager<IdentityRole> roleManager
-@inject UserManager<IdentityUser> userManager
-@inject IConfiguration config
+@inject RoleManager<IdentityRole> RoleManager
+@inject UserManager<IdentityUser> UserManager
+@inject IConfiguration Config
 
 <h3>SetUpRoles</h3>
 
@@ -24,40 +24,40 @@
 
 		foreach (var role in roles)
 		{
-			var roleExist = await roleManager.RoleExistsAsync(role);
+			var roleExist = await RoleManager.RoleExistsAsync(role);
 
 			if (roleExist == false)
 			{
-				await roleManager.CreateAsync(new IdentityRole(role));
+				await RoleManager.CreateAsync(new IdentityRole(role));
 			}
 		}
 
-		var manager = await userManager.FindByEmailAsync(config.GetValue<string>("Manager"));
+		var manager = await UserManager.FindByEmailAsync(Config.GetValue<string>("Manager"));
 
 		if (manager != null)
 		{
-			await userManager.AddToRoleAsync(manager, "Manager");
+			await UserManager.AddToRoleAsync(manager, "Manager");
 		}
 
-		var mechanic1 = await userManager.FindByEmailAsync(config.GetValue<string>("Mechanic1"));
+		var mechanic1 = await UserManager.FindByEmailAsync(Config.GetValue<string>("Mechanic1"));
 
 		if (mechanic1 != null)
 		{
-			await userManager.AddToRoleAsync(mechanic1, "Mechanic");
+			await UserManager.AddToRoleAsync(mechanic1, "Mechanic");
 		}
 
-		var mechanic2 = await userManager.FindByEmailAsync(config.GetValue<string>("Mechanic2"));
+		var mechanic2 = await UserManager.FindByEmailAsync(Config.GetValue<string>("Mechanic2"));
 
 		if (mechanic2 != null)
 		{
-			await userManager.AddToRoleAsync(mechanic2, "Mechanic");
+			await UserManager.AddToRoleAsync(mechanic2, "Mechanic");
 		}
 
-		var mechanic3 = await userManager.FindByEmailAsync(config.GetValue<string>("Mechanic3"));
+		var mechanic3 = await UserManager.FindByEmailAsync(Config.GetValue<string>("Mechanic3"));
 
 		if (mechanic3 != null)
 		{
-			await userManager.AddToRoleAsync(mechanic3, "Mechanic");
+			await UserManager.AddToRoleAsync(mechanic3, "Mechanic");
 		}
 	}
 }

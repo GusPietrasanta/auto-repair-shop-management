@@ -1,7 +1,7 @@
 ﻿@page "/SearchCustomer"
 @using BlazorApp.Pages.Manager.Components
 @attribute [Authorize(Roles = "Manager")]
-@inject ICustomerDataService customerData
+@inject ICustomerDataService CustomerData
 @inject IJSRuntime JSRuntime
 
 
@@ -12,11 +12,11 @@
 </label>
 <br /><br />
 
-@if (filteredCustomers == null)
+@if (_filteredCustomers == null)
 {
 	<h4>Loading...</h4>
 }
-else if (filteredCustomers.Count == 0)
+else if (_filteredCustomers.Count == 0)
 {
 	<h4>Customer not found.</h4>
 }
@@ -37,7 +37,7 @@ else
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var c in filteredCustomers)
+					@foreach (var c in _filteredCustomers)
 					{
 						<tr>
 							<td>@c.FirstName</td>
@@ -49,7 +49,7 @@ else
 							<td><div class="text-center">
 								<button class="btn btn-primary mb-1" @onclick="(() => EditCustomer(c.ID))">Edit</button>
 
-								@if (idToDelete == c.ID)
+								@if (_idToDelete == c.ID)
 								{
 										<button class="btn btn-danger p-2" @onclick="(() => ConfirmDeleteCustomer(c.ID))">Confirm</button>
 								}
@@ -65,47 +65,46 @@ else
 			</table>
 		</div>
 		<div class="col-sm-4">
-			@if (showEditForm)
+			@if (_showEditForm)
 			{
-				<UpdatePerson Customer="customerToUpdate" OnUpdate="HandleOnUpdate"></UpdatePerson>
+				<UpdatePerson Customer="_customerToUpdate" OnUpdate="HandleOnUpdate"></UpdatePerson>
 			}
-			@if (showVehicles)
+			@if (_showVehicles)
 			{
-				<ShowVehiclesComponent CustomerID="@idToShowVehicles"></ShowVehiclesComponent>
+				<ShowVehiclesComponent CustomerID="@_idToShowVehicles"></ShowVehiclesComponent>
 			}
 		</div>
 	</div>
 }
 
 @code {
-	private List<ICustomerModel> allCustomers;
-	private List<ICustomerModel> filteredCustomers;
-	private bool showEditForm = false;
-	private bool showVehicles = false;
-	private int idToUpdate = 0;
-	private int idToDelete = 0;
-	private int idToShowVehicles = 0;
-	private ICustomerModel customerToUpdate;
+	private List<ICustomerModel> _allCustomers;
+	private List<ICustomerModel> _filteredCustomers;
+	private bool _showEditForm;
+	private bool _showVehicles;
+	private int _idToDelete;
+	private int _idToShowVehicles;
+	private ICustomerModel _customerToUpdate;
 
 	protected override async Task OnInitializedAsync()
 	{
-		allCustomers = await customerData.ReadAllCustomers();
-		filteredCustomers = allCustomers;
+		_allCustomers = await CustomerData.ReadAllCustomers();
+		_filteredCustomers = _allCustomers;
 	}
 
 	private void HandleInput(ChangeEventArgs args)
 	{
-		showVehicles = false;
-		showEditForm = false;
-		if (args.Value.ToString().Length == 0)
+		_showVehicles = false;
+		_showEditForm = false;
+		if (args.Value!.ToString()!.Length == 0)
 		{
-			filteredCustomers = allCustomers;
+			_filteredCustomers = _allCustomers;
 		}
 		else
 		{
-			string searchTerm = args.Value.ToString().ToLower();
+			string searchTerm = args.Value!.ToString()!.ToLower();
 
-			var filteredIEnumerable = from x in allCustomers
+			var filteredIEnumerable = from x in _allCustomers
 											where	x.FirstName.ToLower().Contains(searchTerm) ||
 													x.LastName.ToLower().Contains(searchTerm) ||
 													x.Address.ToLower().Contains(searchTerm) ||
@@ -113,45 +112,44 @@ else
 													x.Email.ToLower().Contains(searchTerm)
 											select x;
 
-			filteredCustomers = filteredIEnumerable.ToList();
+			_filteredCustomers = filteredIEnumerable.ToList();
 		}
 	}
 
 	private void EditCustomer(int ID)
 	{
-		showVehicles = false;
-		showEditForm = true;
-		customerToUpdate = allCustomers.Where(x => x.ID == ID).FirstOrDefault();
-		idToUpdate = ID;
+		_showVehicles = false;
+		_showEditForm = true;
+		_customerToUpdate = _allCustomers.Where(x => x.ID == ID).FirstOrDefault();
 	}
 
 	private void HandleOnUpdate(ICustomerModel updatedCustomer)
 	{
-		showEditForm = false;
+		_showEditForm = false;
 
-		var c = allCustomers.First(x => x.ID == updatedCustomer.ID);
+		var c = _allCustomers.First(x => x.ID == updatedCustomer.ID);
 
-		var index = allCustomers.IndexOf(c);
+		var index = _allCustomers.IndexOf(c);
 
-		allCustomers[index] = updatedCustomer;		
+		_allCustomers[index] = updatedCustomer;		
 
-		var fc = filteredCustomers.First(x => x.ID == updatedCustomer.ID);
+		var fc = _filteredCustomers.First(x => x.ID == updatedCustomer.ID);
 
-		var index2 = filteredCustomers.IndexOf(fc);
+		var index2 = _filteredCustomers.IndexOf(fc);
 
-		filteredCustomers[index2] = updatedCustomer;
+		_filteredCustomers[index2] = updatedCustomer;
 	}
 
 	private void ViewVehicles(int ID)
 	{
-		showVehicles = true;
-		showEditForm = false;
-		idToShowVehicles = ID;
+		_showVehicles = true;
+		_showEditForm = false;
+		_idToShowVehicles = ID;
 	}
 
 	private void DeleteCustomer(int ID)
 	{
-		idToDelete = ID;
+		_idToDelete = ID;
 	}
 	private async Task ConfirmDeleteCustomer(int ID)
 	{
@@ -159,13 +157,13 @@ else
 
 		if (confirmed)
 		{
-			allCustomers.Remove(allCustomers.Where(x => x.ID == ID).FirstOrDefault());
-			filteredCustomers.Remove(filteredCustomers.Where(x => x.ID == ID).FirstOrDefault());
-			await customerData.DeleteCustomerByID(ID);
+			_allCustomers.Remove(_allCustomers.Where(x => x.ID == ID).FirstOrDefault());
+			_filteredCustomers.Remove(_filteredCustomers.Where(x => x.ID == ID).FirstOrDefault());
+			await CustomerData.DeleteCustomerByID(ID);
 		}
 		else
 		{
-			idToDelete = 0;
+			_idToDelete = 0;
 		}
 
 	}

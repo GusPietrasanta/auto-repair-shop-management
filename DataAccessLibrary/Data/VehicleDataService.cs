@@ -1,10 +1,5 @@
 ﻿using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data
 {
@@ -37,7 +32,7 @@ namespace DataAccessLibrary.Data
 
 			var newVehicleId = await _dataAccess.LoadData<VehicleModel, dynamic>("dbo.spVehicle_Create", v, "SQLDB");
 
-			return newVehicleId.FirstOrDefault().ID;
+			return newVehicleId.FirstOrDefault()!.ID;
 		}
 
 		public async Task<IVehicleModel> GetVehicleDetailsByID(int ID)

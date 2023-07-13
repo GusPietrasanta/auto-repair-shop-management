@@ -1,51 +1,51 @@
 ﻿@attribute [Authorize(Roles="Manager")]
 @page "/StockItem/{itemID:int}"
-@inject IStockDataService stockData
+@inject IStockDataService StockData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 @inject IJSRuntime JSRuntime
 
 <h2>Stock Item ID: @itemID</h2>
 
-@if	(item != null)
+@if	(_item != null)
 {
 	<div class="row">
 
 	<div class="col-6">
 			<div>
-				<h3><b>@item.ItemName</b></h3>
+				<h3><b>@_item.ItemName</b></h3>
 			</div>
 			<br />
 			<div>
 
 			<h3>
 			Status:
-			@if (item.Quantity == 0)
+			@if (_item.Quantity == 0)
 			{
 			<span class="badge bg-danger">Out of Stock</span>
 			}
-			else if (item.Quantity > item.AlarmMinimum)
+			else if (_item.Quantity > _item.AlarmMinimum)
 			{
 					<span class="badge bg-success">Ok</span>
 				}
-			else if (item.Quantity <= item.AlarmMinimum)
+			else if (_item.Quantity <= _item.AlarmMinimum)
 			{
 					<span class="badge bg-warning">Low</span>
 			}
 				</h3>
 			</div>
 			<br/>
-			@if(item.Unit.ToLower().Contains("unit"))
+			@if(_item.Unit.ToLower().Contains("unit"))
 			{
-				<div><h4>In Stock: @item.Quantity.ToString("0") @item.Unit</h4></div>
+				<div><h4>In Stock: @_item.Quantity.ToString("0") @_item.Unit</h4></div>
 				<br />
-				<div><h4>Alarm minimum: @item.AlarmMinimum.ToString("0") @item.Unit</h4></div>
+				<div><h4>Alarm minimum: @_item.AlarmMinimum.ToString("0") @_item.Unit</h4></div>
 			}
 			else
 			{
-				<div><h4>In Stock: @item.Quantity.ToString("0.00") @item.Unit</h4></div>
+				<div><h4>In Stock: @_item.Quantity.ToString("0.00") @_item.Unit</h4></div>
 				<br />
-				<div><h4>Alarm minimum: @item.AlarmMinimum.ToString("0.00") @item.Unit</h4></div>
+				<div><h4>Alarm minimum: @_item.AlarmMinimum.ToString("0.00") @_item.Unit</h4></div>
 			}
 
 
@@ -56,25 +56,25 @@
 		<div>
 			<h5>Modify Stock:</h5>
 			<button class="btn btn-success" @onclick="(() => Add())">+</button>
-				<InputNumber @bind-Value="amount" />
+				<InputNumber @bind-Value="_amount" />
 			<button class="btn btn-danger" @onclick="(() => Subtract())">-</button>
 		</div>
 		<br/>
 		<br/>
 		<div>
 			<h5>Modify Minimum Alarm Quantity:</h5>
-			<InputNumber @bind-Value="item.AlarmMinimum"/>
+			<InputNumber @bind-Value="_item.AlarmMinimum"/>
 			<button class="btn btn-outline-info" @onclick="(() => Save())">Set New Value</button>
 		</div>
 
 		<br />
 
 		<form>
-			<fieldset disabled="@isFormDisabled">
+			<fieldset disabled="@_isFormDisabled">
 
 					<div class="form-group">
 						<label>Edit Name:</label>
-						<InputText @bind-Value="item.ItemName" class="form-control" />
+						<InputText @bind-Value="_item.ItemName" class="form-control" />
 
 					</div>
 
@@ -82,7 +82,7 @@
 
 					<div class="form-group">
 						<label>Edit Unit of Measurement:</label>
-						<InputText @bind-Value="item.Unit" class="form-control" />
+						<InputText @bind-Value="_item.Unit" class="form-control" />
 					</div>
 
 					<br/>
@@ -92,7 +92,7 @@
 		</form>
 			<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
 
-			@if (isFormDisabled == false)
+			@if (_isFormDisabled == false)
 			{
 				<button class="btn btn-success ms-2" type="submit" @onclick="(() => Save())">Save</button>
 				<button class="btn btn-danger" type="submit" @onclick="(() => Delete())">Delete</button>
@@ -103,49 +103,49 @@
 }
 
 
-<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
 
 @code {
 	[Parameter]
 	public int itemID { get; set; }
 
-	private bool isFormDisabled = true;
-	private decimal amount;
-	private IStockItemModel item;
+	private bool _isFormDisabled = true;
+	private decimal _amount;
+	private IStockItemModel _item;
 
-	private void previousPage()
+	private void PreviousPage()
 	{
-		NavigationManager.NavigateTo(managerSession.GetLastPage());
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 
 	protected override async Task OnParametersSetAsync()
 	{
-		item = await stockData.GetStockItemByID(itemID);
+		_item = await StockData.GetStockItemByID(itemID);
 	}
 
 	private void ToggleEdit()
 	{
-		isFormDisabled = !isFormDisabled;
+		_isFormDisabled = !_isFormDisabled;
 	}
 
 	private async Task Save()
 	{
-		await stockData.UpdateItemByID(item);
-		isFormDisabled = true;
+		await StockData.UpdateItemByID(_item);
+		_isFormDisabled = true;
 	}
 
 	private async Task Add()
 	{
-		item.Quantity += amount;
-		amount = 0;
+		_item.Quantity += _amount;
+		_amount = 0;
 		await Save();
 	}	
 
 	private async Task Delete()
 	{
-		await stockData.DeleteItemByID(item.ID);
+		await StockData.DeleteItemByID(_item.ID);
 
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 
 		NavigationManager.NavigateTo("/Inventory");
 
@@ -153,15 +153,14 @@
 
 	private async Task Subtract()
 	{
-		if ((item.Quantity - amount) < 0)
+		if ((_item.Quantity - _amount) < 0)
 		{
 			await JSRuntime.InvokeVoidAsync("alert", "ERROR: Quantity would be negative. Please enter a valid value to update stock.");
-			return;
 		}
 		else
 		{
-			item.Quantity -= amount;
-			amount = 0;
+			_item.Quantity -= _amount;
+			_amount = 0;
 			await Save();
 		}
 	}

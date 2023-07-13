@@ -3,11 +3,8 @@ using BlazorApp.Data;
 using DataAccessLibrary.Data;
 using DataAccessLibrary.Data.APIs;
 using DataAccessLibrary.DataAccess;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
 

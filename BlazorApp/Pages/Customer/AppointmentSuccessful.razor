@@ -1,8 +1,8 @@
 ﻿@page "/AppointmentSuccessful"
 
-@inject ICustomerSessionData sessionData
+@inject ICustomerSessionData SessionData
 
-@if (appointmentID == 0)
+@if (AppointmentID == 0)
 {
 	<div class="alert alert-dark text-center" role="alert">
 		<h1>Nothing to see here!</h1>
@@ -14,7 +14,7 @@ else
 	<div class="alert alert-success text-center" role="alert">
 		<h1 class="alert-heading">Appointment Successful!</h1>
 		<hr>
-		<h2>Booking successful for vehicle <b>@appointmentNumberPlate</b> on <b>@appointmentDate.ToShortDateString()</b>.</h2>
+		<h2>Booking successful for vehicle <b>@AppointmentNumberPlate</b> on <b>@AppointmentDate.ToShortDateString()</b>.</h2>
 		<h3>We will be waiting for you <b>between 8:00AM and 9:00M</b>.</h3>
 		<h3>Thanks for trusting us!</h3>
 
@@ -25,14 +25,14 @@ else
 }
 
 @code {
-	public int appointmentID;
-	public string appointmentNumberPlate;
-	public DateTime appointmentDate;
+	public int AppointmentID;
+	public string AppointmentNumberPlate;
+	public DateTime AppointmentDate;
 
 	protected override void OnParametersSet()
 	{
-		appointmentID = sessionData.GetAppointmentID();
-		appointmentDate = sessionData.GetAppointmentDate();
-		appointmentNumberPlate = sessionData.GetAppointmentNumberPlate();
+		AppointmentID = SessionData.GetAppointmentID();
+		AppointmentDate = SessionData.GetAppointmentDate();
+		AppointmentNumberPlate = SessionData.GetAppointmentNumberPlate();
 	}
 }

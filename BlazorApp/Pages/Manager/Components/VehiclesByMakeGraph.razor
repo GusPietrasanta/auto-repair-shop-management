@@ -1,11 +1,11 @@
-﻿@inject IStatisticsDataService statisticsData
+﻿@inject IStatisticsDataService StatisticsData
 
 <SfAccumulationChart Title="Vehicles by Brand">
 	<AccumulationChartTitleStyle Size="23px" FontFamily="Arial" FontWeight="regular" FontStyle="bold"></AccumulationChartTitleStyle>
 	<AccumulationChartLegendSettings Visible="true" Position="LegendPosition.Top"></AccumulationChartLegendSettings>
 	<AccumulationChartSeriesCollection>
 		<AccumulationChartSeries Type="AccumulationType.Pie" LegendShape="LegendShape.Rectangle"
-			DataSource="@brands" XName="Make" YName="VehicleCount">
+			DataSource="@Brands" XName="Make" YName="VehicleCount">
 			<AccumulationDataLabelSettings Visible="true" Name="Browser" Position="AccumulationLabelPosition.Outside"></AccumulationDataLabelSettings>
 			<AccumulationChartTooltipSettings Enable="true"></AccumulationChartTooltipSettings>
 		</AccumulationChartSeries>
@@ -13,10 +13,10 @@
 </SfAccumulationChart>
 
 @code {
-	public List<IMakeCountDataModel> brands;
+	public List<IMakeCountDataModel> Brands;
 
 	protected override async Task OnInitializedAsync()
 	{
-		brands = await statisticsData.GetMakeCountStatistics();
+		Brands = await StatisticsData.GetMakeCountStatistics();
 	}
 }

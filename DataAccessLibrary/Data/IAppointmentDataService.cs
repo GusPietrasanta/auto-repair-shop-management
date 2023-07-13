@@ -11,7 +11,7 @@ namespace DataAccessLibrary.Data
 		Task<List<IAppointmentModel>> ReadAllAppointments();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailed();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailedByUserName(string userName);
-		Task<List<IDetailedAppointment>> ReadTodaysAppointmentsDetailed();
+		Task<List<IDetailedAppointment>> ReadTodayAppointmentsDetailed();
 		Task SetAppointmentAsCompletedByID(int ID);
 	}
 }

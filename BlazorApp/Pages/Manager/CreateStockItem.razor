@@ -1,29 +1,29 @@
-﻿@inject IStockDataService stockData
+﻿@inject IStockDataService StockData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
 <h3>Add Item</h3>
 
 	<div class="col-md-12">
-		<EditForm Model="@stockItem" OnValidSubmit="HandleValidSubmit">
+		<EditForm Model="@_stockItem" OnValidSubmit="HandleValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
 			<div class="mb-3">
 				<label>Item Name:</label>
-				<InputText @bind-Value="stockItem.ItemName" class="form-control" />
+				<InputText @bind-Value="_stockItem.ItemName" class="form-control" />
 			</div>
 			<div class="mb-3">
 				<label>Quantity:</label>
-				<InputNumber @bind-Value="stockItem.Quantity" class="form-control" />
+				<InputNumber @bind-Value="_stockItem.Quantity" class="form-control" />
 			</div>
 			<div class="mb-3">
 				<label>Unit:</label>
-				<InputText @bind-Value="stockItem.Unit" class="form-control" />
+				<InputText @bind-Value="_stockItem.Unit" class="form-control" />
 			</div>
 			<div class="mb-3">
 				<label>Minimum Quantity Alarm:</label>
-				<InputNumber @bind-Value="stockItem.AlarmMinimum" class="form-control" />
+				<InputNumber @bind-Value="_stockItem.AlarmMinimum" class="form-control" />
 			</div>
 			<button class="btn btn-primary" type="submit">Create Stock Item</button>
 		</EditForm>
@@ -32,15 +32,15 @@
 
 
 @code {
-	private IStockItemModel stockItem = new UIStockItemModel();
+	private IStockItemModel _stockItem = new UIStockItemModel();
 
 	private async Task HandleValidSubmit()
 	{
-		await stockData.CreateStockItem(stockItem);
+		await StockData.CreateStockItem(_stockItem);
 
-		stockItem = new UIStockItemModel();
+		_stockItem = new UIStockItemModel();
 
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 
 		NavigationManager.NavigateTo("/Inventory");
 	}

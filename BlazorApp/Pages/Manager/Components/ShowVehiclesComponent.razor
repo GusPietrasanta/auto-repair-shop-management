@@ -1,16 +1,16 @@
-﻿@inject IVehicleDataService vehicleData
+﻿@inject IVehicleDataService VehicleData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
 <h3>Customer Vehicles</h3>
 
-@if (vehicles == null)
+@if (_vehicles == null)
 {
 	<h4>Loading...</h4>
 }
 else
 {
-	foreach (var v in vehicles)
+	foreach (var v in _vehicles)
 	{
 		<div class="alert-info">
 			<p>Number Plate: @v.NumberPlate <button class="btn btn-dark" @onclick="(() => GoToVehicle(v.ID))">Go to Vehicle</button></p>
@@ -23,17 +23,17 @@ else
 	[Parameter]
 	public int CustomerID { get; set; }
 
-	private List<IVehicleModel> vehicles;
+	private List<IVehicleModel> _vehicles;
 
 	protected override async Task OnParametersSetAsync()
 	{
 		// Get vehicles from DB
-		vehicles = await vehicleData.GetVehiclesByCustomerID(CustomerID);
+		_vehicles = await VehicleData.GetVehiclesByCustomerID(CustomerID);
 	}
 
 	private void GoToVehicle(int vehicleID)
 	{
-		managerSession.SetLastPage("/SearchCustomers");
+		ManagerSession.SetLastPage("/SearchCustomers");
 		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
 	}
 }

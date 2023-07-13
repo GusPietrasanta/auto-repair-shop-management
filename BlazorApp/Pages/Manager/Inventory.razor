@@ -1,13 +1,13 @@
 ﻿@page "/Inventory"
-@inject IStockDataService stockData
-@inject IManagerSessionData managerSession
+@inject IStockDataService StockData
+@inject IManagerSessionData ManagerSession
 @inject NavigationManager NavigationManager
 
 <h3>Test Read Stock</h3>
 
-<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
 
-@if (stockItems == null)
+@if (_stockItems == null)
 {
 	<h4>Loading Stock Items...</h4>
 }
@@ -17,7 +17,7 @@ else
 
 	<div class="row">
 		<div class="col-md-6">
-			@foreach (var i in stockItems)
+			@foreach (var i in _stockItems)
 			{
 				if (@i.Quantity == 0)
 				{
@@ -54,21 +54,21 @@ else
 }
 
 @code {
-	private List<IStockItemModel> stockItems;
+	private List<IStockItemModel> _stockItems;
 
 	protected override async Task OnParametersSetAsync()
 	{
-		stockItems = await stockData.ReadAllStockItems();
+		_stockItems = await StockData.ReadAllStockItems();
 	}
 
-	private void previousPage()
+	private void PreviousPage()
 	{
-		NavigationManager.NavigateTo(managerSession.GetLastPage());
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 
 	private void GoToItem(int itemID)
 	{
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/StockItem/{itemID}");
 	}
 }

@@ -1,96 +1,95 @@
 ﻿@attribute [Authorize(Roles = "Manager")]
 @page "/Vehicle/{vehicleID:int}"
-@inject IVehicleDataService vehicleData
-@inject IReportDataService reportData
-@inject ICustomerDataService customerData
+@inject IVehicleDataService VehicleData
+@inject IReportDataService ReportData
 @inject NavigationManager NavigationManager
-@inject IManagerSessionData managerSession
+@inject IManagerSessionData ManagerSession
 
 <h3>Vehicle</h3>
-<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
 
 <div class="row">
 
-		@if (vehicle != null)
+		@if (_vehicle != null)
 		{
 		<div class="col-md-6">
 		<form>
-			<fieldset disabled="@isFormDisabled">
+			<fieldset disabled="@_isFormDisabled">
 
-		<EditForm Model="@vehicle" OnValidSubmit="HandleValidSubmit">
+		<EditForm Model="@_vehicle" OnValidSubmit="HandleValidSubmit">
 			<DataAnnotationsValidator/>
 			<ValidationSummary/>
 
 				<div class="form-group">
 					<label>Vehicle ID:</label>
-					<span>@vehicle.ID</span>
+					<span>@_vehicle.ID</span>
 				</div>
 
 				<div class="form-group">
 					<label>Number Plate:</label>
-					<InputText @bind-Value="vehicle.NumberPlate" class="form-control" />
+					<InputText @bind-Value="_vehicle.NumberPlate" class="form-control" />
 				</div>
 				
 				<div class="form-group">
 					<label>Make:</label>
-					<InputText @bind-Value="vehicle.Make" class="form-control" />
+					<InputText @bind-Value="_vehicle.Make" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>Model:</label>
-					<InputText @bind-Value="vehicle.Model" class="form-control" />
+					<InputText @bind-Value="_vehicle.Model" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>Year:</label>
-					<InputText @bind-Value="vehicle.Year" class="form-control" />
+					<InputText @bind-Value="_vehicle.Year" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>VIN:</label>
-					<InputText @bind-Value="vehicle.VIN" class="form-control" />
+					<InputText @bind-Value="_vehicle.VIN" class="form-control" />
 				</div>
 				
 				<div class="form-group">
 					<label>Engine:</label>
-					<InputText @bind-Value="vehicle.EngineDescription" class="form-control" />
+					<InputText @bind-Value="_vehicle.EngineDescription" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>Transmission:</label>
-					<InputText @bind-Value="vehicle.TransmissionType" class="form-control" />
+					<InputText @bind-Value="_vehicle.TransmissionType" class="form-control" />
 				</div>
 				
 				<div class="form-group">
 					<label>Engine Size:</label>
-					<InputText @bind-Value="vehicle.SizeLitres" class="form-control" />
+					<InputText @bind-Value="_vehicle.SizeLitres" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>Cylinders:</label>
-					<InputText @bind-Value="vehicle.Cylinders" class="form-control" />
+					<InputText @bind-Value="_vehicle.Cylinders" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>Fuel Type:</label>
-					<InputText @bind-Value="vehicle.FuelType" class="form-control" />
+					<InputText @bind-Value="_vehicle.FuelType" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>Body Type:</label>
-					<InputText @bind-Value="vehicle.BodyType" class="form-control" />
+					<InputText @bind-Value="_vehicle.BodyType" class="form-control" />
 				</div>
 
 				<div class="form-group">
 				<label>First Visit:</label>
-				@if (@vehicle.FirstVisit.ToShortDateString() == "1/01/0001")
+				@if (_vehicle.FirstVisit.ToShortDateString() == "1/01/0001")
 				{
 				<p>Has never been at the shop yet.</p>
 				}
 				else
 				{
 
-				<InputDate @bind-Value="vehicle.FirstVisit" class="form-control" />
+				<InputDate @bind-Value="_vehicle.FirstVisit" class="form-control" />
 				
 				}
 				</div>
@@ -104,7 +103,7 @@
 
 		<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
 		
-		@if (isFormDisabled == false)	
+		@if (_isFormDisabled == false)	
 		{
 				<button class="btn btn-success" type="submit" @onclick="(() => HandleValidSubmit())">Save</button>
 		}
@@ -114,31 +113,34 @@
 
 	<div class="col-md-6">
 
-		@if (reports != null)
+		@if (_reports != null)
 		{
 			<h2>Reports: </h2>
-			@foreach (var r in reports)
+			@foreach (var r in _reports)
 			{
-				@if (r != reports.FirstOrDefault())
+				@if (r != _reports.FirstOrDefault())
 				{
-					int kmsBetweenServices = previousReportOdometer - r.Odometer;
-					int daysBetweenServices = (previousReportDate - r.TimeStarted).Days;
+					int kmsBetweenServices = _previousReportOdometer - r.Odometer;
+					int daysBetweenServices = (_previousReportDate - r.TimeStarted).Days;
 					<div>
 						<p>Kms between services: @kmsBetweenServices.ToString("N0") kms.</p>
 						<p>Days between services: @daysBetweenServices days.</p>
 					</div>
 				}
 
-				<div class="alert-info">
-					<p>Report ID: @r.ID</p>
-					<p>Date: @r.TimeStarted.ToShortDateString()</p>
-					<p>Odometer: @r.Odometer kms</p>
-					<button class="btn btn-primary" @onclick="(() => SeeReport(r.ID))">See Report</button>
-				</div>
-				<br />
+				@if (r != null)
+				{
+					<div class="alert-info">
+						<p>Report ID: @r.ID</p>
+						<p>Date: @r.TimeStarted.ToShortDateString()</p>
+						<p>Odometer: @r.Odometer kms</p>
+						<button class="btn btn-primary" @onclick="(() => SeeReport(r.ID))">See Report</button>
+					</div>
+					<br />
 
-				previousReportDate = r.TimeStarted;
-				previousReportOdometer = r.Odometer;
+					_previousReportDate = r.TimeStarted;
+					_previousReportOdometer = r.Odometer;
+				}
 			}
 		}
 
@@ -146,51 +148,51 @@
 
 </div>
 
-<button class="btn btn-info" @onclick="(() => previousPage())">Go to previous page</button>
+<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
 
 @code {
-	private bool isFormDisabled = true;
+	private bool _isFormDisabled = true;
 
 	[Parameter]
-	public int vehicleID { get; set; }
+	public int VehicleId { get; set; }
 
-	private IVehicleModel vehicle;
-	private List<IReportModel> reports;
+	private IVehicleModel _vehicle;
+	private List<IReportModel> _reports;
 
-	private DateTime previousReportDate;
-	private int previousReportOdometer;
+	private DateTime _previousReportDate;
+	private int _previousReportOdometer;
 
 	private void ToggleEdit()
 	{
-		isFormDisabled = !isFormDisabled;
+		_isFormDisabled = !_isFormDisabled;
 	}
 
 	private void HandleValidSubmit()
 	{
-		vehicleData.UpdateVehicle(vehicle);
-		isFormDisabled = true;
+		VehicleData.UpdateVehicle(_vehicle);
+		_isFormDisabled = true;
 	}
 
 	protected async override Task OnInitializedAsync()
 	{
-		vehicle = await vehicleData.GetVehicleDetailsByID(vehicleID);
-		reports = await reportData.GetReportsByVehicleID(vehicleID);
+		_vehicle = await VehicleData.GetVehicleDetailsByID(VehicleId);
+		_reports = await ReportData.GetReportsByVehicleID(VehicleId);
 	}
 
 	protected async override Task OnParametersSetAsync()
 	{
-		vehicle = await vehicleData.GetVehicleDetailsByID(vehicleID);
-		reports = await reportData.GetReportsByVehicleID(vehicleID);
+		_vehicle = await VehicleData.GetVehicleDetailsByID(VehicleId);
+		_reports = await ReportData.GetReportsByVehicleID(VehicleId);
 	}
 
-	private void previousPage()
+	private void PreviousPage()
 	{
-		NavigationManager.NavigateTo(managerSession.GetLastPage());
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 
 	private void SeeReport(int reportID)
 	{
-		managerSession.SetLastPage(NavigationManager.Uri.ToString());
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		//managerSession.SetLastPage($"/Vehicle/{vehicleID}");
 		NavigationManager.NavigateTo($"/Report/{reportID}");
 	}

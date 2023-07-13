@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataAccessLibrary.DataAccess
+﻿namespace DataAccessLibrary.DataAccess
 {
 	public class ManagerSessionData : IManagerSessionData
 	{
-		public List<string> history = new List<string> { "/" };
+		public List<string> History = new List<string> { "/" };
 
 		public void SetLastPage(string newLastPage)
 		{
-			history.Add(newLastPage);
+			History.Add(newLastPage);
 		}
 
 		public string GetLastPage()
 		{
-			if (history.Count > 0)
+			if (History.Count > 0)
 			{
 
-                string output = history[history.Count - 1];
-                history.RemoveAt(history.Count - 1);
+                string output = History[History.Count - 1];
+                History.RemoveAt(History.Count - 1);
                 return output;
             }
 			else
