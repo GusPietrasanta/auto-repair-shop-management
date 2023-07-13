@@ -77,6 +77,11 @@ else
 	{
 		_stockItems = await StockData.ReadAllStockItems();
 	}
+	
+	protected override async Task OnInitializedAsync()
+	{
+		_stockItems = await StockData.ReadAllStockItems();
+	}
 
 	private void PreviousPage()
 	{

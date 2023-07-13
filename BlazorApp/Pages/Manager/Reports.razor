@@ -14,12 +14,30 @@
 
 <div class="row justify-content-center">
 	<div class="col-5">
-		@if (_inspections != null)
+		
+		<div>
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li class="page-item @(_page == 1 ? "disabled" : "")"  @onclick="(Previous)"><a class="page-link" href="#" @onclick:preventDefault="true">Previous</a></li>
+					<li class="page-item @(_page == 1 ? "active" : "")" @onclick="() => PageNumber(1)"><a class="page-link" href="#" @onclick:preventDefault="true">1</a></li>
+					<li class="page-item @(_page == 2 ? "active" : "")" @onclick="() => PageNumber(2)"><a class="page-link" href="#" @onclick:preventDefault="true">2</a></li>
+					<li class="page-item @(_page == 3 ? "active" : "")" @onclick="() => PageNumber(3)"><a class="page-link" href="#" @onclick:preventDefault="true">3</a></li>
+					<li class="page-item @(_page == 4 ? "active" : "")" @onclick="() => PageNumber(4)"><a class="page-link" href="#" @onclick:preventDefault="true">4</a></li>
+					<li class="page-item @(_page == 5 ? "active" : "")" @onclick="() => PageNumber(5)"><a class="page-link" href="#" @onclick:preventDefault="true">5</a></li>
+					<li class="page-item @(_page == 5 ? "disabled" : "")" @onclick="(Next)"><a class="page-link" href="#"  @onclick:preventDefault="true">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+		
+		<h2>Page: @_page</h2>
+		
+		@if (_inspectionsToShow != null)
 		{
-			@foreach (var c in _inspections)
+			@foreach (var c in _inspectionsToShow)
 			{
 				<div class="alert alert-info text-center">
 					<p class="lead">
+						<b>Report ID:</b> @c.ID <br/>
 						<b>Vehicle:</b> @c.NumberPlate - @c.Make @c.Model @c.Year <br/>
 						<b>Customer:</b> @c.FirstName @c.LastName <br/>
 						<b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")<br/>
@@ -37,11 +55,17 @@
 
 
 @code {
-	private List<IDashboardReportModel> _inspections;
+	private int _page = 1;
+	private readonly int _reportsPerPage = 5;
+	
+	private List<IDashboardReportModel> _allInspections;
+	private List<IDashboardReportModel> _inspectionsToShow;
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
-		_inspections = await ReportData.SearchAllReportsDashboardNonArchived();
+		_allInspections = await ReportData.SearchAllReportsDashboardNonArchived();
+
+		_inspectionsToShow = _allInspections.Take(_reportsPerPage).ToList();
 	}
 
 		private void SeeReport(int reportID)
@@ -53,5 +77,37 @@
 	private void PreviousPage()
 	{
 		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
+	}
+
+	private void Previous()
+	{
+		if (_page > 1)
+		{
+			_page--;
+		}
+
+		UpdateList();
+	}
+	
+	private void Next()
+	{
+		if (_page < 5)
+		{
+			_page++;	
+		}
+
+		UpdateList();
+	}
+
+	private void PageNumber(int pageNumber)
+	{
+		_page = pageNumber;
+
+		UpdateList();
+	}
+
+	private void UpdateList()
+	{
+		_inspectionsToShow = _allInspections.Skip((_page - 1) * _reportsPerPage).Take(_reportsPerPage).ToList();
 	}
 }
