@@ -35,7 +35,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 - [x] Create a dashboard for managers with multiple data (e.g., week schedule, message board, low stock alarms).
 - [x] Implement an universal search bar for managers, to search for vehicles, customers or inventory items.
 - [x] Tidy up code
-- [ ] Improve visuals
+- [x] Improve visuals
 - [ ] Develop and implement unit tests
 - [ ] Deploy to AWS!
 

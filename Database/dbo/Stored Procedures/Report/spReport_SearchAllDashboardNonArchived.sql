@@ -7,6 +7,6 @@ BEGIN
 	INNER JOIN dbo.Mechanic m ON r.MechanicID = m.ID
 	INNER JOIN dbo.Customer c on r.CustomerID = c.ID
 	INNER JOIN dbo.Vehicle v on r.VehicleID = v.ID
-	ORDER BY r.TimeFinished ASC;
+	ORDER BY r.TimeFinished DESC;
 END
 RETURN 0

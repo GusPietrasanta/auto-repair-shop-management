@@ -18,13 +18,24 @@
 		<div>
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item @(_page == 1 ? "disabled" : "")"  @onclick="(Previous)"><a class="page-link" href="#" @onclick:preventDefault="true">Previous</a></li>
-					<li class="page-item @(_page == 1 ? "active" : "")" @onclick="() => PageNumber(1)"><a class="page-link" href="#" @onclick:preventDefault="true">1</a></li>
-					<li class="page-item @(_page == 2 ? "active" : "")" @onclick="() => PageNumber(2)"><a class="page-link" href="#" @onclick:preventDefault="true">2</a></li>
-					<li class="page-item @(_page == 3 ? "active" : "")" @onclick="() => PageNumber(3)"><a class="page-link" href="#" @onclick:preventDefault="true">3</a></li>
-					<li class="page-item @(_page == 4 ? "active" : "")" @onclick="() => PageNumber(4)"><a class="page-link" href="#" @onclick:preventDefault="true">4</a></li>
-					<li class="page-item @(_page == 5 ? "active" : "")" @onclick="() => PageNumber(5)"><a class="page-link" href="#" @onclick:preventDefault="true">5</a></li>
-					<li class="page-item @(_page == 5 ? "disabled" : "")" @onclick="(Next)"><a class="page-link" href="#"  @onclick:preventDefault="true">Next</a></li>
+					
+					@if (_numberOfReports > _reportsPerPage * 3)
+					{
+						<li class="page-item @(_page == 1 ? "disabled" : "")" @onclick="(Previous)"><a class="page-link" href="#" @onclick:preventDefault="true">Previous</a></li>						
+					}
+					
+					@{
+						for (int i = 1; i <= _neededNumberOfPages; i++)
+						{
+							int pageNumber = i;
+							<li class="page-item @(_page == pageNumber ? "active" : "")" @onclick="() => PageNumber(pageNumber)"><a class="page-link" href="#" @onclick:preventDefault="true">@pageNumber</a></li>
+						}	
+					}
+
+					@if (_numberOfReports > _reportsPerPage * 3)
+					{
+						<li class="page-item @(_page == _neededNumberOfPages ? "disabled" : "")" @onclick="(Next)"><a class="page-link" href="#" @onclick:preventDefault="true">Next</a></li>						
+					}
 				</ul>
 			</nav>
 		</div>
@@ -57,6 +68,8 @@
 @code {
 	private int _page = 1;
 	private readonly int _reportsPerPage = 5;
+	private int _numberOfReports;
+	private int _neededNumberOfPages;
 	
 	private List<IDashboardReportModel> _allInspections;
 	private List<IDashboardReportModel> _inspectionsToShow;
@@ -64,6 +77,10 @@
 	protected override async Task OnInitializedAsync()
 	{
 		_allInspections = await ReportData.SearchAllReportsDashboardNonArchived();
+
+		_numberOfReports = _allInspections.Count();
+		
+		_neededNumberOfPages = ((_numberOfReports - 1) / _reportsPerPage) + 1;
 
 		_inspectionsToShow = _allInspections.Take(_reportsPerPage).ToList();
 	}
@@ -91,7 +108,7 @@
 	
 	private void Next()
 	{
-		if (_page < 5)
+		if (_page < _neededNumberOfPages)
 		{
 			_page++;	
 		}
