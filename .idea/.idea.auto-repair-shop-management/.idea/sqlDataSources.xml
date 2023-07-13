@@ -81,6 +81,7 @@
               <entry key="ConstraintContext" value="CONSTRAINT_IN_TABLE" />
               <entry key="MsVsDdlCompatibility" value="1" />
               <entry key="QualifyWithSchema" value="ALWAYS" />
+              <entry key="Reformat" value="1" />
               <entry key="UseSemicolon" value="1" />
             </map>
           </option>

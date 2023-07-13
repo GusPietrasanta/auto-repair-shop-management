@@ -27,7 +27,7 @@ BEGIN
             [OilLeaks], [CoolantLeaks]
         )
     ) AS unpvt
-    WHERE Value = 'Requires immediate attention'
+    WHERE Value = 'Requires Immediate Attention'
     GROUP BY Item;
 
 END

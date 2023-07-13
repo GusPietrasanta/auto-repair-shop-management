@@ -7,153 +7,157 @@
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
 
-<br />
-
-<h3>Manager Dashboard Component</h3>
-
-<br />
-
-<div class="row">
-
+<div class="row my-4">
+	<hr/>
 	<div class="col-md-6">
-		<h2>Today's Appointments:</h2>
-		@if (_todayAppointments != null)
-		{
-			@foreach (var a in _todayAppointments)
+		<h2 class="text-center display-6">Today's Appointments</h2>
+		
+		<div class="overflow-y-auto" style="max-height: 400px;">
+			@if (_todayAppointments != null)
 			{
-				<div class="@(a.UserName == null ? "alert-danger" : a.Completed ? "alert-success" : "alert-warning")">
-				<p>@a.ID</p>
-				<p>Car @a.NumberPlate</p>
-				@if (a.UserName != null && a.Completed == false)
+				@foreach (var a in _todayAppointments)
 				{
-					<p>Assigned to @a.UserName</p>
-				}
-				else if (a.UserName != null && a.Completed)
-				{
-					<p>Completed by @a.UserName</p>
-				}
-				else
-				{
-					<p>Job not assigned to any mechanic!</p>
-					<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
-						<option value="">Select Mechanic...</option>
-						@foreach (var m in _mechanics)
+					<div class="alert  mx-auto w-75 @(a.UserName == null ? "alert alert-danger" : a.Completed ? "alert alert-success" : "alert alert-warning")">
+						<p>@a.ID</p>
+						<p>Car @a.NumberPlate</p>
+						@if (a.UserName != null && a.Completed == false)
 						{
-							<option value="@m.ID">@m.UserName</option>
+							<p>Assigned to @a.UserName</p>
 						}
-					</select>
+						else if (a.UserName != null && a.Completed)
+						{
+							<p>Completed by @a.UserName</p>
+						}
+						else
+						{
+							<p>Job not assigned to any mechanic!</p>
+							<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
+								<option value="">Select Mechanic...</option>
+								@foreach (var m in _mechanics)
+								{
+									<option value="@m.ID">@m.UserName</option>
+								}
+							</select>
 
-					<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+							<button class="btn btn-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
 
-				}
-				@if (a.Completed)
-				{
-						<button class="btn btn-outline-primary" @onclick="(() => SeeReportFromAppointment(a.ID))">
-						See Report</button>
-				}
-				else if (a.Completed || a.UserName != null)
-				{
-					<p>Inspection in progress.</p>
-				}
-				<br>
-				</div>
-				<br />
-
-			}
-		}
-		else
-		{
-			<p>No appointments for today!</p>
-		}
-	</div>
-
-
-
-	<div class="col-md-6">
-		<h2>Unread Messages: </h2>
-		@if (_messages != null)
-		{
-			@foreach (var m in _messages)
-			{
-				<div class="alert-info">
-					<p>Message ID: @m.ID</p>
-					<p>@m.UserName posted on @m.PostedOn in <b>@m.Tag</b>:</p>
-					<p><i>@m.Content</i></p>
-					<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.ID))">Mark as read</button>
-				</div>
-				<br />
-			}
-		}
-		else
-		{
-			<p>No new messages!</p>
-		}
-	</div>
-
-</div>
-
-<br />
-<br />
-<br />
-
-<div class="row">
-
-
-
-	<div class="col-md-6">
-		<h2>Completed Inspections:</h2>
-		@if (_completedInspections != null)
-		{
-			@foreach (var c in _completedInspections)
-			{
-				<div class="alert-info">
-				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
-				<p>Customer: @c.FirstName @c.LastName</p>
-				<p>Completed by: @c.UserName on @c.TimeFinished</p>
-				<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
-				<button class="btn btn-primary" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
-				</div>
-				<br />
-			}
-		}
-		else
-		{
-			<p>No completed inspections.</p>
-		}
-	</div>
-
-	<div class="col-md-6">
-		<h2>Stock Warnings:</h2>
-
-		@if (_stock != null)
-		{
-			@foreach (var i in _stock)
-			{
-				@if (i.Quantity == 0)
-				{
-					<div class="alert-danger">
-						<p> Nothing left of @i.ItemName!</p>
+						}
+						@if (a.Completed)
+						{
+							<button class="btn btn-primary" @onclick="(() => SeeReportFromAppointment(a.ID))">
+								See Report</button>
+						}
+						else if (a.Completed || a.UserName != null)
+						{
+							<p>Inspection in progress.</p>
+						}
 						<br>
 					</div>
-				}
-				else
-				{
-					<div class="alert-warning">
-						<p>@i.ItemName is low</p>
-						<p>(Only @i.Quantity @i.Unit left)</p>
-					</div>
+					<br />
+
 				}
 			}
-			<br />
-			<button class="btn btn-primary" @onclick="(() => GoToInventory())">Go to Inventory</button>
-		}
-		else
-		{
-			<p>All good in the inventory!</p>
-		}
+			else
+			{
+				<p>No appointments for today!</p>
+			}
+		</div>
 	</div>
 
+
+
+	<div class="col-6">
+		<h2 class="text-center  display-6">Unread Messages</h2>
+		<div class="overflow-y-auto" style="max-height: 400px;">
+					
+			@if (_messages != null)
+			{
+				@foreach (var m in _messages)
+				{
+					<div class="alert alert-info mx-auto w-75">
+						<p>Message ID: @m.ID</p>
+						<p>@m.UserName posted on @m.PostedOn in <b>@m.Tag</b>:</p>
+						<p><i>@m.Content</i></p>
+						<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.ID))">Mark as read</button>
+					</div>
+					<br/>
+				}
+			}
+			else
+			{
+				<p>No new messages!</p>
+			}
+		</div>
+	</div>
 </div>
+
+<hr/>
+
+<div class="row my-4">
+	
+	<div class="col-md-6">
+		<h2 class="text-center display-6">Completed Inspections</h2>
+		<div class="overflow-y-auto" style="max-height: 400px;">
+
+			@if (_completedInspections != null)
+			{
+				@foreach (var c in _completedInspections)
+				{
+					<div class="alert alert-info mx-auto w-75">
+						<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
+						<p>Customer: @c.FirstName @c.LastName</p>
+						<p>Completed by: @c.UserName on @c.TimeFinished</p>
+						<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
+						<button class="btn btn-primary" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
+					</div>
+					<br/>
+				}
+			}
+			else
+			{
+				<p>No completed inspections.</p>
+			}
+		</div>
+	</div>
+
+	<div class="col-md-6">
+			<h2 class="text-center display-6">Stock Warnings</h2>	
+		
+		<div class="overflow-y-auto text-center" style="max-height: 400px;">
+
+			<button class="btn btn-primary m-2" @onclick="(GoToInventory)">Go to Inventory</button>
+			@if (_stock != null)
+			{
+				@foreach (var i in _stock)
+				{
+					@if (i.Quantity == 0)
+					{
+						<div class="alert alert-danger mx-auto w-75">
+							<p> Nothing left of @i.ItemName!</p>
+							<button class="btn btn-primary" @onclick="(() => GoToItem(i.ID))">Edit Item</button>
+						</div>
+					}
+					else
+					{
+						<div class="alert alert-warning mx-auto w-75">
+							<p>@i.ItemName is low</p>
+							<p>(Only @i.Quantity @i.Unit left)</p>
+							<button class="btn btn-primary" @onclick="(() => GoToItem(i.ID))">Edit Item</button>
+						</div>
+					}
+				}
+				<br/>
+			}
+			else
+			{
+				<p>All good in the inventory!</p>
+			}
+		</div>
+	</div>
+</div>
+
+
+<hr/>
 
 <div class="container text-center">
   <div class="row">
@@ -258,5 +262,10 @@
 		await ReportData.ArchiveInspection(inspectionID);
 
 		_completedInspections.Remove(_completedInspections.Where(x => x.ID == inspectionID).FirstOrDefault());
+	}
+	private void GoToItem(int itemID)
+	{
+		ManagerSession.SetLastPage(NavigationManager.Uri);
+		NavigationManager.NavigateTo($"/StockItem/{itemID}");
 	}
 }
