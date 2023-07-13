@@ -11,8 +11,8 @@
 	<h1 class="display-3 fw-normal">Search Customer</h1>
 	<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
 </div>
-
 <hr/>
+
 <div class="mb-2">
 	<label class="form-label h4 fw-bold">Search:</label>
 	<input class="form-control w-25" type="text" @oninput="HandleInput"/>
@@ -53,7 +53,7 @@ else
 							<td class="overflow-x">@c.Address</td>
 							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicles(c.ID))">View</button></td>
 							<td><div class="text-center">
-								<button class="btn btn-primary mb-1" @onclick="(() => EditCustomer(c.ID))">Edit</button>
+								<button class="btn btn-outline-dark mb-1" @onclick="(() => EditCustomer(c.ID))">Edit</button>
 
 								@if (_idToDelete == c.ID)
 								{

@@ -6,8 +6,6 @@
 @inject IManagerSessionData ManagerSession
 @inject IJSRuntime JSRuntime
 
-
-
 @if	(_item != null)
 {
 	<div class="text-center">
@@ -21,46 +19,73 @@
 	
 	<div class="row justify-content-around">
 
-	<div class="col-4">
-			<div>
-				<h3><b>@_item.ItemName</b></h3>
-			</div>
-			<br />
-			<div>
-
-			<h3>
-			Status:
-			@if (_item.Quantity == 0)
-			{
-			<span class="badge bg-danger">Out of Stock</span>
-			}
-			else if (_item.Quantity > _item.AlarmMinimum)
-			{
-					<span class="badge bg-success">Ok</span>
-				}
-			else if (_item.Quantity <= _item.AlarmMinimum)
-			{
-					<span class="badge bg-warning">Low</span>
-			}
-				</h3>
-			</div>
-			<br/>
-			@if(_item.Unit.ToLower().Contains("unit"))
-			{
-				<div><h4>In Stock: @_item.Quantity.ToString("0") @_item.Unit</h4></div>
-				<br />
-				<div><h4>Alarm minimum: @_item.AlarmMinimum.ToString("0") @_item.Unit</h4></div>
-			}
-			else
-			{
-				<div><h4>In Stock: @_item.Quantity.ToString("0.00") @_item.Unit</h4></div>
-				<br />
-				<div><h4>Alarm minimum: @_item.AlarmMinimum.ToString("0.00") @_item.Unit</h4></div>
-			}
-
-
-
-	</div>	
+		<div class="col-7">
+			
+		<table class="table table-striped table-hover">
+            <thead>
+            	<tr>
+            		<th colspan="2" class="display-5 text-center">Item Details</th>
+            	</tr>
+            </thead>
+            <tbody>
+            <tr>
+				<td class="p-4 h4 fw-bold">Item ID:</td>
+				<td class="p-4 h4">@_item.ID</td>
+            </tr>
+            <tr>
+				<td class="p-4 h4 fw-bold">Item Name:</td>
+				<td class="p-4 h4">@_item.ItemName</td>
+            </tr>
+            <tr>
+	            <td class="p-4 h4 fw-bold">Item Status:</td>
+	            @if (_item.Quantity == 0)
+	            {
+		            <td class="p-4 h4">
+			            <span class="m-auto badge bg-danger">Out of Stock</span>
+		            </td>
+	            }
+	            else if (_item.Quantity > _item.AlarmMinimum)
+	            {
+		            <td class="p-4 h4">
+			            <span class="m-auto badge bg-success">Ok</span>    
+		            </td>
+	            }
+	            else if (_item.Quantity <= _item.AlarmMinimum)
+	            {
+		            <td class="p-4 h4">
+			            <span class="m-auto badge bg-warning">Low</span>    
+		            </td>
+	            }
+            </tr>
+                
+	                @if (_item.Unit.ToLower().Contains("unit"))
+                    {
+	                    <tr>
+		                    <td class="p-4 h4 fw-bold">In Stock:</td>
+		                    <td class="p-4 h4">@_item.Quantity.ToString("0") @_item.Unit</td>
+	                    </tr>    
+	                    
+	                    <tr>
+		                    <td class="p-4 h4 fw-bold">Alarm minimum:</td>
+				            <td class="p-4 h4">@_item.AlarmMinimum.ToString("0") @_item.Unit</td>
+			            </tr>
+                    }
+                    else
+                    {
+	                    <tr>
+		                    <td class="p-4 h4 fw-bold">In Stock:</td>
+		                    <td class="p-4 h4">@_item.Quantity.ToString("0.00") @_item.Unit</td>
+	                    </tr>    
+	                    
+	                    <tr>
+		                    <td class="p-4 h4 fw-bold">Alarm minimum:</td>
+		                    <td class="p-4 h4">@_item.AlarmMinimum.ToString("0.00") @_item.Unit</td>
+	                    </tr>
+                    }
+            </tbody>
+		</table>
+			
+		</div>	
 	
 	<div class="col-4 alert alert-info">
 		<h5>Update Stock:</h5>
@@ -118,9 +143,6 @@
 
 	</div>
 }
-
-
-<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
 
 @code {
 	[Parameter]

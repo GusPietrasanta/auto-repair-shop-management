@@ -4,9 +4,13 @@
 @inject IJSRuntime JSRuntime
 @inject IAppointmentDataService AppointmentData
 @inject IMechanicDataService MechanicData
+@inject NavigationManager NavigationManager
+@inject IManagerSessionData ManagerSession
 
-<h1 class="text-center display-3 fw-normal">Assign Job Cards</h1>
-
+<div class="text-center">
+	<h1 class="display-3 fw-normal">Assign Job Cards</h1>
+	<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
+</div>
 <hr/>
 
 <div class="row justify-content-center">
@@ -126,5 +130,10 @@
 		_appointments.Remove(_appointments.Where(x => x.ID == id).FirstOrDefault());
 		_idToDelete = 0;
 		StateHasChanged();
+	}	
+	
+	private void PreviousPage()
+	{
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 }

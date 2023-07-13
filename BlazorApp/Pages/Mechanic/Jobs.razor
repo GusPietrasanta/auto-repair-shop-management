@@ -36,11 +36,10 @@
 				<div class="alert alert-info text-center">
 					@*<p>Report ID: @r.ID</p>*@
 					<p>
-						Appointment ID: @a.ID <br>
-						Date: @a.Date.ToShortDateString() <br>
-						Customer: @a.FirstName @a.LastName <br>
-						Vehicle: @a.NumberPlate <br>
-						@a.Make - @a.Model <br>
+						<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model <br>
+						<b>Date:</b> @a.Date.ToShortDateString() <br>
+						<b>Customer:</b> @a.FirstName @a.LastName <br>
+						<b>Appointment ID:</b> @a.ID <br>
 					</p>
 					<button class="btn btn-success" @onclick="(() => GoToReportForm(a))">Start Job</button>
 				</div>

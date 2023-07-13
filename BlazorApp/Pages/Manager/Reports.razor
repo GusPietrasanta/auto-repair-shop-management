@@ -5,21 +5,27 @@
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
 
-<h3>Inspections:</h3>
+<div class="text-center">
+	<h1 class="display-3 fw-normal">Reports</h1>
+	<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
+</div>
 
-<div class="row">
-	<div class="col-md-6">
+<hr/>
+
+<div class="row justify-content-center">
+	<div class="col-5">
 		@if (_inspections != null)
 		{
 			@foreach (var c in _inspections)
 			{
-				<div class="alert-info">
-				<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
-				<p>Customer: @c.FirstName @c.LastName</p>
-				<p>Completed by: @c.UserName on @c.TimeFinished</p>
-				<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
+				<div class="alert alert-info text-center">
+					<p class="lead">
+						<b>Vehicle:</b> @c.NumberPlate - @c.Make @c.Model @c.Year <br/>
+						<b>Customer:</b> @c.FirstName @c.LastName <br/>
+						<b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")<br/>
+					</p>
+					<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
 				</div>
-				<br />
 			}
 		}
 		else
@@ -42,5 +48,10 @@
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/Report/{reportID}");
+	}	
+	
+	private void PreviousPage()
+	{
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 }
