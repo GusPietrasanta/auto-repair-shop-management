@@ -18,42 +18,43 @@
 				@foreach (var a in _todayAppointments)
 				{
 					<div class="alert  mx-auto w-75 @(a.UserName == null ? "alert alert-danger" : a.Completed ? "alert alert-success" : "alert alert-warning")">
-						<p>@a.ID</p>
-						<p>Car @a.NumberPlate</p>
+						@* <p>@a.ID</p> *@
+						<p><b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model</p>
 						@if (a.UserName != null && a.Completed == false)
 						{
-							<p>Assigned to @a.UserName</p>
+							<p><b>Assigned</b> to @a.UserName</p>
 						}
 						else if (a.UserName != null && a.Completed)
 						{
-							<p>Completed by @a.UserName</p>
+							<p><b>Completed</b> by @a.UserName</p>
 						}
 						else
 						{
-							<p>Job not assigned to any mechanic!</p>
-							<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
+							<p>Job <b>not assigned</b> to any mechanic!</p>
+							<select class="form-select" @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
 								<option value="">Select Mechanic...</option>
 								@foreach (var m in _mechanics)
 								{
 									<option value="@m.ID">@m.UserName</option>
 								}
 							</select>
-
-							<button class="btn btn-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
-
+							<div class="text-center mt-2">
+								<button class="btn btn-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+							</div>
 						}
 						@if (a.Completed)
 						{
-							<button class="btn btn-primary" @onclick="(() => SeeReportFromAppointment(a.ID))">
-								See Report</button>
+							<div class="text-center">
+								<button class="btn btn-primary" @onclick="(() => SeeReportFromAppointment(a.ID))">
+									See Report
+								</button>
+							</div>
 						}
 						else if (a.Completed || a.UserName != null)
 						{
 							<p>Inspection in progress.</p>
 						}
-						<br>
 					</div>
-					<br />
 
 				}
 			}
@@ -75,12 +76,13 @@
 				@foreach (var m in _messages)
 				{
 					<div class="alert alert-info mx-auto w-75">
-						<p>Message ID: @m.ID</p>
-						<p>@m.UserName posted on @m.PostedOn in <b>@m.Tag</b>:</p>
+						@* <p>Message ID: @m.ID</p> *@
+						<p><b>@m.UserName</b> posted on <b>@m.PostedOn.ToString("g")</b> in <b>@m.Tag</b>:</p>
 						<p><i>@m.Content</i></p>
-						<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.ID))">Mark as read</button>
+						<div class="text-center">
+							<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.ID))">Mark as read</button>	
+						</div>
 					</div>
-					<br/>
 				}
 			}
 			else
@@ -104,13 +106,14 @@
 				@foreach (var c in _completedInspections)
 				{
 					<div class="alert alert-info mx-auto w-75">
-						<p>Vehicle: @c.NumberPlate - @c.Make @c.Model @c.Year</p>
-						<p>Customer: @c.FirstName @c.LastName</p>
-						<p>Completed by: @c.UserName on @c.TimeFinished</p>
-						<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
-						<button class="btn btn-primary" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
+						<p><b>Vehicle:</b> @c.NumberPlate - @c.Make @c.Model @c.Year</p>
+						<p><b>Customer:</b> @c.FirstName @c.LastName</p>
+						<p><b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")</p>
+						<div class="text-center">
+							<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
+							<button class="btn btn-warning" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
+						</div>
 					</div>
-					<br/>
 				}
 			}
 			else
@@ -146,7 +149,6 @@
 						</div>
 					}
 				}
-				<br/>
 			}
 			else
 			{
