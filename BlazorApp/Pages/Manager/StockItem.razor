@@ -1,17 +1,27 @@
 ﻿@attribute [Authorize(Roles="Manager")]
 @page "/StockItem/{itemID:int}"
+<PageTitle>Inventory Stock</PageTitle>
 @inject IStockDataService StockData
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
 @inject IJSRuntime JSRuntime
 
-<h2>Stock Item ID: @itemID</h2>
+
 
 @if	(_item != null)
 {
-	<div class="row">
+	<div class="text-center">
+		<h1 class="display-4 fw-normal">Stock Item: @_item.ItemName</h1>
+		<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
+	</div>
+	
+	<hr/>
+	
+	<PageTitle>Inventory - @_item.ItemName</PageTitle>
+	
+	<div class="row justify-content-around">
 
-	<div class="col-6">
+	<div class="col-4">
 			<div>
 				<h3><b>@_item.ItemName</b></h3>
 			</div>
@@ -52,19 +62,26 @@
 
 	</div>	
 	
-	<div class="col-6">
-		<div>
-			<h5>Modify Stock:</h5>
-			<button class="btn btn-success" @onclick="(() => Add())">+</button>
-				<InputNumber @bind-Value="_amount" />
-			<button class="btn btn-danger" @onclick="(() => Subtract())">-</button>
+	<div class="col-4 alert alert-info">
+		<h5>Update Stock:</h5>
+		<div class="row g-4 align-items-center">
+			<div class="col-auto">
+				<button class="btn btn-success" @onclick="(() => Add())">+</button>				
+			</div>
+			<div class="col-auto">
+				<InputNumber class="form-control" @bind-Value="_amount"/>	
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-danger" @onclick="(() => Subtract())">-</button>	
+			</div>
+			
 		</div>
 		<br/>
 		<br/>
 		<div>
 			<h5>Modify Minimum Alarm Quantity:</h5>
-			<InputNumber @bind-Value="_item.AlarmMinimum"/>
-			<button class="btn btn-outline-info" @onclick="(() => Save())">Set New Value</button>
+			<InputNumber class="form-control"  @bind-Value="_item.AlarmMinimum"/>
+			<button class="btn btn-outline-primary mt-2" @onclick="(() => Save())">Set New Value</button>
 		</div>
 
 		<br />

@@ -48,31 +48,31 @@
 
         @* Manager Nav Menu Links *@
         <AuthorizeView Roles="Manager">
-            <div class="nav-item px-3">
+            <div class="nav-item px-3" @onclick="(SaveLastPage)">
                 <NavLink class="nav-link px-3" href="ManageJobCards">
                     <span class="oi oi-wrench" aria-hidden="true"></span> Manage Job Cards
                 </NavLink>
             </div>
             
-            <div class="nav-item px-3">
+            <div class="nav-item px-3" @onclick="(SaveLastPage)">
                 <NavLink class="nav-link px-3" href="Reports">
                     <span class="oi oi-task" aria-hidden="true"></span> Reports
                 </NavLink>
             </div>
 
-            <div class="nav-item px-3">
+            <div class="nav-item px-3" @onclick="(SaveLastPage)">
                 <NavLink class="nav-link px-3" href="SearchCustomer">
                     <span class="oi oi-people" aria-hidden="true"></span> Search Customer
                 </NavLink>
             </div>
                         
-            <div class="nav-item px-3">
+            <div class="nav-item px-3" @onclick="(SaveLastPage)">
                 <NavLink class="nav-link px-3" href="SearchVehicle">
                     <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search Vehicle
                 </NavLink>
             </div>
                  
-            <div class="nav-item px-3" @onclick="(() => SaveLastPage())">
+            <div class="nav-item px-3" @onclick="(SaveLastPage)">
                 <NavLink class="nav-link px-3" href="Inventory">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> View Inventory
                 </NavLink>

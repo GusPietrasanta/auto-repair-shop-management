@@ -2,32 +2,36 @@
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
 
-<h3>Add Item</h3>
 
-	<div class="col-md-12">
-		<EditForm Model="@_stockItem" OnValidSubmit="HandleValidSubmit">
-			<DataAnnotationsValidator />
-			<ValidationSummary />
+<h3 class="text-center">New Item</h3>
 
-			<div class="mb-3">
-				<label>Item Name:</label>
-				<InputText @bind-Value="_stockItem.ItemName" class="form-control" />
-			</div>
-			<div class="mb-3">
-				<label>Quantity:</label>
-				<InputNumber @bind-Value="_stockItem.Quantity" class="form-control" />
-			</div>
-			<div class="mb-3">
-				<label>Unit:</label>
-				<InputText @bind-Value="_stockItem.Unit" class="form-control" />
-			</div>
-			<div class="mb-3">
-				<label>Minimum Quantity Alarm:</label>
-				<InputNumber @bind-Value="_stockItem.AlarmMinimum" class="form-control" />
-			</div>
+<div class="col-8 justify-content-center mx-auto alert alert-dark">
+	
+	<EditForm Model="@_stockItem" OnValidSubmit="HandleValidSubmit">
+		<DataAnnotationsValidator/>
+		<ValidationSummary/>
+
+		<div class="mb-3">
+			<label>Item Name:</label>
+			<InputText @bind-Value="_stockItem.ItemName" class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label>Quantity:</label>
+			<InputNumber @bind-Value="_stockItem.Quantity" class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label>Unit:</label>
+			<InputText @bind-Value="_stockItem.Unit" class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label>Minimum Quantity Alarm:</label>
+			<InputNumber @bind-Value="_stockItem.AlarmMinimum" class="form-control"/>
+		</div>
+		<div class="text-center">
 			<button class="btn btn-primary" type="submit">Create Stock Item</button>
-		</EditForm>
-	</div>
+		</div>
+	</EditForm>
+</div>
 
 
 

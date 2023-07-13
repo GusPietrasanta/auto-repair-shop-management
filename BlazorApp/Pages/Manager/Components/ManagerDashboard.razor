@@ -31,7 +31,7 @@
 						else
 						{
 							<p>Job <b>not assigned</b> to any mechanic!</p>
-							<select class="form-select" @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
+							<select class="form-select mx-auto w-50" @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
 								<option value="">Select Mechanic...</option>
 								@foreach (var m in _mechanics)
 								{
@@ -52,7 +52,7 @@
 						}
 						else if (a.Completed || a.UserName != null)
 						{
-							<p>Inspection in progress.</p>
+							<p>Inspection <b>in progress</b>.</p>
 						}
 					</div>
 
@@ -111,7 +111,7 @@
 						<p><b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")</p>
 						<div class="text-center">
 							<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
-							<button class="btn btn-warning" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
+							<button class="btn btn-outline-danger" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
 						</div>
 					</div>
 				}

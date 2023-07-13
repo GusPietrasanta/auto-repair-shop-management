@@ -2,22 +2,26 @@
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
 
-<h3>Customer Vehicles</h3>
+<div class="w-75 mx-auto">
+	<h3 class="text-center">Customer Vehicles</h3>
 
-@if (_vehicles == null)
-{
-	<h4>Loading...</h4>
-}
-else
-{
-	foreach (var v in _vehicles)
+	@if (_vehicles == null)
 	{
-		<div class="alert-info">
-			<p>Number Plate: @v.NumberPlate <button class="btn btn-dark" @onclick="(() => GoToVehicle(v.ID))">Go to Vehicle</button></p>
-			<p>@v.Make @v.Model - @v.Year</p>
-		</div>
+		<h4>Loading...</h4>
 	}
-}
+	else
+	{
+		foreach (var v in _vehicles)
+		{
+			<div class="alert alert-info text-center">
+				<p><b>Number Plate:</b> @v.NumberPlate</p>
+				<p>@v.Make @v.Model - @v.Year</p>
+				<button class="btn btn-primary" @onclick="(() => GoToVehicle(v.ID))">Go to Vehicle</button>
+			</div>
+		}
+	}
+
+</div>
 
 @code {
 	[Parameter]
@@ -33,7 +37,7 @@ else
 
 	private void GoToVehicle(int vehicleID)
 	{
-		ManagerSession.SetLastPage("/SearchCustomers");
+		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
 	}
 }

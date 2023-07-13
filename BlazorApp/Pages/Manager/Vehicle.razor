@@ -1,12 +1,27 @@
 ﻿@attribute [Authorize(Roles = "Manager")]
+
+@if (_vehicle != null)
+{
+	<PageTitle>@_vehicle.NumberPlate Information</PageTitle>
+	;
+}
+else
+{
+	<PageTitle>Vehicle Details</PageTitle>
+	;
+}
+
+
 @page "/Vehicle/{vehicleID:int}"
 @inject IVehicleDataService VehicleData
 @inject IReportDataService ReportData
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
 
-<h3>Vehicle</h3>
-<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
+<div class="text-center">
+	<h3>Vehicle Information</h3>
+	<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
+</div>
 
 <div class="row">
 
@@ -21,67 +36,67 @@
 			<ValidationSummary/>
 
 				<div class="form-group">
-					<label>Vehicle ID:</label>
-					<span>@_vehicle.ID</span>
+					<label><b>Vehicle ID:</b></label>
+					<input class="form-control" disabled readonly value="@_vehicle.ID"/>
 				</div>
 
 				<div class="form-group">
-					<label>Number Plate:</label>
+					<label class="fw-bold">Number Plate:</label>
 					<InputText @bind-Value="_vehicle.NumberPlate" class="form-control" />
 				</div>
 				
 				<div class="form-group">
-					<label>Make:</label>
+					<label class="fw-bold">Make:</label>
 					<InputText @bind-Value="_vehicle.Make" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>Model:</label>
+					<label class="fw-bold">Model:</label>
 					<InputText @bind-Value="_vehicle.Model" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>Year:</label>
+					<label class="fw-bold">Year:</label>
 					<InputText @bind-Value="_vehicle.Year" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>VIN:</label>
+					<label class="fw-bold">VIN:</label>
 					<InputText @bind-Value="_vehicle.VIN" class="form-control" />
 				</div>
 				
 				<div class="form-group">
-					<label>Engine:</label>
+					<label class="fw-bold">Engine:</label>
 					<InputText @bind-Value="_vehicle.EngineDescription" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>Transmission:</label>
+					<label class="fw-bold">Transmission:</label>
 					<InputText @bind-Value="_vehicle.TransmissionType" class="form-control" />
 				</div>
 				
 				<div class="form-group">
-					<label>Engine Size:</label>
+					<label class="fw-bold">Engine Size:</label>
 					<InputText @bind-Value="_vehicle.SizeLitres" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>Cylinders:</label>
+					<label class="fw-bold">Cylinders:</label>
 					<InputText @bind-Value="_vehicle.Cylinders" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>Fuel Type:</label>
+					<label class="fw-bold">Fuel Type:</label>
 					<InputText @bind-Value="_vehicle.FuelType" class="form-control" />
 				</div>
 
 				<div class="form-group">
-					<label>Body Type:</label>
+					<label class="fw-bold">Body Type:</label>
 					<InputText @bind-Value="_vehicle.BodyType" class="form-control" />
 				</div>
 
 				<div class="form-group">
-				<label>First Visit:</label>
+				<label class="fw-bold">First Visit:</label>
 				@if (_vehicle.FirstVisit.ToShortDateString() == "1/01/0001")
 				{
 				<p>Has never been at the shop yet.</p>
@@ -101,43 +116,44 @@
 
 			<br/>
 
-		<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
+			<div>
+				
+			<button class="btn btn-primary me-2" style="min-width: 150px" @onclick="(ToggleEdit)">Edit</button>
 		
-		@if (_isFormDisabled == false)	
-		{
-				<button class="btn btn-success" type="submit" @onclick="(() => HandleValidSubmit())">Save</button>
-		}
+			@if (_isFormDisabled == false)	
+			{
+					<button class="btn btn-success" style="min-width: 150px" type="submit" @onclick="(HandleValidSubmit)">Save</button>
+			}
+		</div>
 	
 		</div>
 		}
 
-	<div class="col-md-6">
+	<div class="col-4 mx-auto">
 
 		@if (_reports != null)
 		{
-			<h2>Reports: </h2>
+			<h2 class="text-center">Reports: </h2>
 			@foreach (var r in _reports)
 			{
 				@if (r != _reports.FirstOrDefault())
 				{
 					int kmsBetweenServices = _previousReportOdometer - r.Odometer;
 					int daysBetweenServices = (_previousReportDate - r.TimeStarted).Days;
-					<div>
-						<p>Kms between services: @kmsBetweenServices.ToString("N0") kms.</p>
-						<p>Days between services: @daysBetweenServices days.</p>
+					<div class="alert alert-info text-center">
+						<p class="lead">Kms between services: @kmsBetweenServices.ToString("N0") kms.</p>
+						<p class="lead">Days between services: @daysBetweenServices days.</p>
 					</div>
 				}
 
 				@if (r != null)
 				{
-					<div class="alert-info">
-						<p>Report ID: @r.ID</p>
-						<p>Date: @r.TimeStarted.ToShortDateString()</p>
-						<p>Odometer: @r.Odometer kms</p>
-						<button class="btn btn-primary" @onclick="(() => SeeReport(r.ID))">See Report</button>
+					<div class="alert alert-success text-center">
+						@*<p>Report ID: @r.ID</p>*@
+						<p class="lead">Date: @r.TimeStarted.ToShortDateString() | Odometer: @r.Odometer kms</p>
+						<button class="btn btn-primary" @onclick="(() => SeeReport(r.ID))">View Report</button>
 					</div>
-					<br />
-
+						
 					_previousReportDate = r.TimeStarted;
 					_previousReportOdometer = r.Odometer;
 				}
@@ -148,7 +164,9 @@
 
 </div>
 
-<button class="btn btn-info" @onclick="(() => PreviousPage())">Go to previous page</button>
+<div class="text-center mb-2">
+<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
+</div>
 
 @code {
 	private bool _isFormDisabled = true;
@@ -173,13 +191,13 @@
 		_isFormDisabled = true;
 	}
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
 		_vehicle = await VehicleData.GetVehicleDetailsByID(VehicleId);
 		_reports = await ReportData.GetReportsByVehicleID(VehicleId);
 	}
 
-	protected async override Task OnParametersSetAsync()
+	protected override async Task OnParametersSetAsync()
 	{
 		_vehicle = await VehicleData.GetVehicleDetailsByID(VehicleId);
 		_reports = await ReportData.GetReportsByVehicleID(VehicleId);

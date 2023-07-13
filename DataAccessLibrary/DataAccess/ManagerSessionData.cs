@@ -2,20 +2,20 @@
 {
 	public class ManagerSessionData : IManagerSessionData
 	{
-		public List<string> History = new List<string> { "/" };
+		private List<string> _history = new() { "/" };
 
 		public void SetLastPage(string newLastPage)
 		{
-			History.Add(newLastPage);
+			_history.Add(newLastPage);
 		}
 
 		public string GetLastPage()
 		{
-			if (History.Count > 0)
+			if (_history.Count > 0)
 			{
 
-                string output = History[History.Count - 1];
-                History.RemoveAt(History.Count - 1);
+                string output = _history[^1];
+                _history.RemoveAt(_history.Count - 1);
                 return output;
             }
 			else

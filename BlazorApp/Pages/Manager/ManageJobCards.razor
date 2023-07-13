@@ -1,64 +1,76 @@
 ﻿@page "/ManageJobCards"
+<PageTitle>Job Cards</PageTitle>
 @attribute [Authorize(Roles = "Manager")]
 @inject IJSRuntime JSRuntime
 @inject IAppointmentDataService AppointmentData
 @inject IMechanicDataService MechanicData
 
-<h3>AssignJobCards</h3>
+<h1 class="text-center display-3 fw-normal">Assign Job Cards</h1>
 
-@if (_appointments == null)
-{
-	<p>Loading appointments...</p>
-}
-else
-{
-	@foreach (var a in _appointments)
-	{
-		<div class="details @(@a.MechanicID > 0 ? "alert-success" : "alert-warning")">
-			Appointment ID: @a.ID
-			<br />
-			Date: @a.Date.ToShortDateString()
-			<br />
-			Customer: @a.FirstName @a.LastName
-			<br />
-			Vehicle: @a.NumberPlate<br />
-			@a.Make - @a.Model<br />
-			@if (a.MechanicID > 0)
+<hr/>
+
+<div class="row justify-content-center">
+	<div class="col-6">
+		
+		@if (_appointments == null)
+		{
+			<p>Loading appointments...</p>
+		}
+		else
+		{
+			@foreach (var a in _appointments)
 			{
-				<p>Assigned to: @a.UserName</p>
-			}
-			else
-			{
-				<p>No Mechanic Assigned.</p>
-			}
+				<div class="alert @(a.MechanicID > 0 ? "alert-success" : "alert-warning")">
+					
+						@if (a.MechanicID > 0)
+						{<p class="lead">
+							<b>Appointment ID:</b> @a.ID<br />
+							<b>Date:</b> @a.Date.ToShortDateString()<br />
+							<b>Customer:</b> @a.FirstName @a.LastName<br />
+							<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model<br />
+							<b>Assigned to:</b> @a.UserName</p>
+						}
+						else
+						{<p class="lead">
+							<b>Appointment ID:</b> @a.ID<br />
+							<b>Date:</b> @a.Date.ToShortDateString()<br />
+							<b>Customer:</b> @a.FirstName @a.LastName<br />
+							<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model<br />
+							<b>No Mechanic Assigned.</b></p>
+						}
+					
+					
+					<select class="form-select mx-auto w-50" @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
+						<option value="">Select Mechanic...</option>
+						@foreach (var m in _mechanics)
+						{
+							<option value="@m.ID">@m.UserName</option>
+						}
+					</select>
 
-			<select @onfocusin="ResetAllDropDowns" @onchange="HandleDropDownChange">
-				<option value="">Select Mechanic...</option>
-				@foreach (var m in _mechanics)
-				{
-					<option value="@m.ID">@m.UserName</option>
-				}
-			</select>
+						<div class="text-center mt-2">
+						<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
 
-			<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+					@if (_idToDelete == a.ID)
+					{
+						<button class="btn btn-danger" @onclick="(() => DeleteAppointment(a.ID))">
+							Confirm
+						</button>
+					}
+					else
+					{
+						<button class="btn btn-outline-danger mx-2" @onclick="(() => _idToDelete = a.ID)">
+							Delete
+						</button>
+					}
+					</div>
+				</div>
 
-			@if (_idToDelete == a.ID)
-			{
-				<button class="btn btn-danger" @onclick="(() => DeleteAppointment(a.ID))">
-					Confirm
-				</button>
 			}
-			else
-			{
-				<button class="btn btn-outline-danger mx-2" @onclick="(() => _idToDelete = a.ID)">
-					Delete
-				</button>
-			}
-		</div>
+		}
 
-		<br />
-	}
-}
+	</div>
+</div>
 
 @code {
 	private List<IDetailedAppointment> _appointments;

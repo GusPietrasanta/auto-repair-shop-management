@@ -1,16 +1,22 @@
 ﻿@page "/SearchCustomer"
+<PageTitle>Search Customer</PageTitle>
 @using BlazorApp.Pages.Manager.Components
 @attribute [Authorize(Roles = "Manager")]
 @inject ICustomerDataService CustomerData
 @inject IJSRuntime JSRuntime
+@inject IManagerSessionData ManagerSession
+@inject NavigationManager NavigationManager
 
+<div class="text-center">
+	<h1 class="display-3 fw-normal">Search Customer</h1>
+	<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
+</div>
 
-<h3>Search Customers</h3>
-
-<label>Search:
-<input type="text" @oninput="HandleInput"/>
-</label>
-<br /><br />
+<hr/>
+<div class="mb-2">
+	<label class="form-label h4 fw-bold">Search:</label>
+	<input class="form-control w-25" type="text" @oninput="HandleInput"/>
+</div>
 
 @if (_filteredCustomers == null)
 {
@@ -23,8 +29,8 @@ else if (_filteredCustomers.Count == 0)
 else
 {
 	<div class="row">
-		<div class="col-sm-8">
-			<table class="table table-striped">
+		<div class="col-sm-8 table-responsive">
+			<table class="table table-hover table-striped">
 				<thead class="table-dark">
 					<tr>
 						<th>First Name</th>
@@ -44,18 +50,18 @@ else
 							<td>@c.LastName</td>
 							<td>@c.Email</td>
 							<td>@c.PhoneNumber</td>
-							<td>@c.Address</td>
+							<td class="overflow-x">@c.Address</td>
 							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicles(c.ID))">View</button></td>
 							<td><div class="text-center">
 								<button class="btn btn-primary mb-1" @onclick="(() => EditCustomer(c.ID))">Edit</button>
 
 								@if (_idToDelete == c.ID)
 								{
-										<button class="btn btn-danger p-2" @onclick="(() => ConfirmDeleteCustomer(c.ID))">Confirm</button>
+										<button class="btn btn-danger mx-1 p-2" @onclick="(() => ConfirmDeleteCustomer(c.ID))">Confirm</button>
 								}
 								else
 								{
-										<button class="btn btn-outline-danger p-2" @onclick="(() => DeleteCustomer(c.ID))">Delete</button>
+										<button class="btn btn-outline-danger mx-1 p-2" @onclick="(() => DeleteCustomer(c.ID))">Delete</button>
 								}
 								</div>
 							</td>
@@ -167,5 +173,8 @@ else
 		}
 
 	}
-
+	private void PreviousPage()
+	{
+		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
+	}
 }
