@@ -37,6 +37,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 - [x] Tidy up code
 - [x] Improve visuals
 - [ ] Develop and implement unit tests
+- [ ] Dockerise
 - [ ] Deploy to AWS!
 
 ## Technology Stack
