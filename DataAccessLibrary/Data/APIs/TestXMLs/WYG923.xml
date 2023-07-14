@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "WHITE MITSUBISHI VAN VEHICLE",
+  "CarMake": {
+    "CurrentTextValue": "MITSUBISHI"
+  },
+  "CarModel": {
+    "CurrentTextValue": ""
+  },
+  "RegistrationYear": "2003",
+  "BodyStyle": {
+    "CurrentTextValue": "VAN VEHICLE"
+  },
+  "Colour": "WHITE",
+  "Expiry": "02/10/2023",
+  "VechileIdentificationNumber": "JMFGNP03V3A001658",
+  "InsuranceCompany": "AAMI",
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@TUlUU1VCSVNISSA=",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>WHITE MITSUBISHI VAN VEHICLE</Description>
+    <RegistrationYear>2003</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>MITSUBISHI</CurrentTextValue>
+    </CarMake>
+    <CarModel />
+    <BodyStyle>
+      <CurrentTextValue>VAN VEHICLE</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>
