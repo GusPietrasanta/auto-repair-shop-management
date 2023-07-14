@@ -1,5 +1,5 @@
 # Auto Repair Shop Management
-An ASP.Net Minimum Viable Product app to allow customer to book an appointment, mechanics to complete job cards, and managers to perform numerous tasks in an automotive workshop environment.
+An ASP.Net Minimum Viable Product app to allow customers to book an appointment, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment.
 
 ## Features
 
