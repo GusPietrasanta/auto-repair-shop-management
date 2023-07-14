@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "HYUNDAI Tucson",
+  "RegistrationYear": "2020",
+  "CarMake": {
+    "CurrentTextValue": "HYUNDAI"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "HYUNDAI"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Tucson SUV"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "SUV"
+  },
+  "Colour": "Silver",
+  "VechileIdentificationNumber": "HYD789T65G43LMPQ2020H",
+  "Engine": "2.4 litre, 4 cyl petrol",
+  "extended": {
+    "nvic": "3LMPQ",
+    "driveType": "",
+    "family": "TUCSON",
+    "variant": "",
+    "model": "Tucson SUV",
+    "colour": "Silver",
+    "code": "HYD789T65G43LMPQ2020H",
+    "make": "HYUNDAI",
+    "fuelType": "Petrol",
+    "capacityValue": "2.4",
+    "series": "",
+    "engineDescription": "2.4 litre, 4 cyl petrol",
+    "bodyDescription": "5 door SUV",
+    "bodyType": "5 door SUV",
+    "cylinders": "4",
+    "year": "2020",
+    "capacityUnit": "L",
+    "transmissionType": "Automatic"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@SFVZTkRBSQ==",
+  "Expiry": "2027-09-28",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>HYUNDAI Tucson SUV</Description>
+    <RegistrationYear>2020</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>HYUNDAI</CurrentTextValue>
+    </CarMake>
+    <CarModel>Tucson SUV</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>SUV</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

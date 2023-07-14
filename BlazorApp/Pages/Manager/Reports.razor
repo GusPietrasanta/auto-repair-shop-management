@@ -24,10 +24,13 @@
 						<li class="page-item @(_page == 1 ? "disabled" : "")" @onclick="(Previous)"><a class="page-link" href="#" @onclick:preventDefault="true">Previous</a></li>						
 					}
 					
-					@for (int i = 1; i <= _neededNumberOfPages; i++)
+					@if (_neededNumberOfPages > 1)
 					{
-						int pageNumber = i;
-						<li class="page-item @(_page == pageNumber ? "active" : "")" @onclick="() => PageNumber(pageNumber)"><a class="page-link" href="#" @onclick:preventDefault="true">@pageNumber</a></li>
+						@for (int i = 1; i <= _neededNumberOfPages; i++)
+						{
+							int pageNumber = i;
+							<li class="page-item @(_page == pageNumber ? "active" : "")" @onclick="() => PageNumber(pageNumber)"><a class="page-link" href="#" @onclick:preventDefault="true">@pageNumber</a></li>
+						}
 					}
 
 					@if (_numberOfReports > _reportsPerPage * 3)

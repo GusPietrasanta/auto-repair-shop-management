@@ -58,7 +58,7 @@
 	            }
             </tr>
                 
-	                @if (_item.Unit.ToLower().Contains("unit"))
+	                @if (_item.Unit.ToLower().Contains("piece") || _item.Unit.ToLower().Contains("set"))
                     {
 	                    <tr>
 		                    <td class="p-4 h4 fw-bold">In Stock:</td>
@@ -91,13 +91,13 @@
 		<h5>Update Stock:</h5>
 		<div class="row g-4 align-items-center">
 			<div class="col-auto">
-				<button class="btn btn-success" @onclick="(() => Add())">+</button>				
+				<button class="btn btn-success" @onclick="(Add)">+</button>				
 			</div>
 			<div class="col-auto">
 				<InputNumber class="form-control" @bind-Value="_amount"/>	
 			</div>
 			<div class="col-auto">
-				<button class="btn btn-danger" @onclick="(() => Subtract())">-</button>	
+				<button class="btn btn-danger" @onclick="(Subtract)">-</button>	
 			</div>
 			
 		</div>
@@ -106,7 +106,7 @@
 		<div>
 			<h5>Modify Minimum Alarm Quantity:</h5>
 			<InputNumber class="form-control"  @bind-Value="_item.AlarmMinimum"/>
-			<button class="btn btn-outline-primary mt-2" @onclick="(() => Save())">Set New Value</button>
+			<button class="btn btn-outline-primary mt-2" @onclick="(Save)">Set New Value</button>
 		</div>
 
 		<br />
@@ -132,12 +132,12 @@
 
 			</fieldset>
 		</form>
-			<button class="btn btn-primary" @onclick="(() => ToggleEdit())">Edit</button>
+			<button class="btn btn-primary" @onclick="(ToggleEdit)">Edit</button>
 
 			@if (_isFormDisabled == false)
 			{
-				<button class="btn btn-success ms-2" type="submit" @onclick="(() => Save())">Save</button>
-				<button class="btn btn-danger" type="submit" @onclick="(() => Delete())">Delete</button>
+				<button class="btn btn-success ms-2" type="submit" @onclick="(Save)">Save</button>
+				<button class="btn btn-danger" type="submit" @onclick="(Delete)">Delete</button>
 			}
 	</div>
 

@@ -84,7 +84,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		_appointments = await AppointmentData.ReadAllAppointmentsDetailed();
+		_appointments = await AppointmentData.ReadAllIncompleteAppointmentsDetailed();
 		_mechanics = await MechanicData.ReadAllMechanicsBasic();
 	}
 

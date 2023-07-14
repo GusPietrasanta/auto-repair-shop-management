@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "FERRARI 488 GTB",
+  "RegistrationYear": "2020",
+  "CarMake": {
+    "CurrentTextValue": "FERRARI"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "FERRARI"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "488 GTB Coupe"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Coupe"
+  },
+  "Colour": "Red",
+  "VechileIdentificationNumber": "FRP987H65T43MKLP2020F",
+  "Engine": "3.9 litre, V8 twin-turbo",
+  "extended": {
+    "nvic": "3MKLP",
+    "driveType": "",
+    "family": "488 GTB",
+    "variant": "",
+    "model": "488 GTB Coupe",
+    "colour": "Red",
+    "code": "FRP987H65T43MKLP2020F",
+    "make": "FERRARI",
+    "fuelType": "Petrol",
+    "capacityValue": "3.9",
+    "series": "",
+    "engineDescription": "3.9 litre, V8 twin-turbo",
+    "bodyDescription": "2 door coupe",
+    "bodyType": "2 door coupe",
+    "cylinders": "8",
+    "year": "2020",
+    "capacityUnit": "L",
+    "transmissionType": "Automatic"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@RUVORlJJIEdUQiBDb3VwZQ==",
+  "Expiry": "2027-07-10",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>FERRARI 488 GTB Coupe</Description>
+    <RegistrationYear>2020</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>FERRARI</CurrentTextValue>
+    </CarMake>
+    <CarModel>488 GTB Coupe</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Coupe</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

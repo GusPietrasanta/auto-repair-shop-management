@@ -51,19 +51,7 @@ namespace DataAccessLibrary.Data.APIs
 			output.EngineDescription = vehicleInfoNode["extended"]!["engineDescription"]!.GetValue<string>();
 			output.BodyType = vehicleInfoNode["extended"]!["bodyType"]!.GetValue<string>();
 			output.TransmissionType = vehicleInfoNode["extended"]!["transmissionType"]!.GetValue<string>();
-
-			if (output.EngineDescription.ToLower().Contains("diesel"))
-			{
-				output.FuelType = "Diesel";
-			}
-			else if (output.EngineDescription.ToLower().Contains("petrol"))
-			{
-				output.FuelType = "Petrol";
-			}
-			else
-			{
-				output.FuelType = "Unknown";
-			}
+			output.FuelType = vehicleInfoNode["extended"]["fuelType"]!.GetValue<string>();
 
 			return output;
 		}

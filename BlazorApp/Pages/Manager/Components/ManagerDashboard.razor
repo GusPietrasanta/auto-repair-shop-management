@@ -12,7 +12,7 @@
 	<div class="col-md-6">
 		<h2 class="text-center display-6">Today's Appointments</h2>
 		
-		<div class="overflow-y-auto" style="max-height: 400px;">
+		<div class="overflow-y-auto" style="max-height: 600px;">
 			@if (_todayAppointments != null)
 			{
 				@foreach (var a in _todayAppointments)
@@ -69,7 +69,7 @@
 
 	<div class="col-6">
 		<h2 class="text-center  display-6">Unread Messages</h2>
-		<div class="overflow-y-auto" style="max-height: 400px;">
+		<div class="overflow-y-auto" style="max-height: 600px;">
 					
 			@if (_messages != null)
 			{
@@ -99,7 +99,7 @@
 	
 	<div class="col-md-6">
 		<h2 class="text-center display-6">Completed Inspections</h2>
-		<div class="overflow-y-auto" style="max-height: 400px;">
+		<div class="overflow-y-auto" style="max-height: 600px;">
 
 			@if (_completedInspections != null)
 			{
@@ -126,7 +126,7 @@
 	<div class="col-md-6">
 			<h2 class="text-center display-6">Stock Warnings</h2>	
 		
-		<div class="overflow-y-auto text-center" style="max-height: 400px;">
+		<div class="overflow-y-auto text-center" style="max-height: 600px;">
 
 			<button class="btn btn-primary m-2" @onclick="(GoToInventory)">Go to Inventory</button>
 			@if (_stock != null)
@@ -136,15 +136,15 @@
 					@if (i.Quantity == 0)
 					{
 						<div class="alert alert-danger mx-auto w-75">
-							<p> Nothing left of @i.ItemName!</p>
+							<p><b>Alert!</b> Out of stock for: <b><i>@i.ItemName</i></b>!</p>
 							<button class="btn btn-primary" @onclick="(() => GoToItem(i.ID))">Edit Item</button>
 						</div>
 					}
 					else
 					{
 						<div class="alert alert-warning mx-auto w-75">
-							<p>@i.ItemName is low</p>
-							<p>(Only @i.Quantity @i.Unit left)</p>
+							<p><b>Warning:</b> Low stock for <b><i>@i.ItemName</i></b></p>
+							<p>(Only <b>@(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit left</b>)</p>
 							<button class="btn btn-primary" @onclick="(() => GoToItem(i.ID))">Edit Item</button>
 						</div>
 					}

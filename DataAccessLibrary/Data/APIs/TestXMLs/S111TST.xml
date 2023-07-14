@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "FORD Focus",
+  "RegistrationYear": "2015",
+  "CarMake": {
+    "CurrentTextValue": "FORD"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "FORD"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Focus Hatchback"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Hatchback"
+  },
+  "Colour": "Silver",
+  "VechileIdentificationNumber": "FRD123H45G67JKLP2015F",
+  "Engine": "1.6 litre, 4 cyl petrol",
+  "extended": {
+    "nvic": "7JKLP",
+    "driveType": "",
+    "family": "FOCUS",
+    "variant": "",
+    "model": "Focus Hatchback",
+    "colour": "Silver",
+    "code": "FRD123H45G67JKLP2015F",
+    "make": "FORD",
+    "fuelType": "Petrol",
+    "capacityValue": "1.6",
+    "series": "",
+    "engineDescription": "1.6 litre, 4 cyl petrol",
+    "bodyDescription": "5 door hatch",
+    "bodyType": "5 door hatch",
+    "cylinders": "4",
+    "year": "2015",
+    "capacityUnit": "L",
+    "transmissionType": "Automatic"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@Rk9SRCBGb2N1cyBCb3Nz",
+  "Expiry": "2023-12-31",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>FORD Focus Hatchback</Description>
+    <RegistrationYear>2015</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>FORD</CurrentTextValue>
+    </CarMake>
+    <CarModel>Focus Hatchback</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Hatchback</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

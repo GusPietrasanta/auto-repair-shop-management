@@ -42,6 +42,7 @@
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_UpdateCompletedById.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_CountByMechanicToday.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Today_Details.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Details_ReadAll_Incomplete.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_Create.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_ReadByID.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Vehicle/spVehicle_UpdateFirstVisitByID.sql" />

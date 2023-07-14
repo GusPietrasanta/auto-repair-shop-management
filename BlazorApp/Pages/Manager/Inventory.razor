@@ -31,7 +31,7 @@ else
 					<div class="w-75 text-center mx-auto">
 						<a class="fill-div" style="text-decoration: none;" href="#">
 							<div class="alert alert-danger" role="alert" @onclick="(() => GoToItem(i.ID))">
-								<p class="lead">ID: @i.ID. <b>@i.ItemName</b>, @i.Quantity @i.Unit</p>
+								<p class="lead">ID: @i.ID. <b>@i.ItemName</b>, @(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit</p>
 							</div>
 						</a>
 					</div>
@@ -41,7 +41,7 @@ else
 					<div class="w-75 text-center mx-auto">
 						<a class="fill-div" style="text-decoration: none;" href="#">
 							<div class="alert alert-warning" role="alert" @onclick="(() => GoToItem(i.ID))">
-							<p class="lead">ID: @i.ID. <b>@i.ItemName</b>, @i.Quantity @i.Unit</p>
+							<p class="lead">ID: @i.ID. <b>@i.ItemName</b>, @(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit</p>
 							</div>
 						</a>
 					</div>
@@ -51,7 +51,7 @@ else
 				<div class="w-75 text-center mx-auto">
 					<a class="fill-div" style="text-decoration: none;" href="#">
 						<div class="alert alert-success" role="alert" @onclick="(() => GoToItem(i.ID))">
-							<p class="lead">ID: @i.ID. <b>@i.ItemName</b>, @i.Quantity @i.Unit</p>
+							<p class="lead">ID: @i.ID. <b>@i.ItemName</b>, @(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit</p>
 						</div>
 					</a>
 				</div>

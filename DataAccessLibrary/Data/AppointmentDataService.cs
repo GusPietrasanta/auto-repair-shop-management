@@ -39,6 +39,13 @@ namespace DataAccessLibrary.Data
 			return detailedAppointments.ToList<IDetailedAppointment>();
 		}
 		
+		public async Task<List<IDetailedAppointment>> ReadAllIncompleteAppointmentsDetailed()
+		{
+			var detailedAppointments = await _dataAccess.LoadData<DetailedAppointment, dynamic>("dbo.spAppointment_Details_ReadAll_Incomplete", new { }, "SQLDB");
+
+			return detailedAppointments.ToList<IDetailedAppointment>();
+		}
+		
 		public async Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailedByUserName(string userName)
 		{
 			var detailedAppointmentsByUserName = await _dataAccess.LoadData<DetailedAppointment, dynamic>("dbo.spAppointment_Details_ReadByUserName", new { UserName = userName }, "SQLDB");

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "FERRARI F8 Tributo",
+  "RegistrationYear": "2021",
+  "CarMake": {
+    "CurrentTextValue": "FERRARI"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "FERRARI"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "F8 Tributo Coupe"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Coupe"
+  },
+  "Colour": "Black",
+  "VechileIdentificationNumber": "FRP234B56K78DTHY2021F",
+  "Engine": "3.9 litre, V8 twin-turbo",
+  "extended": {
+    "nvic": "8DTHY",
+    "driveType": "",
+    "family": "F8 TRIBUTO",
+    "variant": "",
+    "model": "F8 Tributo Coupe",
+    "colour": "Black",
+    "code": "FRP234B56K78DTHY2021F",
+    "make": "FERRARI",
+    "fuelType": "Petrol",
+    "capacityValue": "3.9",
+    "series": "",
+    "engineDescription": "3.9 litre, V8 twin-turbo",
+    "bodyDescription": "2 door coupe",
+    "bodyType": "2 door coupe",
+    "cylinders": "8",
+    "year": "2021",
+    "capacityUnit": "L",
+    "transmissionType": "Automatic"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@RUVORlJJIEY4IFRyaWJ1dG8gQ291cGU=",
+  "Expiry": "2028-05-18",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>FERRARI F8 Tributo Coupe</Description>
+    <RegistrationYear>2021</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>FERRARI</CurrentTextValue>
+    </CarMake>
+    <CarModel>F8 Tributo Coupe</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Coupe</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

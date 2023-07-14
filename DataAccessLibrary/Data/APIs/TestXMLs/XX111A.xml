@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "AUDI A4",
+  "RegistrationYear": "2017",
+  "CarMake": {
+    "CurrentTextValue": "AUDI"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "AUDI"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "A4 Sedan"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Sedan"
+  },
+  "Colour": "Black",
+  "VechileIdentificationNumber": "AUD678D23F45GHJK2017A",
+  "Engine": "2.0 litre, 4 cyl petrol turbo",
+  "extended": {
+    "nvic": "3F45GH",
+    "driveType": "",
+    "family": "A4",
+    "variant": "",
+    "model": "A4 Sedan",
+    "colour": "Black",
+    "code": "AUD678D23F45GHJK2017A",
+    "make": "AUDI",
+    "fuelType": "Petrol",
+    "capacityValue": "2.0",
+    "series": "",
+    "engineDescription": "2.0 litre, 4 cyl petrol turbo",
+    "bodyDescription": "4 door sedan",
+    "bodyType": "4 door sedan",
+    "cylinders": "4",
+    "year": "2017",
+    "capacityUnit": "L",
+    "transmissionType": "Automatic"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@QVVESQ==",
+  "Expiry": "2024-09-15",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>AUDI A4 Sedan</Description>
+    <RegistrationYear>2017</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>AUDI</CurrentTextValue>
+    </CarMake>
+    <CarModel>A4 Sedan</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Sedan</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

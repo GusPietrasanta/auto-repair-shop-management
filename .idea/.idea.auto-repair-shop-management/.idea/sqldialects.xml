@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Create.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_DeleteByID.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Details_ReadAll.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Details_ReadAll_Incomplete.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Details_ReadByUserName.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_ReadAll.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Appointment/spAppointment_Today_Details.sql" dialect="TSQL" />
