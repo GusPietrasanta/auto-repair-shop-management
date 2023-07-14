@@ -109,6 +109,12 @@ An ASP.Net Minimum Viable Product app to allow customers to book an appointment,
 
 ![Updating an item from the inventory](https://lh3.googleusercontent.com/pw/AIL4fc-L96PB73RuDG1jlSQF_cmv_CQLrx4rNISgff18x3GO-vD88lznjH4LJAKn7Q_sWooBUY0JNs9uvhBmvvgf9aijeUhA-VjohvQ6Wx4TM0HdHpeltlSxtSzB2pD_f3juCriNzElq08CGBccvYjBnkBLD=w1193-h546-s-no)
 
+#### Search Vehicles by any paramter
+
+Search a vehicle by any attribute: make, model, year, fuel type, number plate, etc!
+
+![Searching vehicles](https://lh3.googleusercontent.com/pw/AIL4fc-drcZ574anY5jgeTYN-1hZdMdOdL39jOw03ghHBf5bC9LdqGjoT0PFGBMuSTEAfI6begHM0XCF9wsmkKibPfe61qw3fXPiDoVf7yFN0BLKg1-m2w5aIiXV7mLAroMK47uXNEODKYWkyJJqGB9fneBL=w814-h759-s-no)
+
 #### Vehicle Page
 
 From the vehicle page, the manager can edit vehicle details and access past report for that particular vehicle.
@@ -119,6 +125,21 @@ From the vehicle page, the manager can edit vehicle details and access past repo
 
 From the customer page, the manager can edit customer information, and have access to all their vehicles.
 ![Customer page](https://lh3.googleusercontent.com/pw/AIL4fc931b1d88CYfRZkqNh_ErMAg-RAoZErKTf3l20A9dN4Pen0yI0eZJmw92DBpgEvkL_5EBZxDkAuxYDc_uxi0n3V3OgrCGlYI5vDsJsVufdIniwqhf601px4-u5PAQJa6bCEewUkOBp0tJHTRp_L5mbc=w1178-h763-s-no)
+
+#### Other Small Features
+
+Update Customer Details directly from the Customer Search page
+![](https://lh3.googleusercontent.com/pw/AIL4fc_7hCEpOLOWlzzqE6c3mWFkp2NZlTAEjzXJeIDggrwuyqvBghV1c21vk0pkGNms8Pr9iSk-6TQDq470W6xbGqTaJJvNVdpcl4jxg8YWKOfTAGc6Ax3d-BzIJc4qA2uSPhMJwgIfIEDFsZglkBshELFe=w1193-h481-s-no)
+
+Access customer's vehicles from Customer Search page
+![](https://lh3.googleusercontent.com/pw/AIL4fc-yzISgWmRk3wtWWMxpZl9JJ81ygdd2-P4yE4FTRomFl6v7xXPPbIeZncj2qRn1Wt1_66heTYjTwDoib_3ZlyYC2ChvIDTW2oUot4y2m1YTsHaCiXtWNqOiqjaoEvn_cFKaPP-Dm2KzTtJ1mZLq89fR=w1193-h276-s-no)
+
+Pagination dependant on number of reports
+![](https://lh3.googleusercontent.com/pw/AIL4fc9o9OEiUDrdOxto6FiU3ZEZbboHA_KmFjZ6XOamo2yV-A9jqxluNWVqiuqEuJ14yf4l91fL2_4vD0NkmAHSg_cy8IxRC_H6iR_SL6OuNIgVxK72Vmqtajeupua7vlXgBE4dlWo0yJZlUZGKjRw9Ce0E=w732-h312-s-no)
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc_ILzgPHWIyqrTBBohx7wG6KdN_WIh4JbhfSEz5XDhgWM20EaYULcUkYG-Or3A5AiFjyblqZQT6AAWe9LJq0qyN5MAp78sD1hqL1fgoM5pGo3DJa_x-BFtITNpA3pLRBksUyWtn47FvgkTX09QWHQhK=w755-h353-s-no)
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc_hHNaSUrgP9H1Bj3hxEksNO5xpu_HkrymMTk0KfZOdZ-rvWXxu50N0F2ZPNWvKwWEzJbGvhNBMJnOKtTfZztkgsLx4gMMCyoSm_3EeNvAMtF5Ix52nGTJrzflnRDIpP9UHZlMzQwhGxf2ZSaNVrVEW=w696-h330-s-no)
 
 </div>
 
