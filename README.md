@@ -1,5 +1,5 @@
 # Auto Repair Shop Management
-An ASP.Net app to allow customers to book an appointment, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment.
+An ASP.Net app to allow customers to book appointments, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment.
 
 ## Features
 
