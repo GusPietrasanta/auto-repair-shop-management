@@ -63,7 +63,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 
 ![Booking an appointment](https://lh3.googleusercontent.com/pw/AIL4fc8yg5RI1GgbQ7fSA_qXx08bYu8o3kdqdQfzfE-OHzHUBelcfi6fSb3beE0-RgBQiR5nh4Gi73QxXz5bk1F1JPP-1KEfBI1xgkhnTQX_TwF-KvOtnruZUp8t1lWwRv7PO1LOSGp18QZYpdCrzIfNR7-Q=w1627-h709-s-no)
 
-#### Searching past reports base on Last Name and Number Plate
+#### Searching past reports based on Last Name and Number Plate
 
 ![Searching past report](https://lh3.googleusercontent.com/pw/AIL4fc91Q7Qwf6TBK9Qf-3H0UqHAtyIddtOCvqEJud2mLEIfC63V2FcQbdd1ln1WUz2-Tz3xWMUbMqyg-66J576dSVXfiCmDl9rYShmXHiMUE8DRYeWgGmoyFw57ThrVuZHLCX3Wd7YVTlmgbVoTjtFqAqB0=w816-h859-s-no)
 
@@ -81,7 +81,7 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 
 #### Dashboard
 
-#### Manager's dashboard contains information about today's appointments, messages that the mechanics sent, completed reports and warning about inventory items and their stock status.
+#### Manager's dashboard contains information about today's appointments, messages that the mechanics sent, completed reports and warnings about inventory items and their stock status.
 
 ![Manager dashboard 1](https://lh3.googleusercontent.com/pw/AIL4fc9IQRcJIs8HMH6ACNP6-RqcJ9vaFBShY-AjAr-yVGQW-73jS_Q5Pn1lgpaB_XJo0-aCKWVG3QXBBti-qpXQWGUrobV5OakCyECT5gz-AQWX-cys-4mXKxueAcjYH6Mlua8Wg93CamJfglJyAEHJmJPB=w1193-h580-s-no)
 
