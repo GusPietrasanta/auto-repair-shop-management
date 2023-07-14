@@ -110,8 +110,14 @@ An ASP.Net Minimum Viable Product app to allow customer to book an appointment, 
 
 #### Vehicle Page
 
-![Vehicle Page](https://lh3.googleusercontent.com/pw/AIL4fc_J3Oc_OYqB5Vl0ETs7zRF7YpsgpYQVRayZ0fmOVd-c10ng878q82-hWH9t-0iNVAXjLJlccgk8yVh2lN1Z7RO6H2BB37mwrmEGBsblPPEmsGvr9IfWUNYUYYhpL_Pp1SDu9yj6xxN0cwX_X0DBUzPl=w1193-h694-s-no)
+From the vehicle page, the manager can edit vehicle details and access past report for that particular vehicle.
 
+![Vehicle page](https://lh3.googleusercontent.com/pw/AIL4fc_J3Oc_OYqB5Vl0ETs7zRF7YpsgpYQVRayZ0fmOVd-c10ng878q82-hWH9t-0iNVAXjLJlccgk8yVh2lN1Z7RO6H2BB37mwrmEGBsblPPEmsGvr9IfWUNYUYYhpL_Pp1SDu9yj6xxN0cwX_X0DBUzPl=w1193-h694-s-no)
+
+#### Customer Page
+
+From the customer page, the manager can edit customer information, and have access to all their vehicles.
+![Customer page](https://lh3.googleusercontent.com/pw/AIL4fc931b1d88CYfRZkqNh_ErMAg-RAoZErKTf3l20A9dN4Pen0yI0eZJmw92DBpgEvkL_5EBZxDkAuxYDc_uxi0n3V3OgrCGlYI5vDsJsVufdIniwqhf601px4-u5PAQJa6bCEewUkOBp0tJHTRp_L5mbc=w1178-h763-s-no)
 
 </div>
 
