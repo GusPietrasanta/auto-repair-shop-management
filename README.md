@@ -37,12 +37,9 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 - [x] Tidy up code
 - [x] Improve visuals
 - [ ] Develop and implement unit tests
-- [ ] Dockerise
-- [ ] Deploy to AWS!
 
 ## Technology Stack
 
-- AWS
 - C#
 - LINQ
 - HTML
