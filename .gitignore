@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+Docker Instructions.txt
+*.env
+
 # User-specific files
 *.rsuser
 *.suo

@@ -1,6 +1,14 @@
 ﻿@page "/"
 @using BlazorApp.Pages.Manager.Components
+
 <PageTitle>Index</PageTitle>
+
+@if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+{
+	<h1>@Environment.GetEnvironmentVariable("SyncfusionKey")</h1>
+	<h1>@Environment.GetEnvironmentVariable("ConnectionStrings__SQLDB")</h1>
+}
+
 
 <AuthorizeView>
 	<NotAuthorized>
