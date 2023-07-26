@@ -2,7 +2,7 @@ using BlazorApp.Areas.Identity;
 using BlazorApp.Data;
 using DataAccessLibrary.Data.APIs;
 using DataAccessLibrary.Data.Interfaces;
-using DataAccessLibrary.Data.ProductionDataServices;
+using DataAccessLibrary.Data.DataServices;
 using DataAccessLibrary.DataAccess;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;

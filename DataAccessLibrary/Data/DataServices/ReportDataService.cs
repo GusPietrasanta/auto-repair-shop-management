@@ -2,7 +2,7 @@
 using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
 
-namespace DataAccessLibrary.Data.ProductionDataServices
+namespace DataAccessLibrary.Data.DataServices
 {
 	public class ReportDataService : IReportDataService
 	{

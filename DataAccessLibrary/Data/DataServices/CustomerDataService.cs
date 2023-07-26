@@ -2,7 +2,7 @@
 using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
 
-namespace DataAccessLibrary.Data.ProductionDataServices
+namespace DataAccessLibrary.Data.DataServices
 {
 	public class CustomerDataService : ICustomerDataService
 	{
@@ -40,7 +40,7 @@ namespace DataAccessLibrary.Data.ProductionDataServices
 		{
 			var customers = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Read_By_Id", new { ID = id }, "SQLDB");
 
-			return customers.ToList<ICustomerModel>().FirstOrDefault();
+			return customers.FirstOrDefault();
 		}
 
 		public async Task DeleteCustomerById(int id)
