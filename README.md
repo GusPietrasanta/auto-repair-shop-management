@@ -36,7 +36,7 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 - [x] Implement an universal search bar for managers, to search for vehicles, customers or inventory items.
 - [x] Tidy up code
 - [x] Improve visuals
-- [ ] Develop and implement integration and unit tests
+- [x] Develop and implement integration and unit tests
 
 ## Technology Stack
 
@@ -131,7 +131,7 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 ## Access customer's vehicles from Customer Search page
 ![](https://lh3.googleusercontent.com/pw/AIL4fc-yzISgWmRk3wtWWMxpZl9JJ81ygdd2-P4yE4FTRomFl6v7xXPPbIeZncj2qRn1Wt1_66heTYjTwDoib_3ZlyYC2ChvIDTW2oUot4y2m1YTsHaCiXtWNqOiqjaoEvn_cFKaPP-Dm2KzTtJ1mZLq89fR=w1193-h276-s-no)
 
-## Pagination dependant on number of reports
+## Pagination varies depending on the number of reports
 ![](https://lh3.googleusercontent.com/pw/AIL4fc9o9OEiUDrdOxto6FiU3ZEZbboHA_KmFjZ6XOamo2yV-A9jqxluNWVqiuqEuJ14yf4l91fL2_4vD0NkmAHSg_cy8IxRC_H6iR_SL6OuNIgVxK72Vmqtajeupua7vlXgBE4dlWo0yJZlUZGKjRw9Ce0E=w732-h312-s-no)
 
 ![](https://lh3.googleusercontent.com/pw/AIL4fc_ILzgPHWIyqrTBBohx7wG6KdN_WIh4JbhfSEz5XDhgWM20EaYULcUkYG-Or3A5AiFjyblqZQT6AAWe9LJq0qyN5MAp78sD1hqL1fgoM5pGo3DJa_x-BFtITNpA3pLRBksUyWtn47FvgkTX09QWHQhK=w755-h353-s-no)
@@ -144,6 +144,10 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 
 # Unit Testing 
 ![](https://lh3.googleusercontent.com/pw/AIL4fc8GxGAxRN4wY5DDMto-DHogl1i088VprhSxN07KSO65AnN65GZ5mE4hl_lRZIQSEOP4zJs-jIvKW9upPeE4qo9oHm7OtBt7kLtrnzaEq02E2i2x3VBwdQmdk7oXfpmBsWh_uAEtNTQhNzDGE-MGhjZ_=w1203-h918-s-no)
+
+# Integration Testing
+![]
+(https://lh3.googleusercontent.com/pw/AIL4fc_BHdXxlOrrgaqGUgDPE974hJuujTs7oBn72kwd3eSUE78BGKG9Q-xdqdncfu_w-A_i8S3ec7A1jwCAGrE-yB_cCRDrK7ekGkuXpLWIrAzancinEHmvpva5YdVvW5Kk6X7LWVFYEeISGjxJqh6UqnPH=w593-h491-s-no)
 
 
 </div>
