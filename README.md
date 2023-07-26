@@ -146,8 +146,7 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 ![](https://lh3.googleusercontent.com/pw/AIL4fc8GxGAxRN4wY5DDMto-DHogl1i088VprhSxN07KSO65AnN65GZ5mE4hl_lRZIQSEOP4zJs-jIvKW9upPeE4qo9oHm7OtBt7kLtrnzaEq02E2i2x3VBwdQmdk7oXfpmBsWh_uAEtNTQhNzDGE-MGhjZ_=w1203-h918-s-no)
 
 # Integration Testing
-![]
-(https://lh3.googleusercontent.com/pw/AIL4fc_BHdXxlOrrgaqGUgDPE974hJuujTs7oBn72kwd3eSUE78BGKG9Q-xdqdncfu_w-A_i8S3ec7A1jwCAGrE-yB_cCRDrK7ekGkuXpLWIrAzancinEHmvpva5YdVvW5Kk6X7LWVFYEeISGjxJqh6UqnPH=w593-h491-s-no)
+![](https://lh3.googleusercontent.com/pw/AIL4fc_BHdXxlOrrgaqGUgDPE974hJuujTs7oBn72kwd3eSUE78BGKG9Q-xdqdncfu_w-A_i8S3ec7A1jwCAGrE-yB_cCRDrK7ekGkuXpLWIrAzancinEHmvpva5YdVvW5Kk6X7LWVFYEeISGjxJqh6UqnPH=w593-h491-s-no)
 
 
 </div>
