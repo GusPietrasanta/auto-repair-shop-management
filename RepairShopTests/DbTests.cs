@@ -15,7 +15,7 @@ public class DbTests
     public void Setup()
     {        
         
-        // Set up necessary dependencies to test DB
+        // Setting up necessary dependencies to test DB
         var services = new ServiceCollection();
         services.AddTransient<IConfiguration>(sp =>
         {
@@ -24,7 +24,7 @@ public class DbTests
             return configurationBuilder.Build();
         });
         services.AddScoped<ISqlDataAccess, SqlDataAccess>();
-        services.AddScoped<ICustomerDataService, CustomerDataService>();
+        services.AddScoped<ICustomerDataService, TestCustomerDataService>();
         var serviceProvider = services.BuildServiceProvider();
 
         _customerData = serviceProvider.GetService<ICustomerDataService>()!;
@@ -56,6 +56,6 @@ public class DbTests
     [TearDown]
     public void TearDown()
     {
-        _customerData.DeleteCustomerById(_testCustomer.Id);
+        // _customerData.DeleteCustomerById(_testCustomer.Id);
     }
 }

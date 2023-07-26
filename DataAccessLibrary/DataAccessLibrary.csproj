@@ -11,6 +11,6 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
   <ItemGroup>
-    <InternalsVisibleTo Include ="RepairShopTests"/>
+    <InternalsVisibleTo Include="RepairShopTests" />
   </ItemGroup>
 </Project>
