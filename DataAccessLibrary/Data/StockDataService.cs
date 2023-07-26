@@ -5,9 +5,9 @@ namespace DataAccessLibrary.Data
 {
 	public class StockDataService : IStockDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public StockDataService(ISQLDataAccess dataAccess)
+		public StockDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
@@ -46,18 +46,18 @@ namespace DataAccessLibrary.Data
             return stockItems.ToList<IStockItemModel>();
         }
 
-		public async Task<IStockItemModel> GetStockItemByID(int id)
+		public async Task<IStockItemModel> GetStockItemById(int id)
 		{
 			var stockItem = await _dataAccess.LoadData<StockItemModel, dynamic>("dbo.spStock_Read_ByID", new { ID = id }, "SQLDB");
 
 			return stockItem.FirstOrDefault();
         }
 
-		public async Task UpdateItemByID(IStockItemModel item)
+		public async Task UpdateItemById(IStockItemModel item)
 		{
 			var i = new
 			{
-				item.ID,
+				ID = item.Id,
 				item.ItemName,
 				item.Quantity,
 				item.Unit,
@@ -67,9 +67,9 @@ namespace DataAccessLibrary.Data
 			await _dataAccess.SaveData<dynamic>("spStock_Update_ByID", i, "SQLDB");
 		}
 
-		public async Task DeleteItemByID(int itemID)
+		public async Task DeleteItemById(int itemId)
 		{
-			await _dataAccess.SaveData<dynamic>("spStock_Delete", new {ID = itemID}, "SQLDB");
+			await _dataAccess.SaveData<dynamic>("spStock_Delete", new {ID = itemId}, "SQLDB");
 		}
 	}
 }

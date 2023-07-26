@@ -3,10 +3,10 @@
 	public interface IAppointmentModel
 	{
 		bool Completed { get; set; }
-		int CustomerID { get; set; }
+		int CustomerId { get; set; }
 		DateTime Date { get; set; }
-		int ID { get; set; }
-		int MechanicID { get; set; }
-		int VehicleID { get; set; }
+		int Id { get; set; }
+		int MechanicId { get; set; }
+		int VehicleId { get; set; }
 	}
 }

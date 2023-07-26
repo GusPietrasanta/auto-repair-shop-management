@@ -65,7 +65,7 @@
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">VIN</td>
-					<td class="h5">@_vehicleDetails.VIN</td>
+					<td class="h5">@_vehicleDetails.Vin</td>
 				</tr>
 
 				@if (_vehicleDetails.FirstVisit.ToShortDateString() == "1/01/0001")
@@ -554,7 +554,7 @@
 			<div>
 				<label class="form-label h4">RHF Tyre:</label><br />
 				<div class="mb-3 btn-group btn-group-lg">
-					<InputRadioGroup @bind-Value="_report.RHFTyre">
+					<InputRadioGroup @bind-Value="_report.RhfTyre">
 						<InputRadio class="btn-check" id="rhf-tyre-btn-radio1" Value="@Ok" />
 						<label class="btn btn-outline-success" for="rhf-tyre-btn-radio1" style="width: 200px;">Ok</label>
 
@@ -572,7 +572,7 @@
 			<div>
 				<label class="form-label h4">LHF Tyre:</label><br />
 				<div class="mb-3 btn-group btn-group-lg">
-					<InputRadioGroup @bind-Value="_report.LHFTyre">
+					<InputRadioGroup @bind-Value="_report.LhfTyre">
 						<InputRadio class="btn-check" id="lhf-tyre-btn-radio1" Value="@Ok" />
 						<label class="btn btn-outline-success" for="lhf-tyre-btn-radio1" style="width: 200px;">Ok</label>
 
@@ -589,7 +589,7 @@
 			<div>
 				<label class="form-label h4">RHR Tyre:</label><br />
 				<div class="mb-3 btn-group btn-group-lg">
-					<InputRadioGroup @bind-Value="_report.RHRTyre">
+					<InputRadioGroup @bind-Value="_report.RhrTyre">
 						<InputRadio class="btn-check" id="rhr-tyre-btn-radio1" Value="@Ok" />
 						<label class="btn btn-outline-success" for="rhr-tyre-btn-radio1" style="width: 200px;">Ok</label>
 
@@ -607,7 +607,7 @@
 			<div>
 				<label class="form-label h4">LHR Tyre:</label><br />
 				<div class="mb-3 btn-group btn-group-lg">
-					<InputRadioGroup @bind-Value="_report.LHRTyre">
+					<InputRadioGroup @bind-Value="_report.LhrTyre">
 						<InputRadio class="btn-check" id="lhr-tyre-btn-radio1" Value="@Ok" />
 						<label class="btn btn-outline-success" for="lhr-tyre-btn-radio1" style="width: 200px;">Ok</label>
 
@@ -772,13 +772,13 @@
 		}
 		else
 		{
-			_vehicleDetails = await VehicleData.GetVehicleDetailsByID(_appointment.VehicleID);
+			_vehicleDetails = await VehicleData.GetVehicleDetailsById(_appointment.VehicleId);
 
 			_report.TimeStarted = DateTime.Now;
-			_report.AppointmentID = _appointment.ID;
-			_report.VehicleID = _appointment.VehicleID;
-			_report.MechanicID = _appointment.MechanicID;
-			_report.CustomerID = _appointment.CustomerID;
+			_report.AppointmentId = _appointment.Id;
+			_report.VehicleId = _appointment.VehicleId;
+			_report.MechanicId = _appointment.MechanicId;
+			_report.CustomerId = _appointment.CustomerId;
 			_report.Date = _appointment.Date;
 		}
 	}
@@ -786,7 +786,7 @@
 	private async void HandleValidSubmit()
 	{
 		// Update vehicle first visit
-		await VehicleData.SaveVehicleFirstVisit(_appointment.VehicleID, DateTime.Now);
+		await VehicleData.SaveVehicleFirstVisit(_appointment.VehicleId, DateTime.Now);
 
 		// Update report end time
 		_report.TimeFinished = DateTime.Now;
@@ -795,7 +795,7 @@
 		await ReportData.CreateReport(_report);
 
 		// Mark appointment as completed
-		await AppointmentData.SetAppointmentAsCompletedByID(_appointment.ID);
+		await AppointmentData.SetAppointmentAsCompletedById(_appointment.Id);
 
 		// Redirect to jobs page
 		NavigationManager.NavigateTo("/Jobs");

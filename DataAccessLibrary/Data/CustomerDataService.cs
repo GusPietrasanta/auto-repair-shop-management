@@ -5,9 +5,9 @@ namespace DataAccessLibrary.Data
 {
 	public class CustomerDataService : ICustomerDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public CustomerDataService(ISQLDataAccess dataAccess)
+		public CustomerDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
@@ -25,7 +25,7 @@ namespace DataAccessLibrary.Data
 
 			var newCustomerId = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Create", c, "SQLDB");
 
-			return newCustomerId.FirstOrDefault()!.ID;
+			return newCustomerId.FirstOrDefault()!.Id;
 		}
 
 		public async Task<List<ICustomerModel>> ReadAllCustomers()
@@ -35,14 +35,14 @@ namespace DataAccessLibrary.Data
 			return customers.ToList<ICustomerModel>();
 		}
 
-		public async Task<ICustomerModel> ReadCustomerByID(int id)
+		public async Task<ICustomerModel> ReadCustomerById(int id)
 		{
 			var customers = await _dataAccess.LoadData<CustomerModel, dynamic>("dbo.spCustomer_Read_By_Id", new { ID = id }, "SQLDB");
 
 			return customers.ToList<ICustomerModel>().FirstOrDefault();
 		}
 
-		public async Task DeleteCustomerByID(int id)
+		public async Task DeleteCustomerById(int id)
 		{
 			await _dataAccess.SaveData<dynamic>("spCustomer_DeleteByID", new { ID = id }, "SQLDB");
 		}

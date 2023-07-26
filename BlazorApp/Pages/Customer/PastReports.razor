@@ -120,8 +120,7 @@ else
 
 	private async Task HandleValidSubmit()
 	{
-		_searchDetails.LastName = _searchDetails.LastName.Trim();
-		_searchDetails.LastName = _searchDetails.LastName.Substring(0, 1).ToUpper() + _searchDetails.LastName.Substring(1).ToLower();
+		_searchDetails.LastName = _searchDetails.LastName.RemoveWhiteSpaceAndTitleCase();
 
 		_searchDetails.NumberPlate = _searchDetails.NumberPlate.Trim();
 		_searchDetails.NumberPlate = Regex.Replace(_searchDetails.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();

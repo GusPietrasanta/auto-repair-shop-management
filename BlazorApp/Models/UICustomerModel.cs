@@ -5,7 +5,7 @@ namespace BlazorApp.Models
 {
 	public class UICustomerModel : ICustomerModel
 	{
-		public int ID { get; set; }
+		public int Id { get; set; }
 		[Required]
 		public string FirstName { get; set; }
 		[Required]

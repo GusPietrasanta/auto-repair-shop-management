@@ -25,7 +25,7 @@
 					
 						<div class="form-group">
                     		<label class="fw-bold">Customer ID:</label>
-                    		<input class="form-control" disabled readonly value="@_customer.ID"/>
+                    		<input class="form-control" disabled readonly value="@_customer.Id"/>
                     	</div>
 
 						<div class="form-group">
@@ -75,7 +75,7 @@
 				{
 					<div class="alert alert-success text-center">
 						<p class="lead"><b>@v.NumberPlate</b>  | @v.Make @v.Model - @v.Year</p>
-						<button class="btn btn-primary" @onclick="(() => GoToVehicle(v.ID))">Go to Vehicle</button>
+						<button class="btn btn-primary" @onclick="(() => GoToVehicle(v.Id))">Go to Vehicle</button>
 					</div>
 				}
 		</div>
@@ -104,8 +104,8 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		_customer = await CustomerData.ReadCustomerByID(CustomerId);
-		_vehicles = await VehicleData.GetVehiclesByCustomerID(CustomerId);
+		_customer = await CustomerData.ReadCustomerById(CustomerId);
+		_vehicles = await VehicleData.GetVehiclesByCustomerId(CustomerId);
 	}
 
 	private void ToggleEdit()

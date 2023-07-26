@@ -5,17 +5,17 @@ namespace BlazorApp.Models
 {
 	public class UIReportModel : IReportModel
 	{
-			public int ID { get; set; }
+			public int Id { get; set; }
 			public DateTime TimeStarted { get; set; }
 
 			public DateTime TimeFinished { get; set; }
 
-			public int VehicleID { get; set; }
+			public int VehicleId { get; set; }
 
-			public int MechanicID { get; set; }
+			public int MechanicId { get; set; }
 
-			public int AppointmentID { get; set; }
-			public int CustomerID { get; set; }
+			public int AppointmentId { get; set; }
+			public int CustomerId { get; set; }
 
 			public DateTime Date { get; set; }
 
@@ -48,16 +48,16 @@ namespace BlazorApp.Models
 			public string BatteryComments { get; set; }
 
 			[Required]
-			public string RHFTyre { get; set; }
+			public string RhfTyre { get; set; }
 
 			[Required]
-			public string LHFTyre { get; set; }
+			public string LhfTyre { get; set; }
 
 			[Required]
-			public string RHRTyre { get; set; }
+			public string RhrTyre { get; set; }
 
 			[Required]
-			public string LHRTyre { get; set; }
+			public string LhrTyre { get; set; }
 
 			public string TyresComments { get; set; }
 

@@ -2,7 +2,7 @@
 {
 	public class DashboardReportModel : IDashboardReportModel
 	{
-		public int ID { get; set; }
+		public int Id { get; set; }
 		public DateTime TimeFinished { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }

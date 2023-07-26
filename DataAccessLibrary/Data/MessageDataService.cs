@@ -5,9 +5,9 @@ namespace DataAccessLibrary.Data
 {
 	public class MessageDataService : IMessageDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public MessageDataService(ISQLDataAccess dataAccess)
+		public MessageDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
@@ -32,9 +32,9 @@ namespace DataAccessLibrary.Data
 			return messages.ToList<IMessageModel>();
 		}
 
-		public async Task MarkMessageAsRead(int ID)
+		public async Task MarkMessageAsRead(int id)
 		{
-			await _dataAccess.SaveData("spMessage_MarkAsRead", new { ID }, "SQLDB");
+			await _dataAccess.SaveData("spMessage_MarkAsRead", new { ID = id }, "SQLDB");
 		}
 	}
 }

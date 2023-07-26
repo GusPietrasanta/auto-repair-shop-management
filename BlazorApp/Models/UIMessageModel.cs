@@ -5,7 +5,7 @@ namespace BlazorApp.Models
 {
 	public class UIMessageModel : IMessageModel
 	{
-		public int ID { get; set; }
+		public int Id { get; set; }
 		public string UserName { get; set; }
 		[Required]
 		[MinLength(10)]

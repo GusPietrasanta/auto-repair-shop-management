@@ -5,9 +5,9 @@ namespace DataAccessLibrary.Data
 {
 	public class ReportDataService : IReportDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public ReportDataService(ISQLDataAccess dataAccess)
+		public ReportDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
@@ -35,28 +35,28 @@ namespace DataAccessLibrary.Data
 			return results.ToList<IDashboardReportModel>();
 		}
 
-		public async Task<int> GetReportIDFromAppointmentIDAsync(int appointmentID)
+		public async Task<int> GetReportIdFromAppointmentIdAsync(int appointmentId)
 		{
-			var results = await _dataAccess.LoadData<int, dynamic>("spReport_ID_From_AppointmentID", new { AppointmentID = appointmentID }, "SQLDB");
+			var results = await _dataAccess.LoadData<int, dynamic>("spReport_ID_From_AppointmentID", new { AppointmentID = appointmentId }, "SQLDB");
 
 			return results.ToList().FirstOrDefault();
 		}
 
-		public async Task<IFullReportModel> GetFullReportFromID(int reportID)
+		public async Task<IFullReportModel> GetFullReportFromId(int reportId)
 		{
-			var results = await _dataAccess.LoadData<FullReportModel, dynamic>("spReport_Read_By_ID", new { ID = reportID }, "SQLDB");
+			var results = await _dataAccess.LoadData<FullReportModel, dynamic>("spReport_Read_By_ID", new { ID = reportId }, "SQLDB");
 
 			return results.ToList().FirstOrDefault();
 		}
 
-		public async Task ArchiveInspection(int ID)
+		public async Task ArchiveInspection(int id)
 		{
-			await _dataAccess.SaveData<dynamic>("spReport_Archive", new { ID }, "SQLDB");
+			await _dataAccess.SaveData<dynamic>("spReport_Archive", new { ID = id }, "SQLDB");
 		}
 
-		public async Task<List<IReportModel>> GetReportsByVehicleID(int vehicleID)
+		public async Task<List<IReportModel>> GetReportsByVehicleId(int vehicleId)
 		{
-			var results = await _dataAccess.LoadData<ReportModel, dynamic>("spReport_Read_By_VehicleID", new { VehicleID = vehicleID }, "SQLDB");
+			var results = await _dataAccess.LoadData<ReportModel, dynamic>("spReport_Read_By_VehicleID", new { VehicleID = vehicleId }, "SQLDB");
 
 			return results.ToList<IReportModel>();
 		}

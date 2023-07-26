@@ -24,7 +24,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<IStockDataService, StockDataService>();
 builder.Services.AddScoped<ICustomerDataService, CustomerDataService>();
-builder.Services.AddScoped<IAPICalls, MockAPICalls>();
+builder.Services.AddScoped<IApiCalls, MockApiCalls>();
 builder.Services.AddScoped<IVehicleDataService, VehicleDataService>();
 builder.Services.AddScoped<IAppointmentDataService, AppointmentDataService>();
 builder.Services.AddScoped<ICustomerSessionData, CustomerSessionData>();
@@ -36,7 +36,7 @@ builder.Services.AddScoped<IStatisticsDataService, StatisticsDataService>();
 builder.Services.AddScoped<IManagerSessionData, ManagerSessionData>();
 builder.Services.AddSyncfusionBlazor();
 
-builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
+builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 
 var app = builder.Build();
 

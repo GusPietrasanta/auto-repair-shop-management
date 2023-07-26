@@ -2,7 +2,7 @@
 
 @inject ICustomerSessionData SessionData
 
-@if (AppointmentID == 0)
+@if (AppointmentId == 0)
 {
 	<div class="alert alert-dark text-center" role="alert">
 		<h1>Nothing to see here!</h1>
@@ -25,13 +25,13 @@ else
 }
 
 @code {
-	public int AppointmentID;
+	public int AppointmentId;
 	public string AppointmentNumberPlate;
 	public DateTime AppointmentDate;
 
 	protected override void OnParametersSet()
 	{
-		AppointmentID = SessionData.GetAppointmentID();
+		AppointmentId = SessionData.GetAppointmentId();
 		AppointmentDate = SessionData.GetAppointmentDate();
 		AppointmentNumberPlate = SessionData.GetAppointmentNumberPlate();
 	}

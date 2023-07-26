@@ -2,7 +2,7 @@
 {
 	public interface IMechanicBasicModel
 	{
-		int ID { get; set; }
+		int Id { get; set; }
 		string UserName { get; set; }
 	}
 }

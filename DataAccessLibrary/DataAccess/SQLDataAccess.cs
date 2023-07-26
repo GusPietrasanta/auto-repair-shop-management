@@ -5,16 +5,16 @@ using System.Data.SqlClient;
 
 namespace DataAccessLibrary.DataAccess
 {
-	public class SQLDataAccess : ISQLDataAccess
+	public class SqlDataAccess : ISqlDataAccess
 	{
 		private readonly IConfiguration _config;
 
-		public SQLDataAccess(IConfiguration config)
+		public SqlDataAccess(IConfiguration config)
 		{
 			_config = config;
 		}
 
-		public async Task<List<T>> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
+		public async Task<List<T>> LoadData<T, TU>(string storedProcedure, TU parameters, string connectionStringName)
 		{
 			string connectionString = _config.GetConnectionString(connectionStringName);
 

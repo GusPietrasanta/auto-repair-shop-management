@@ -4,9 +4,9 @@ namespace DataAccessLibrary.Data
 {
 	public class StatisticsDataService : IStatisticsDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public StatisticsDataService(ISQLDataAccess dataAccess)
+		public StatisticsDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}

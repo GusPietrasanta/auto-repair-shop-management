@@ -4,9 +4,9 @@ namespace DataAccessLibrary.Data
 {
 	public class AppointmentDataService : IAppointmentDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public AppointmentDataService(ISQLDataAccess dataAccess)
+		public AppointmentDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
@@ -15,14 +15,14 @@ namespace DataAccessLibrary.Data
 		{
 			var p = new
 			{
-				appointment.CustomerID,
-				appointment.VehicleID,
+				CustomerID = appointment.CustomerId,
+				VehicleID = appointment.VehicleId,
 				appointment.Date
 			};
 
 			var newAppointmentId = await _dataAccess.LoadData<AppointmentModel, dynamic>("dbo.spAppointment_Create", p, "SQLDB");
 
-			return newAppointmentId.FirstOrDefault()!.ID;
+			return newAppointmentId.FirstOrDefault()!.Id;
 		}
 
 		public async Task<List<IAppointmentModel>> ReadAllAppointments()
@@ -53,19 +53,19 @@ namespace DataAccessLibrary.Data
 			return detailedAppointmentsByUserName.ToList<IDetailedAppointment>();
 		}
 
-		public async Task DeleteAppointmentByID(int id)
+		public async Task DeleteAppointmentById(int id)
 		{
 			await _dataAccess.SaveData("spAppointment_DeleteById", new { ID = id }, "SQLDB");
 		}
 
-		public async Task AssignJobCardByID(int appointmentId, int mechanicId)
+		public async Task AssignJobCardById(int appointmentId, int mechanicId)
 		{
 			await _dataAccess.SaveData("spAppointment_AssignMechanicByID", new { AppointmentID = appointmentId, MechanicID = mechanicId }, "SQLDB");
 		}
 
-		public async Task SetAppointmentAsCompletedByID(int ID)
+		public async Task SetAppointmentAsCompletedById(int id)
 		{
-			await _dataAccess.SaveData("spAppointment_UpdateCompletedByID", new { ID }, "SQLDB");
+			await _dataAccess.SaveData("spAppointment_UpdateCompletedByID", new { ID = id }, "SQLDB");
 		}
 
 		public async Task<int> GetTodayAppointmentsCountByUserName(string userName)

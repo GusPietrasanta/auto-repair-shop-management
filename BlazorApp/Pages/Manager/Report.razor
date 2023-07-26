@@ -7,7 +7,7 @@
 @inject IManagerSessionData ManagerSession
 
 <div class="text-center">
-	<h1 class="display-3 fw-normal">Report # @ReportID</h1>
+	<h1 class="display-3 fw-normal">Report # @ReportId</h1>
 	<button class="btn btn-outline-info btn-lg" @onclick="(PreviousPage)">Go to previous page</button>
 </div>
 <hr/>
@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">VIN</td>
-					<td class="h5">@_vehicle.VIN</td>
+					<td class="h5">@_vehicle.Vin</td>
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">Engine</td>
@@ -86,7 +86,7 @@
 				<tbody>
 				<tr>
 					<td class="h5 fw-bold">Report ID</td>
-					<td class="h5">@_report.ID</td>
+					<td class="h5">@_report.Id</td>
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">Date</td>
@@ -750,21 +750,21 @@
 				</tr>
 
 
-				@if (_report.RHFTyre == Ok)
+				@if (_report.RhfTyre == Ok)
 				{
 					<tr class="table-success" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Right Hand Front Tyre:</td>
 						<td class="h5">Inspected And Ok</td>
 					</tr>
 				}
-				else if (_report.RHFTyre == Average)
+				else if (_report.RhfTyre == Average)
 				{
 					<tr class="table-warning" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Right Hand Front Tyre:</td>
 						<td class="h5">May Require Future Attention</td>
 					</tr>
 				}
-				else if (_report.RHFTyre == Bad)
+				else if (_report.RhfTyre == Bad)
 				{
 					<tr class="table-danger" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Right Hand Front Tyre:</td>
@@ -773,21 +773,21 @@
 				}
 
 
-				@if (_report.LHFTyre == Ok)
+				@if (_report.LhfTyre == Ok)
 				{
 					<tr class="table-success" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Left Hand Front Tyre:</td>
 						<td class="h5">Inspected And Ok</td>
 					</tr>
 				}
-				else if (_report.LHFTyre == Average)
+				else if (_report.LhfTyre == Average)
 				{
 					<tr class="table-warning" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Left Hand Front Tyre:</td>
 						<td class="h5">May Require Future Attention</td>
 					</tr>
 				}
-				else if (_report.LHFTyre == Bad)
+				else if (_report.LhfTyre == Bad)
 				{
 					<tr class="table-danger" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Left Hand Front Tyre:</td>
@@ -795,21 +795,21 @@
 					</tr>
 				}						
 						
-				@if (_report.RHRTyre == Ok)
+				@if (_report.RhrTyre == Ok)
 				{
 					<tr class="table-success" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Right Hand Rear Tyre:</td>
 						<td class="h5">Inspected And Ok</td>
 					</tr>
 				}
-				else if (_report.RHRTyre == Average)
+				else if (_report.RhrTyre == Average)
 				{
 					<tr class="table-warning" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Right Hand Rear Tyre:</td>
 						<td class="h5">May Require Future Attention</td>
 					</tr>
 				}
-				else if (_report.RHRTyre == Bad)
+				else if (_report.RhrTyre == Bad)
 				{
 					<tr class="table-danger" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Right Hand Rear Tyre:</td>
@@ -817,21 +817,21 @@
 					</tr>
 				}						
 						
-				@if (_report.LHRTyre == Ok)
+				@if (_report.LhrTyre == Ok)
 				{
 					<tr class="table-success" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Left Hand Rear Tyre:</td>
 						<td class="h5">Inspected And Ok</td>
 					</tr>
 				}
-				else if (_report.LHRTyre == Average)
+				else if (_report.LhrTyre == Average)
 				{
 					<tr class="table-warning" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Left Hand Rear Tyre:</td>
 						<td class="h5">May Require Future Attention</td>
 					</tr>
 				}
-				else if (_report.LHRTyre == Bad)
+				else if (_report.LhrTyre == Bad)
 				{
 					<tr class="table-danger" style="height: 4.5rem;">
 						<td class="h5 fw-bold">Left Hand Rear Tyre:</td>
@@ -985,7 +985,7 @@
 
 @code {
 	[Parameter]
-	public int ReportID { get; set; }
+	public int ReportId { get; set; }
 
 	private IFullReportModel _report;
 	private IVehicleModel _vehicle;
@@ -997,9 +997,9 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		_report = await ReportData.GetFullReportFromID(ReportID);
-		_vehicle = await VehicleData.GetVehicleDetailsByID(_report.VehicleID);
-		_customer = await CustomerData.ReadCustomerByID(_report.CustomerID);
+		_report = await ReportData.GetFullReportFromId(ReportId);
+		_vehicle = await VehicleData.GetVehicleDetailsById(_report.VehicleId);
+		_customer = await CustomerData.ReadCustomerById(_report.CustomerId);
 	}
 	private void PreviousPage()
 	{

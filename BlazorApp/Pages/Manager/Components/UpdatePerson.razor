@@ -11,7 +11,7 @@
 
 	<div class="form-group">
 		<label class="fw-bold">ID:</label>
-		<input class="form-control" disabled readonly value="@_customerToUpdate.ID"/>
+		<input class="form-control" disabled readonly value="@_customerToUpdate.Id"/>
 	</div>
 
 	<div class="form-group">
@@ -62,7 +62,7 @@
 
 	protected override void OnParametersSet()
 	{
-		_customerToUpdate.ID = Customer.ID;
+		_customerToUpdate.Id = Customer.Id;
 		_customerToUpdate.FirstName = Customer.FirstName;
 		_customerToUpdate.LastName = Customer.LastName;
 		_customerToUpdate.PhoneNumber = Customer.PhoneNumber;

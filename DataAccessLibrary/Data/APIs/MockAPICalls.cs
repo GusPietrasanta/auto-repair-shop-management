@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace DataAccessLibrary.Data.APIs
 {
-	public class MockAPICalls : IAPICalls
+	public class MockApiCalls : IApiCalls
 	{
 		public IVehicleModel GetVehicleDetails(string numberPlate)
 		{
@@ -45,7 +45,7 @@ namespace DataAccessLibrary.Data.APIs
 			output.Make = vehicleInfoNode!["CarMake"]!["CurrentTextValue"]!.GetValue<string>();
 			output.Model = vehicleInfoNode["ModelDescription"]!["CurrentTextValue"]!.GetValue<string>();
 			output.Year = vehicleInfoNode["extended"]!["year"]!.GetValue<string>();
-			output.VIN = vehicleInfoNode["VechileIdentificationNumber"]!.GetValue<string>();
+			output.Vin = vehicleInfoNode["VechileIdentificationNumber"]!.GetValue<string>();
 			output.SizeLitres = vehicleInfoNode["extended"]!["capacityValue"]!.GetValue<string>();
 			output.Cylinders = vehicleInfoNode["extended"]!["cylinders"]!.GetValue<string>();
 			output.EngineDescription = vehicleInfoNode["extended"]!["engineDescription"]!.GetValue<string>();

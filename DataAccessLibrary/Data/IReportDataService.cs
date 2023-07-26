@@ -4,11 +4,11 @@ namespace DataAccessLibrary.Data
 {
 	public interface IReportDataService
 	{
-		Task ArchiveInspection(int ID);
+		Task ArchiveInspection(int id);
 		Task CreateReport(IReportModel newReport);
-		Task<IFullReportModel> GetFullReportFromID(int reportID);
-		Task<int> GetReportIDFromAppointmentIDAsync(int appointmentID);
-		Task<List<IReportModel>> GetReportsByVehicleID(int vehicleID);
+		Task<IFullReportModel> GetFullReportFromId(int reportId);
+		Task<int> GetReportIdFromAppointmentIdAsync(int appointmentId);
+		Task<List<IReportModel>> GetReportsByVehicleId(int vehicleId);
 		Task<List<IDashboardReportModel>> SearchAllReportsDashboard();
 		Task<List<IFullReportModel>> SearchAllReports();
 		Task<List<IFullReportModel>> SearchReports(ISearchReporstByLastNameAndRego searchDetails);

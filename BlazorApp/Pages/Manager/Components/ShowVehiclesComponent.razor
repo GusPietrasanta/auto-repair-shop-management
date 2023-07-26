@@ -18,7 +18,7 @@
 			<div class="alert alert-info text-center">
 				<p><b>Number Plate:</b> @v.NumberPlate</p>
 				<p>@v.Make @v.Model - @v.Year</p>
-				<button class="btn btn-primary" @onclick="(() => GoToVehicle(v.ID))">Go to Vehicle</button>
+				<button class="btn btn-primary" @onclick="(() => GoToVehicle(v.Id))">Go to Vehicle</button>
 			</div>
 		}
 	}
@@ -28,19 +28,19 @@
 
 @code {
 	[Parameter]
-	public int CustomerID { get; set; }
+	public int CustomerId { get; set; }
 
 	private List<IVehicleModel> _vehicles;
 
 	protected override async Task OnParametersSetAsync()
 	{
 		// Get vehicles from DB
-		_vehicles = await VehicleData.GetVehiclesByCustomerID(CustomerID);
+		_vehicles = await VehicleData.GetVehiclesByCustomerId(CustomerId);
 	}
 
-	private void GoToVehicle(int vehicleID)
+	private void GoToVehicle(int vehicleId)
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
-		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+		NavigationManager.NavigateTo($"/Vehicle/{vehicleId}");
 	}
 }

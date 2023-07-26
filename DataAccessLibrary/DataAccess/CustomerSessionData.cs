@@ -4,7 +4,7 @@ namespace DataAccessLibrary.DataAccess
 {
 	public class CustomerSessionData : ICustomerSessionData
 	{
-		private int _appointmentID;
+		private int _appointmentId;
 		private string _appointmentNumberPlate;
 		private DateTime _appointmentDate;
 		private IFullReportModel _sessionReport;
@@ -56,13 +56,13 @@ namespace DataAccessLibrary.DataAccess
 			_sessionReport = newReport;
 		}
 
-        public int GetAppointmentID()
+        public int GetAppointmentId()
 		{
-			return _appointmentID;
+			return _appointmentId;
 		}
-		public void SetAppointmentID(int newAppointmentID)
+		public void SetAppointmentId(int newAppointmentId)
 		{
-			_appointmentID = newAppointmentID;
+			_appointmentId = newAppointmentId;
 		}
 		public string GetAppointmentNumberPlate()
 		{

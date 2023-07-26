@@ -2,7 +2,7 @@
 {
 	public class StockItemModel : IStockItemModel
 	{
-		public int ID { get; set; }
+		public int Id { get; set; }
 		public string ItemName { get; set; }
 		public decimal Quantity { get; set; }
 		public string Unit { get; set; }

@@ -24,11 +24,11 @@
 		{
 			@foreach (var a in _appointments)
 			{
-				<div class="alert @(a.MechanicID > 0 ? "alert-success" : "alert-warning")">
+				<div class="alert @(a.MechanicId > 0 ? "alert-success" : "alert-warning")">
 					
-						@if (a.MechanicID > 0)
+						@if (a.MechanicId > 0)
 						{<p class="lead">
-							<b>Appointment ID:</b> @a.ID<br />
+							<b>Appointment ID:</b> @a.Id<br />
 							<b>Date:</b> @a.Date.ToShortDateString()<br />
 							<b>Customer:</b> @a.FirstName @a.LastName<br />
 							<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model<br />
@@ -36,7 +36,7 @@
 						}
 						else
 						{<p class="lead">
-							<b>Appointment ID:</b> @a.ID<br />
+							<b>Appointment ID:</b> @a.Id<br />
 							<b>Date:</b> @a.Date.ToShortDateString()<br />
 							<b>Customer:</b> @a.FirstName @a.LastName<br />
 							<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model<br />
@@ -48,22 +48,22 @@
 						<option value="">Select Mechanic...</option>
 						@foreach (var m in _mechanics)
 						{
-							<option value="@m.ID">@m.UserName</option>
+							<option value="@m.Id">@m.UserName</option>
 						}
 					</select>
 
 						<div class="text-center mt-2">
-						<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+						<button class="btn btn-outline-primary" @onclick="(() => AssignJobCard(a.Id))">Assign</button>
 
-					@if (_idToDelete == a.ID)
+					@if (_idToDelete == a.Id)
 					{
-						<button class="btn btn-danger" @onclick="(() => DeleteAppointment(a.ID))">
+						<button class="btn btn-danger" @onclick="(() => DeleteAppointment(a.Id))">
 							Confirm
 						</button>
 					}
 					else
 					{
-						<button class="btn btn-outline-danger mx-2" @onclick="(() => _idToDelete = a.ID)">
+						<button class="btn btn-outline-danger mx-2" @onclick="(() => _idToDelete = a.Id)">
 							Delete
 						</button>
 					}
@@ -80,7 +80,7 @@
 	private List<IDetailedAppointment> _appointments;
 	private List<IMechanicBasicModel> _mechanics;
 	private int _idToDelete;
-	private int _mechanicIDToAssign;
+	private int _mechanicIdToAssign;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -90,7 +90,7 @@
 
 	private async void ResetAllDropDowns()
 	{
-		_mechanicIDToAssign = 0;
+		_mechanicIdToAssign = 0;
 		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 	}
 
@@ -98,25 +98,25 @@
 	{
 		if (e.Value!.ToString() == "")
 		{
-			_mechanicIDToAssign = 0;
+			_mechanicIdToAssign = 0;
 		}
 		else
 		{
-			_mechanicIDToAssign = int.Parse(e.Value.ToString()!);
+			_mechanicIdToAssign = int.Parse(e.Value.ToString()!);
 		}
 	}
 
 	private async void AssignJobCard(int appointmentId)
 	{
 		Console.WriteLine(appointmentId);
-		Console.WriteLine(_mechanicIDToAssign);
-		if (_mechanicIDToAssign > 0)
+		Console.WriteLine(_mechanicIdToAssign);
+		if (_mechanicIdToAssign > 0)
 		{
-			await AppointmentData.AssignJobCardByID(appointmentId, _mechanicIDToAssign);
-			var appointment = _appointments.FirstOrDefault(x => x.ID == appointmentId);
+			await AppointmentData.AssignJobCardById(appointmentId, _mechanicIdToAssign);
+			var appointment = _appointments.FirstOrDefault(x => x.Id == appointmentId);
 
-			appointment!.MechanicID = _mechanicIDToAssign;
-			appointment.UserName = _mechanics.FirstOrDefault(x => x.ID == _mechanicIDToAssign)!.UserName;
+			appointment!.MechanicId = _mechanicIdToAssign;
+			appointment.UserName = _mechanics.FirstOrDefault(x => x.Id == _mechanicIdToAssign)!.UserName;
 
 			await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 			_idToDelete = 0;
@@ -126,8 +126,8 @@
 
 	private async void DeleteAppointment(int id)
 	{
-		await AppointmentData.DeleteAppointmentByID(id);
-		_appointments.Remove(_appointments.Where(x => x.ID == id).FirstOrDefault());
+		await AppointmentData.DeleteAppointmentById(id);
+		_appointments.Remove(_appointments.Where(x => x.Id == id).FirstOrDefault());
 		_idToDelete = 0;
 		StateHasChanged();
 	}	

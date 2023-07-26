@@ -5,7 +5,7 @@ namespace BlazorApp.Models
 {
 	public class UIStockItemModel : IStockItemModel
 	{
-		public int ID { get; set; }
+		public int Id { get; set; }
 		[Required]
 		public string ItemName { get; set; }
 		[Required]

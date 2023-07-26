@@ -2,10 +2,10 @@
 {
 	public interface IRetrieveReportModel
 	{
-		int ID { get; set; }
+		int Id { get; set; }
 		string AirConditioning { get; set; }
 		string AirFilter { get; set; }
-		int AppointmentID { get; set; }
+		int AppointmentId { get; set; }
 		string Battery { get; set; }
 		string BatteryComments { get; set; }
 		string BrakeFluid { get; set; }
@@ -13,7 +13,7 @@
 		string Coolant { get; set; }
 		string CoolantLeaks { get; set; }
 		string CoolantLeaksComments { get; set; }
-		int CustomerID { get; set; }
+		int CustomerId { get; set; }
 		DateTime Date { get; set; }
 		string DriveBelts { get; set; }
 		string Drivetrain { get; set; }
@@ -31,11 +31,11 @@
 		string GeneralComments { get; set; }
 		string Hoses { get; set; }
 		string HosesComments { get; set; }
-		string LHFTyre { get; set; }
-		string LHRTyre { get; set; }
+		string LhfTyre { get; set; }
+		string LhrTyre { get; set; }
 		string Lights { get; set; }
 		string LightsComments { get; set; }
-		int MechanicID { get; set; }
+		int MechanicId { get; set; }
 		bool NeedsAlignment { get; set; }
 		int Odometer { get; set; }
 		string OilLeaks { get; set; }
@@ -50,8 +50,8 @@
 		string RearSuspension { get; set; }
 		string RearSuspensionComments { get; set; }
 		string RearWiper { get; set; }
-		string RHFTyre { get; set; }
-		string RHRTyre { get; set; }
+		string RhfTyre { get; set; }
+		string RhrTyre { get; set; }
 		string RoadTestComments { get; set; }
 		string SparkPlugs { get; set; }
 		string StoredFaultCodes { get; set; }
@@ -60,7 +60,7 @@
 		string TimingBelt { get; set; }
 		string TransmissionFluid { get; set; }
 		string TyresComments { get; set; }
-		int VehicleID { get; set; }
+		int VehicleId { get; set; }
 		string WindscreenWasherFluid { get; set; }
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace DataAccessLibrary.Data.APIs
 {
-	public interface IAPICalls
+	public interface IApiCalls
 	{
 		IVehicleModel GetVehicleDetails(string numberPlate);
 	}

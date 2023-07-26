@@ -20,7 +20,7 @@
             @foreach (var v in _vehicles)
             {
                 <a class="fill-div" href="#">
-                <div class="search-result" @onclick="(() => GoToVehicle(v.ID))"><b>@v.NumberPlate</b> - @v.Make @v.Model</div>
+                <div class="search-result" @onclick="(() => GoToVehicle(v.Id))"><b>@v.NumberPlate</b> - @v.Make @v.Model</div>
                 </a>
             }
 
@@ -34,7 +34,7 @@
             @foreach (var c in _customers)
             {
                 <a class="fill-div" href="#">
-                    <div class="search-result" @onclick="(() => GoToCustomer(c.ID))"><b>@c.FirstName @c.LastName</b></div>
+                    <div class="search-result" @onclick="(() => GoToCustomer(c.Id))"><b>@c.FirstName @c.LastName</b></div>
                 </a>
             }
         }  
@@ -47,7 +47,7 @@
             @foreach (var i in _items)
             {
                 <a class="fill-div" href="#">
-                    <div class="search-result" @onclick="(() => GoToItem(i.ID))"><b>@i.ItemName</b> - @(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit</div>
+                    <div class="search-result" @onclick="(() => GoToItem(i.Id))"><b>@i.ItemName</b> - @(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit</div>
                 </a>
             }
         }
@@ -85,30 +85,30 @@
         }
     }
 
-    private void GoToVehicle(int vehicleID)
+    private void GoToVehicle(int vehicleId)
     {
         ManagerSession.SetLastPage(NavigationManager.Uri);
-        NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+        NavigationManager.NavigateTo($"/Vehicle/{vehicleId}");
         _customers = null;
         _vehicles = null;
         _items = null;
         _searchTerm = "";
     }
 
-    private void GoToCustomer(int customerID)
+    private void GoToCustomer(int customerId)
     {
         ManagerSession.SetLastPage(NavigationManager.Uri);
-        NavigationManager.NavigateTo($"/Customer/{customerID}");
+        NavigationManager.NavigateTo($"/Customer/{customerId}");
         _customers = null;
         _vehicles = null;
         _items = null;
         _searchTerm = "";
     }
 
-    private void GoToItem(int itemID)
+    private void GoToItem(int itemId)
     {
         ManagerSession.SetLastPage(NavigationManager.Uri);
-        NavigationManager.NavigateTo($"/StockItem/{itemID}");
+        NavigationManager.NavigateTo($"/StockItem/{itemId}");
         _customers = null;
         _vehicles = null;
         _items = null;

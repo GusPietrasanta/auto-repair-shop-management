@@ -6,10 +6,10 @@ namespace DataAccessLibrary.Data
 	{
 		Task<int> CreateVehicle(IVehicleModel vehicle);
 		Task<List<IVehicleModel>> GetAllVehicles();
-		Task<IVehicleModel> GetVehicleDetailsByID(int ID);
-        Task<List<IVehicleModel>> GetVehiclesByCustomerID(int CustomerID);
+		Task<IVehicleModel> GetVehicleDetailsById(int id);
+        Task<List<IVehicleModel>> GetVehiclesByCustomerId(int customerId);
         Task<List<IVehicleModel>> GetVehiclesListForSearchBar(string searchTerm);
-        Task SaveVehicleFirstVisit(int ID, DateTime firstVisitDateTime);
+        Task SaveVehicleFirstVisit(int id, DateTime firstVisitDateTime);
 		Task UpdateVehicle(IVehicleModel vehicle);
 	}
 }

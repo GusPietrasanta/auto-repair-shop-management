@@ -3,12 +3,10 @@
 @if (_vehicle != null)
 {
 	<PageTitle>@_vehicle.NumberPlate Information</PageTitle>
-	;
 }
 else
 {
 	<PageTitle>Vehicle Details</PageTitle>
-	;
 }
 
 
@@ -39,7 +37,7 @@ else
 
 				<div class="form-group">
 					<label><b>Vehicle ID:</b></label>
-					<input class="form-control" disabled readonly value="@_vehicle.ID"/>
+					<input class="form-control" disabled readonly value="@_vehicle.Id"/>
 				</div>
 
 				<div class="form-group">
@@ -64,7 +62,7 @@ else
 
 				<div class="form-group">
 					<label class="fw-bold">VIN:</label>
-					<InputText @bind-Value="_vehicle.VIN" class="form-control" />
+					<InputText @bind-Value="_vehicle.Vin" class="form-control" />
 				</div>
 				
 				<div class="form-group">
@@ -153,7 +151,7 @@ else
 					<div class="alert alert-success text-center">
 						@*<p>Report ID: @r.ID</p>*@
 						<p class="lead">Date: @r.TimeStarted.ToShortDateString() | Odometer: @r.Odometer kms</p>
-						<button class="btn btn-primary" @onclick="(() => SeeReport(r.ID))">View Report</button>
+						<button class="btn btn-primary" @onclick="(() => SeeReport(r.Id))">View Report</button>
 					</div>
 						
 					_previousReportDate = r.TimeStarted;
@@ -195,14 +193,14 @@ else
 
 	protected override async Task OnInitializedAsync()
 	{
-		_vehicle = await VehicleData.GetVehicleDetailsByID(VehicleId);
-		_reports = await ReportData.GetReportsByVehicleID(VehicleId);
+		_vehicle = await VehicleData.GetVehicleDetailsById(VehicleId);
+		_reports = await ReportData.GetReportsByVehicleId(VehicleId);
 	}
 
 	protected override async Task OnParametersSetAsync()
 	{
-		_vehicle = await VehicleData.GetVehicleDetailsByID(VehicleId);
-		_reports = await ReportData.GetReportsByVehicleID(VehicleId);
+		_vehicle = await VehicleData.GetVehicleDetailsById(VehicleId);
+		_reports = await ReportData.GetReportsByVehicleId(VehicleId);
 	}
 
 	private void PreviousPage()
@@ -210,10 +208,10 @@ else
 		NavigationManager.NavigateTo(ManagerSession.GetLastPage());
 	}
 
-	private void SeeReport(int reportID)
+	private void SeeReport(int reportId)
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
 		//managerSession.SetLastPage($"/Vehicle/{vehicleID}");
-		NavigationManager.NavigateTo($"/Report/{reportID}");
+		NavigationManager.NavigateTo($"/Report/{reportId}");
 	}
 }

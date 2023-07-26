@@ -54,14 +54,14 @@ else
 							<td>@v.Make</td>
 							<td>@v.Model</td>
 							<td>@v.Year</td>
-							<td>@v.VIN</td>
+							<td>@v.Vin</td>
 							<td>@v.FuelType</td>
 							<td>@v.EngineDescription</td>
 							<td>@v.BodyType</td>
 							<td>@v.Cylinders</td>
 							<td>@v.TransmissionType</td>
 							<td>@v.BodyType</td>
-							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicle(v.ID))">Go</button></td>
+							<td><button class ="btn btn-primary" @onclick="(() => ViewVehicle(v.Id))">Go</button></td>
 						</tr>
 					}
 				</tbody>
@@ -95,7 +95,7 @@ else
 											where	x.Make.ToLower().Contains(searchTerm) ||
 													x.Model.ToLower().Contains(searchTerm) ||
 													x.Year.ToLower().Contains(searchTerm) ||
-													x.VIN.ToLower().Contains(searchTerm) ||
+													x.Vin.ToLower().Contains(searchTerm) ||
 													x.FuelType.ToLower().Contains(searchTerm) ||
 													x.EngineDescription.ToLower().Contains(searchTerm) ||
 													x.BodyType.ToLower().Contains(searchTerm) ||
@@ -109,10 +109,10 @@ else
 		}
 	}
 
-	private void ViewVehicle(int vehicleID)
+	private void ViewVehicle(int vehicleId)
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
-		NavigationManager.NavigateTo($"/Vehicle/{vehicleID}");
+		NavigationManager.NavigateTo($"/Vehicle/{vehicleId}");
 	}
 	private void PreviousPage()
 	{

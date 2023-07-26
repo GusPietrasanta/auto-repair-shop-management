@@ -35,17 +35,17 @@
 								<option value="">Select Mechanic...</option>
 								@foreach (var m in _mechanics)
 								{
-									<option value="@m.ID">@m.UserName</option>
+									<option value="@m.Id">@m.UserName</option>
 								}
 							</select>
 							<div class="text-center mt-2">
-								<button class="btn btn-primary" @onclick="(() => AssignJobCard(a.ID))">Assign</button>
+								<button class="btn btn-primary" @onclick="(() => AssignJobCard(a.Id))">Assign</button>
 							</div>
 						}
 						@if (a.Completed)
 						{
 							<div class="text-center">
-								<button class="btn btn-primary" @onclick="(() => SeeReportFromAppointment(a.ID))">
+								<button class="btn btn-primary" @onclick="(() => SeeReportFromAppointment(a.Id))">
 									See Report
 								</button>
 							</div>
@@ -80,7 +80,7 @@
 						<p><b>@m.UserName</b> posted on <b>@m.PostedOn.ToString("g")</b> in <b>@m.Tag</b>:</p>
 						<p><i>@m.Content</i></p>
 						<div class="text-center">
-							<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.ID))">Mark as read</button>	
+							<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.Id))">Mark as read</button>	
 						</div>
 					</div>
 				}
@@ -110,8 +110,8 @@
 						<p><b>Customer:</b> @c.FirstName @c.LastName</p>
 						<p><b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")</p>
 						<div class="text-center">
-							<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
-							<button class="btn btn-outline-danger" @onclick="(() => ArchiveInspection(c.ID))">Archive</button>
+							<button class="btn btn-primary" @onclick="(() => SeeReport(c.Id))">See Report</button>
+							<button class="btn btn-outline-danger" @onclick="(() => ArchiveInspection(c.Id))">Archive</button>
 						</div>
 					</div>
 				}
@@ -137,7 +137,7 @@
 					{
 						<div class="alert alert-danger mx-auto w-75">
 							<p><b>Alert!</b> Out of stock for: <b><i>@i.ItemName</i></b>!</p>
-							<button class="btn btn-primary" @onclick="(() => GoToItem(i.ID))">Edit Item</button>
+							<button class="btn btn-primary" @onclick="(() => GoToItem(i.Id))">Edit Item</button>
 						</div>
 					}
 					else
@@ -145,7 +145,7 @@
 						<div class="alert alert-warning mx-auto w-75">
 							<p><b>Warning:</b> Low stock for <b><i>@i.ItemName</i></b></p>
 							<p>(Only <b>@(i.Unit.ToLower().Contains("piece") || i.Unit.ToLower().Contains("set") ? @i.Quantity.ToString("0") : @i.Quantity) @i.Unit left</b>)</p>
-							<button class="btn btn-primary" @onclick="(() => GoToItem(i.ID))">Edit Item</button>
+							<button class="btn btn-primary" @onclick="(() => GoToItem(i.Id))">Edit Item</button>
 						</div>
 					}
 				}
@@ -178,7 +178,7 @@
 	private List<IMessageModel> _messages;
 	private List<IStockItemModel> _stock;
 	private List<IDashboardReportModel> _completedInspections;
-	private int _mechanicIDToAssign;
+	private int _mechanicIdToAssign;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -191,7 +191,7 @@
 
 	private async void ResetAllDropDowns()
 	{
-		_mechanicIDToAssign = 0;
+		_mechanicIdToAssign = 0;
 		await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 	}
 
@@ -201,11 +201,11 @@
 		{
 			if (e.Value.ToString() == "")
 			{
-				_mechanicIDToAssign = 0;
+				_mechanicIdToAssign = 0;
 			}
 			else
 			{
-					_mechanicIDToAssign = int.Parse(e.Value.ToString()!);
+					_mechanicIdToAssign = int.Parse(e.Value.ToString()!);
 			}
 		}
 	}
@@ -213,15 +213,15 @@
 	private async void AssignJobCard(int appointmentId)
 	{
 		Console.WriteLine(appointmentId);
-		Console.WriteLine(_mechanicIDToAssign);
-		if (_mechanicIDToAssign > 0)
+		Console.WriteLine(_mechanicIdToAssign);
+		if (_mechanicIdToAssign > 0)
 		{
-			await AppointmentData.AssignJobCardByID(appointmentId, _mechanicIDToAssign);
-			var appointment = _todayAppointments.FirstOrDefault(x => x.ID == appointmentId);
+			await AppointmentData.AssignJobCardById(appointmentId, _mechanicIdToAssign);
+			var appointment = _todayAppointments.FirstOrDefault(x => x.Id == appointmentId);
 
-			appointment!.MechanicID = _mechanicIDToAssign;
+			appointment!.MechanicId = _mechanicIdToAssign;
 
-			appointment.UserName = _mechanics.FirstOrDefault(x => x.ID == _mechanicIDToAssign)!.UserName;
+			appointment.UserName = _mechanics.FirstOrDefault(x => x.Id == _mechanicIdToAssign)!.UserName;
 
 			await JSRuntime.InvokeAsync<object>("ResetAllDropDowns");
 
@@ -229,21 +229,21 @@
 		}
 	}
 
-	private async void SeeReportFromAppointment(int appointmentID)
+	private async void SeeReportFromAppointment(int appointmentId)
 	{
 		// Get inspection number by appointmentID
-		int reportID = await ReportData.GetReportIDFromAppointmentIDAsync(appointmentID);
+		int reportId = await ReportData.GetReportIdFromAppointmentIdAsync(appointmentId);
 		// managerSession.SetLastPage("/");
 		ManagerSession.SetLastPage(NavigationManager.Uri);
 		// Redirect to inspection page
-		NavigationManager.NavigateTo($"/Report/{reportID}");
+		NavigationManager.NavigateTo($"/Report/{reportId}");
 	}
 
-	private async Task MarkMessageAsRead(int messageID)
+	private async Task MarkMessageAsRead(int messageId)
 	{
-		await MessageData.MarkMessageAsRead(messageID);
+		await MessageData.MarkMessageAsRead(messageId);
 
-		_messages.Remove(_messages.Where(x => x.ID == messageID).FirstOrDefault());
+		_messages.Remove(_messages.Where(x => x.Id == messageId).FirstOrDefault());
 	}
 
 	private void GoToInventory()
@@ -252,22 +252,22 @@
 		NavigationManager.NavigateTo("/Inventory");
 	}	
 	
-	private void SeeReport(int reportID)
+	private void SeeReport(int reportId)
 	{
 		//managerSession.SetLastPage("/");
 		ManagerSession.SetLastPage(NavigationManager.Uri);
-		NavigationManager.NavigateTo($"/Report/{reportID}");
+		NavigationManager.NavigateTo($"/Report/{reportId}");
 	}
 
-	private async Task ArchiveInspection(int inspectionID)
+	private async Task ArchiveInspection(int inspectionId)
 	{
-		await ReportData.ArchiveInspection(inspectionID);
+		await ReportData.ArchiveInspection(inspectionId);
 
-		_completedInspections.Remove(_completedInspections.Where(x => x.ID == inspectionID).FirstOrDefault());
+		_completedInspections.Remove(_completedInspections.Where(x => x.Id == inspectionId).FirstOrDefault());
 	}
-	private void GoToItem(int itemID)
+	private void GoToItem(int itemId)
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
-		NavigationManager.NavigateTo($"/StockItem/{itemID}");
+		NavigationManager.NavigateTo($"/StockItem/{itemId}");
 	}
 }

@@ -47,12 +47,12 @@
 			{
 				<div class="alert alert-info text-center">
 					<p class="lead">
-						<b>Report ID:</b> @c.ID <br/>
+						<b>Report ID:</b> @c.Id <br/>
 						<b>Vehicle:</b> @c.NumberPlate - @c.Make @c.Model @c.Year <br/>
 						<b>Customer:</b> @c.FirstName @c.LastName <br/>
 						<b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")<br/>
 					</p>
-					<button class="btn btn-primary" @onclick="(() => SeeReport(c.ID))">See Report</button>
+					<button class="btn btn-primary" @onclick="(() => SeeReport(c.Id))">See Report</button>
 				</div>
 			}
 		}
@@ -84,10 +84,10 @@
 		_inspectionsToShow = _allInspections.Take(_reportsPerPage).ToList();
 	}
 
-		private void SeeReport(int reportID)
+		private void SeeReport(int reportId)
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
-		NavigationManager.NavigateTo($"/Report/{reportID}");
+		NavigationManager.NavigateTo($"/Report/{reportId}");
 	}	
 	
 	private void PreviousPage()

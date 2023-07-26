@@ -5,9 +5,9 @@ namespace DataAccessLibrary.Data
 {
 	public class MechanicDataService : IMechanicDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public MechanicDataService(ISQLDataAccess dataAccess)
+		public MechanicDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}

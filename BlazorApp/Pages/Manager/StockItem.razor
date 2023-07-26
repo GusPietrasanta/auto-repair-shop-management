@@ -30,7 +30,7 @@
             <tbody>
             <tr>
 				<td class="p-4 h4 fw-bold">Item ID:</td>
-				<td class="p-4 h4">@_item.ID</td>
+				<td class="p-4 h4">@_item.Id</td>
             </tr>
             <tr>
 				<td class="p-4 h4 fw-bold">Item Name:</td>
@@ -146,7 +146,7 @@
 
 @code {
 	[Parameter]
-	public int itemID { get; set; }
+	public int ItemId { get; set; }
 
 	private bool _isFormDisabled = true;
 	private decimal _amount;
@@ -159,7 +159,7 @@
 
 	protected override async Task OnParametersSetAsync()
 	{
-		_item = await StockData.GetStockItemByID(itemID);
+		_item = await StockData.GetStockItemById(ItemId);
 	}
 
 	private void ToggleEdit()
@@ -169,7 +169,7 @@
 
 	private async Task Save()
 	{
-		await StockData.UpdateItemByID(_item);
+		await StockData.UpdateItemById(_item);
 		_isFormDisabled = true;
 	}
 
@@ -182,7 +182,7 @@
 
 	private async Task Delete()
 	{
-		await StockData.DeleteItemByID(_item.ID);
+		await StockData.DeleteItemById(_item.Id);
 
 		ManagerSession.SetLastPage(NavigationManager.Uri);
 

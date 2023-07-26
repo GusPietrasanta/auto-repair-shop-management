@@ -1,5 +1,5 @@
 ﻿@page "/BookAppointment"
-@inject IAPICalls ApiCalls
+@inject IApiCalls ApiCalls
 @inject ICustomerDataService CustomerData
 @inject IVehicleDataService VehicleData
 @inject IAppointmentDataService AppointmentData
@@ -94,7 +94,7 @@
 					</tr>
 					<tr>
 						<td class="h4 fw-bold">VIN:</td>
-						<td class="h4">@_newVehicle.VIN</td>
+						<td class="h4">@_newVehicle.Vin</td>
 					</tr>
 					<tr>
 						<td class="h4 fw-bold">Engine:</td>
@@ -132,9 +132,9 @@
 	private UIAppointmentFormModel _newAppointment = new();
 	private IVehicleModel _newVehicle;
 	private ICustomerModel _newCustomer;
-	private int _customerID;
-	private int _vehicleID;
-	private int _appointmentID;
+	private int _customerId;
+	private int _vehicleId;
+	private int _appointmentId;
 
 	private string _apiErrorMessage = "";
 
@@ -163,26 +163,26 @@
 	{
 		_newCustomer = new CustomerModel();
 
-		_newCustomer.FirstName = _newAppointment.FirstName.Substring(0, 1).ToUpper() + _newAppointment.FirstName.Substring(1).ToLower();
-		_newCustomer.LastName = _newAppointment.LastName.Substring(0, 1).ToUpper() + _newAppointment.LastName.Substring(1).ToLower();
+		_newCustomer.FirstName = _newAppointment.FirstName.RemoveWhiteSpaceAndTitleCase();
+		_newCustomer.LastName = _newAppointment.LastName.RemoveWhiteSpaceAndTitleCase();
 
 		_newCustomer.PhoneNumber = _newAppointment.PhoneNumber;
 		_newCustomer.Email = _newAppointment.Email;
 		_newCustomer.Address = _newAppointment.Address;
 
-		_customerID = await CustomerData.CreateCustomer(_newCustomer);
-		_newVehicle.CustomerID = _customerID;
-		_vehicleID = await VehicleData.CreateVehicle(_newVehicle);
+		_customerId = await CustomerData.CreateCustomer(_newCustomer);
+		_newVehicle.CustomerId = _customerId;
+		_vehicleId = await VehicleData.CreateVehicle(_newVehicle);
 
-		IAppointmentModel appointmentToDB = new AppointmentModel();
-		appointmentToDB.CustomerID = _customerID;
-		appointmentToDB.VehicleID = _vehicleID;
-		appointmentToDB.Date = _newAppointment.Date;
+		IAppointmentModel appointmentToDb = new AppointmentModel();
+		appointmentToDb.CustomerId = _customerId;
+		appointmentToDb.VehicleId = _vehicleId;
+		appointmentToDb.Date = _newAppointment.Date;
 
-		_appointmentID = await AppointmentData.CreateAppointment(appointmentToDB);
+		_appointmentId = await AppointmentData.CreateAppointment(appointmentToDb);
 
-		SessionData.SetAppointmentID(_appointmentID);
-		SessionData.SetAppointmentDateTime(appointmentToDB.Date);
+		SessionData.SetAppointmentId(_appointmentId);
+		SessionData.SetAppointmentDateTime(appointmentToDb.Date);
 		SessionData.SetAppointmentNumberPlate(_newVehicle.NumberPlate);
 
 		NavigationManager.NavigateTo("/AppointmentSuccessful");

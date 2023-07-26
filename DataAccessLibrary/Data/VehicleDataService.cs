@@ -5,9 +5,9 @@ namespace DataAccessLibrary.Data
 {
 	public class VehicleDataService : IVehicleDataService
 	{
-		private readonly ISQLDataAccess _dataAccess;
+		private readonly ISqlDataAccess _dataAccess;
 
-		public VehicleDataService(ISQLDataAccess dataAccess)
+		public VehicleDataService(ISqlDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
@@ -16,12 +16,12 @@ namespace DataAccessLibrary.Data
 		{
 			var v = new
 			{
-				vehicle.CustomerID,
+				CustomerID = vehicle.CustomerId,
 				vehicle.NumberPlate,
 				vehicle.Make,
 				vehicle.Model,
 				vehicle.Year,
-				vehicle.VIN,
+				VIN = vehicle.Vin,
 				vehicle.FuelType,
 				vehicle.TransmissionType,
 				vehicle.EngineDescription,
@@ -32,31 +32,31 @@ namespace DataAccessLibrary.Data
 
 			var newVehicleId = await _dataAccess.LoadData<VehicleModel, dynamic>("dbo.spVehicle_Create", v, "SQLDB");
 
-			return newVehicleId.FirstOrDefault()!.ID;
+			return newVehicleId.FirstOrDefault()!.Id;
 		}
 
-		public async Task<IVehicleModel> GetVehicleDetailsByID(int ID)
+		public async Task<IVehicleModel> GetVehicleDetailsById(int id)
 		{
-			var vehicleDetails = await _dataAccess.LoadData<VehicleModel, dynamic>("dbo.spVehicle_ReadByID", new { ID }, "SQLDB");
+			var vehicleDetails = await _dataAccess.LoadData<VehicleModel, dynamic>("dbo.spVehicle_ReadByID", new { ID = id }, "SQLDB");
 
 			return vehicleDetails.FirstOrDefault();
 		}
 
-		public async Task SaveVehicleFirstVisit(int ID, DateTime firstVisitDateTime)
+		public async Task SaveVehicleFirstVisit(int id, DateTime firstVisitDateTime)
 		{
 			var p = new
 			{
-				ID,
+				ID = id,
 				FirstVisit = firstVisitDateTime
 			};
 
 			await _dataAccess.SaveData<dynamic>("spVehicle_UpdateFirstVisitByID", p, "SQLDB");
 		}
 
-		public async Task<List<IVehicleModel>> GetVehiclesByCustomerID(int CustomerID)
+		public async Task<List<IVehicleModel>> GetVehiclesByCustomerId(int customerId)
 		{
 
-			var vehicles = await _dataAccess.LoadData<VehicleModel, dynamic>("spVehicle_ReadByCustomerID", new { CustomerID }, "SQLDB");
+			var vehicles = await _dataAccess.LoadData<VehicleModel, dynamic>("spVehicle_ReadByCustomerID", new { CustomerID = customerId }, "SQLDB");
 
 			return vehicles.ToList<IVehicleModel>();
 
@@ -66,12 +66,12 @@ namespace DataAccessLibrary.Data
 		{
 			var v = new
 			{
-				vehicle.ID,
+				ID = vehicle.Id,
 				vehicle.NumberPlate,
 				vehicle.Make,
 				vehicle.Model,
 				vehicle.Year,
-				vehicle.VIN,
+				VIN = vehicle.Vin,
 				vehicle.FuelType,
 				vehicle.TransmissionType,
 				vehicle.EngineDescription,

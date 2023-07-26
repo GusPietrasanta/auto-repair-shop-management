@@ -4,15 +4,15 @@ namespace DataAccessLibrary.Data
 {
 	public interface IAppointmentDataService
 	{
-		Task AssignJobCardByID(int appointmentId, int mechanicId);
+		Task AssignJobCardById(int appointmentId, int mechanicId);
 		Task<int> CreateAppointment(IAppointmentModel appointment);
-		Task DeleteAppointmentByID(int id);
+		Task DeleteAppointmentById(int id);
 		Task<int> GetTodayAppointmentsCountByUserName(string userName);
 		Task<List<IAppointmentModel>> ReadAllAppointments();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailed();
 		Task<List<IDetailedAppointment>> ReadAllAppointmentsDetailedByUserName(string userName);
 		Task<List<IDetailedAppointment>> ReadTodayAppointmentsDetailed();
-		Task SetAppointmentAsCompletedByID(int ID);
+		Task SetAppointmentAsCompletedById(int id);
 		Task<List<IDetailedAppointment>> ReadAllIncompleteAppointmentsDetailed();
 	}
 }
