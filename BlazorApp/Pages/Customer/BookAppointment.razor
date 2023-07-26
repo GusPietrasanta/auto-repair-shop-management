@@ -144,7 +144,7 @@
 		{
 			_apiErrorMessage = "";
 
-			_newAppointment.NumberPlate = Regex.Replace(_newAppointment.NumberPlate, "[^a-zA-Z0-9]", String.Empty).ToUpper();
+			_newAppointment.NumberPlate = _newAppointment.NumberPlate.TrimAndUpperCaseNumberPlate();
 
 			try
 			{

@@ -22,6 +22,11 @@ public static class InputUtils
         return output;
     }
 
+    public static string TrimAndUpperCaseNumberPlate(this string input)
+    {
+        return Regex.Replace(input, "[^a-zA-Z0-9]", String.Empty).ToUpper();
+    }
+    
     private static string ToTitleCase(this string original)
     {
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(original.ToLower());
