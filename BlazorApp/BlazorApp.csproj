@@ -36,5 +36,8 @@
   <ItemGroup>
     <None Include="Pages\Customer\BookAppointment.razor" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include ="RepairShopTests"/>
+  </ItemGroup>
 </Project>
