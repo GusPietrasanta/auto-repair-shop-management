@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize(Roles = "Manager")]
 @page "/Report/{reportID:int}"
+@using DataAccessLibrary.Data.Interfaces
 @inject IReportDataService ReportData
 @inject IVehicleDataService VehicleData
 @inject ICustomerDataService CustomerData

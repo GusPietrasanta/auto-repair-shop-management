@@ -1,6 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 
-namespace DataAccessLibrary.Data
+namespace DataAccessLibrary.Data.Interfaces
 {
 	public interface IVehicleDataService
 	{

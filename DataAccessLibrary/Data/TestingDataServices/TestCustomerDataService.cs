@@ -1,7 +1,8 @@
-﻿using DataAccessLibrary.DataAccess;
+﻿using DataAccessLibrary.Data.Interfaces;
+using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
 
-namespace DataAccessLibrary.Data
+namespace DataAccessLibrary.Data.TestingDataServices
 {
 	public class TestCustomerDataService : ICustomerDataService
 	{

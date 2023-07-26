@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize(Roles="Manager")]
 @page "/Customer/{customerID:int}"
+@using DataAccessLibrary.Data.Interfaces
 @inject ICustomerDataService CustomerData
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession

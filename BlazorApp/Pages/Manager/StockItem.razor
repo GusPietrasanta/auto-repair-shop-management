@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize(Roles="Manager")]
 @page "/StockItem/{itemID:int}"
+@using DataAccessLibrary.Data.Interfaces
 <PageTitle>Inventory Stock</PageTitle>
 @inject IStockDataService StockData
 @inject NavigationManager NavigationManager

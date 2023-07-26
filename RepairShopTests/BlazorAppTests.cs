@@ -16,13 +16,8 @@ public class BlazorAppTests
     [TestCase("Al-Ittihad Nasri", "al  -  ittihad   nasri")]
     public void RemoveWhiteSpaceAndTitleCase_Test(string expected, string input)
     {
-        // Arrange
-        string actual = "";
-        
-        // Act
-        actual = input.RemoveWhiteSpaceAndTitleCase();
+        var actual = input.RemoveWhiteSpaceAndTitleCase();
 
-        // Assert
         Assert.That(actual, Is.EqualTo(expected));
     }
 
@@ -36,13 +31,8 @@ public class BlazorAppTests
     [TestCase("XX000A", "xx-000   a  ")]
     public void RemoveWhiteSpaceAndUpperNumberPlate_Test(string expected, string input)
     {
-        // Arrange
-        string actual = "";
+        string actual = input.TrimAndUpperCaseNumberPlate();
         
-        // Act
-        actual = input.TrimAndUpperCaseNumberPlate();
-        
-        // Assert
         Assert.That(actual, Is.EqualTo(expected));
     }
 }

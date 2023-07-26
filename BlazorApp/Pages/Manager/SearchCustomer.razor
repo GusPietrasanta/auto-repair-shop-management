@@ -1,6 +1,7 @@
 ﻿@page "/SearchCustomer"
 <PageTitle>Search Customer</PageTitle>
 @using BlazorApp.Pages.Manager.Components
+@using DataAccessLibrary.Data.Interfaces
 @attribute [Authorize(Roles = "Manager")]
 @inject ICustomerDataService CustomerData
 @inject IJSRuntime JSRuntime

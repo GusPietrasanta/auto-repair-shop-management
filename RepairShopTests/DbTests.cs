@@ -1,4 +1,6 @@
-﻿using DataAccessLibrary.Data;
+﻿using System.Text.Json;
+using DataAccessLibrary.Data.Interfaces;
+using DataAccessLibrary.Data.TestingDataServices;
 using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
@@ -6,18 +8,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace RepairShopTests;
 
+[TestFixture]
 public class DbTests
 {
     private ICustomerModel _testCustomer = null!;
     private ICustomerDataService _customerData = null!;
+    private int _newCustomerId;
 
-    [SetUp]
+    [OneTimeSetUp]
     public void Setup()
-    {        
-        
+    {
         // Setting up necessary dependencies to test DB
         var services = new ServiceCollection();
-        services.AddTransient<IConfiguration>(sp =>
+        services.AddTransient<IConfiguration>(_ =>
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.AddEnvironmentVariables();
@@ -39,21 +42,28 @@ public class DbTests
         };
     }
 
+    // Create a user
     [Test]
     public async Task CreateUser()
     {
-        // Arrange
-        int customerId;
+        _newCustomerId = await _customerData.CreateCustomer(_testCustomer);
+        
+        _testCustomer.Id = _newCustomerId;
 
-        // Act
-        customerId = await _customerData.CreateCustomer(_testCustomer);
-        _testCustomer.Id = customerId;
-
-        // Assert
         Assert.NotNull(_testCustomer.Id);
     }
+    
+    // Retrieve user by Id and compare with the original one
+    [Test]
+    public async Task RetrieveUser()
+    {
+        var userToCompare = await _customerData.ReadCustomerById(_newCustomerId);
 
-    [TearDown]
+        // Serialise to compare attributes
+        Assert.That(JsonSerializer.Serialize(userToCompare), Is.EqualTo(JsonSerializer.Serialize(_testCustomer)));
+    }
+
+    [OneTimeTearDown]
     public void TearDown()
     {
         // _customerData.DeleteCustomerById(_testCustomer.Id);

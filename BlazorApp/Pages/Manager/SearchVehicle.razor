@@ -1,4 +1,5 @@
 ﻿@page "/SearchVehicle"
+@using DataAccessLibrary.Data.Interfaces
 <PageTitle>Search Vehicle</PageTitle>
 @attribute [Authorize(Roles = "Manager")]
 @inject IVehicleDataService VehicleData

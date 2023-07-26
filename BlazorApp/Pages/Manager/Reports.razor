@@ -1,4 +1,5 @@
 ﻿@page "/Reports"
+@using DataAccessLibrary.Data.Interfaces
 <PageTitle>Reports</PageTitle>
 @attribute [Authorize(Roles = "Manager")]
 @inject IReportDataService ReportData

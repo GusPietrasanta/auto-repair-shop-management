@@ -1,6 +1,8 @@
-﻿using DataAccessLibrary.DataAccess;
+﻿using DataAccessLibrary.Data.Interfaces;
+using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
-namespace DataAccessLibrary.Data
+
+namespace DataAccessLibrary.Data.ProductionDataServices
 {
 	public class AppointmentDataService : IAppointmentDataService
 	{
