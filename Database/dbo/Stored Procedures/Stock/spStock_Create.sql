@@ -10,5 +10,9 @@ BEGIN
 
 	INSERT INTO dbo.Stock (ItemName, Quantity, Unit, AlarmMinimum) 
 	VALUES (@ItemName, @Quantity, @Unit, @AlarmMinimum);
+	
+	SELECT ID
+	FROM dbo.Stock
+    WHERE ID = SCOPE_IDENTITY();
 
 END

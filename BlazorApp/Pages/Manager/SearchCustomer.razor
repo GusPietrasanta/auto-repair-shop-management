@@ -127,7 +127,7 @@ else
 	{
 		_showVehicles = false;
 		_showEditForm = true;
-		_customerToUpdate = _allCustomers.Where(x => x.Id == id).FirstOrDefault();
+		_customerToUpdate = _allCustomers.FirstOrDefault(x => x.Id == id);
 	}
 
 	private void HandleOnUpdate(ICustomerModel updatedCustomer)
@@ -164,8 +164,8 @@ else
 
 		if (confirmed)
 		{
-			_allCustomers.Remove(_allCustomers.Where(x => x.Id == id).FirstOrDefault());
-			_filteredCustomers.Remove(_filteredCustomers.Where(x => x.Id == id).FirstOrDefault());
+			_allCustomers.Remove(_allCustomers.FirstOrDefault(x => x.Id == id));
+			_filteredCustomers.Remove(_filteredCustomers.FirstOrDefault(x => x.Id == id));
 			await CustomerData.DeleteCustomerById(id);
 		}
 		else

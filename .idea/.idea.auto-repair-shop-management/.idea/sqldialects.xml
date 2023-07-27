@@ -53,5 +53,6 @@
     <file url="file://$PROJECT_DIR$/Database/dbo/Tables/Report.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Tables/Stock.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Tables/Vehicle.sql" dialect="TSQL" />
+    <file url="PROJECT" dialect="TSQL" />
   </component>
 </project>

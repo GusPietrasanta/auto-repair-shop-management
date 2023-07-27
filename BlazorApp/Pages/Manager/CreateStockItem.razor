@@ -1,4 +1,5 @@
 ﻿@using DataAccessLibrary.Data.Interfaces
+@using System.Runtime.CompilerServices
 @inject IStockDataService StockData
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
@@ -37,16 +38,19 @@
 
 
 @code {
+	[Parameter]
+	public EventCallback<IStockItemModel> OnUpdate { get; set; }
+
 	private IStockItemModel _stockItem = new UIStockItemModel();
 
 	private async Task HandleValidSubmit()
 	{
-		await StockData.CreateStockItem(_stockItem);
+		int newItemId = await StockData.CreateStockItem(_stockItem);
+
+		_stockItem.Id = newItemId;
+
+		await OnUpdate.InvokeAsync(_stockItem);
 
 		_stockItem = new UIStockItemModel();
-
-		ManagerSession.SetLastPage(NavigationManager.Uri);
-
-		NavigationManager.NavigateTo("/Inventory", forceLoad: true);
 	}
 }

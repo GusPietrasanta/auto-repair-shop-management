@@ -61,7 +61,7 @@ else
 		</div>
 
 		<div class="col-md-6">
-			<CreateStockItem></CreateStockItem>
+			<CreateStockItem OnUpdate="HandleOnUpdate"></CreateStockItem>
 		</div>
 	</div>
 	
@@ -94,4 +94,10 @@ else
 		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/StockItem/{itemId}");
 	}
+
+	private void HandleOnUpdate(IStockItemModel newItem)
+	{
+		_stockItems.Add(newItem);
+	}
+
 }

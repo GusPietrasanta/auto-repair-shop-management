@@ -13,7 +13,7 @@ namespace DataAccessLibrary.Data.DataServices
 			_dataAccess = dataAccess;
 		}
 
-		public async Task CreateStockItem(IStockItemModel stockItem)
+		public async Task<int> CreateStockItem(IStockItemModel stockItem)
 		{
 			var i = new
 			{
@@ -23,7 +23,9 @@ namespace DataAccessLibrary.Data.DataServices
 				stockItem.AlarmMinimum
 			};
 
-			await _dataAccess.SaveData("dbo.spStock_Create", i, "SQLDB");
+			var item = await _dataAccess.LoadData<StockItemModel, dynamic>("dbo.spStock_Create", i, "SQLDB");
+
+			return item.FirstOrDefault()!.Id;
 		}
 
 		public async Task<List<IStockItemModel>> ReadAllStockItems()
