@@ -13,5 +13,7 @@ namespace DataAccessLibrary.Data.Interfaces
 		Task<List<IFullReportModel>> SearchAllReports();
 		Task<List<IFullReportModel>> SearchReports(ISearchReporstByLastNameAndRego searchDetails);
 		Task<List<IDashboardReportModel>> SearchAllReportsDashboardNonArchived();
+		Task<List<IDashboardReportModel>> GetReportsPagination(int offset, int fetch);
+		Task<int> GetReportsCount();
 	}
 }

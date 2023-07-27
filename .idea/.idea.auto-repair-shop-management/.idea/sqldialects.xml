@@ -23,7 +23,9 @@
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Message/spMessage_ReadAll.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Archive.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Create.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_GetReportsCount.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_ID_From_AppointmentID.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Pagination.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Read_By_ID.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Read_By_VehicleID.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchAll.sql" dialect="TSQL" />

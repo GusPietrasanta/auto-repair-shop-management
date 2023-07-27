@@ -68,5 +68,18 @@ namespace DataAccessLibrary.Data.DataServices
 
 			return results.ToList<IDashboardReportModel>();
 		}
+		public async Task<List<IDashboardReportModel>> GetReportsPagination(int offset, int fetch)
+		{
+			var results = await _dataAccess.LoadData<DashboardReportModel, dynamic>("spReport_Pagination", new { Offset = offset, Fetch = fetch }, "SQLDB");
+
+			return results.ToList<IDashboardReportModel>();
+		}
+
+		public async Task<int> GetReportsCount()
+		{
+			var count = await _dataAccess.LoadData<int, dynamic>("spReport_GetReportsCount", new { }, "SQLDB");
+
+			return count.FirstOrDefault();
+		}
 	}
 }
