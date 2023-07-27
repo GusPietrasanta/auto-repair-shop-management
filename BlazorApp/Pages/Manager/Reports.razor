@@ -42,9 +42,9 @@
 			</nav>
 		</div>
 
-		@if (_inspectionsToShow != null)
+		@if (_inspections != null)
 		{
-			@foreach (var c in _inspectionsToShow)
+			@foreach (var c in _inspections)
 			{
 				<div class="alert alert-info text-center">
 					<p class="lead">
@@ -71,18 +71,15 @@
 	private int _numberOfReports;
 	private int _neededNumberOfPages;
 	
-	private List<IDashboardReportModel> _allInspections;
-	private List<IDashboardReportModel> _inspectionsToShow;
+	private List<IDashboardReportModel> _inspections;
 
 	protected override async Task OnInitializedAsync()
 	{
-		_allInspections = await ReportData.SearchAllReportsDashboardNonArchived();
+		_inspections = await ReportData.GetReportsPagination(_page - 1, _reportsPerPage);
 
-		_numberOfReports = _allInspections.Count();
+		_numberOfReports = await ReportData.GetReportsCount();
 		
 		_neededNumberOfPages = ((_numberOfReports - 1) / _reportsPerPage) + 1;
-
-		_inspectionsToShow = _allInspections.Take(_reportsPerPage).ToList();
 	}
 
 		private void SeeReport(int reportId)
@@ -123,8 +120,9 @@
 		UpdateList();
 	}
 
-	private void UpdateList()
+	private async void UpdateList()
 	{
-		_inspectionsToShow = _allInspections.Skip((_page - 1) * _reportsPerPage).Take(_reportsPerPage).ToList();
+		_inspections = await ReportData.GetReportsPagination((_page - 1) * _reportsPerPage, _reportsPerPage);
+		await InvokeAsync(StateHasChanged);
 	}
 }
