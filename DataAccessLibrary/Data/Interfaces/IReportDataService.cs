@@ -9,10 +9,10 @@ namespace DataAccessLibrary.Data.Interfaces
 		Task<IFullReportModel> GetFullReportFromId(int reportId);
 		Task<int> GetReportIdFromAppointmentIdAsync(int appointmentId);
 		Task<List<IReportModel>> GetReportsByVehicleId(int vehicleId);
-		Task<List<IDashboardReportModel>> SearchAllReportsDashboard();
+		Task<List<IDashboardReportModel>> SearchActiveReportsDashboard();
 		Task<List<IFullReportModel>> SearchAllReports();
-		Task<List<IFullReportModel>> SearchReports(ISearchReporstByLastNameAndRego searchDetails);
-		Task<List<IDashboardReportModel>> SearchAllReportsDashboardNonArchived();
+		Task<List<IFullReportModel>> SearchReports(ISearchReportsByLastNameAndRego searchDetails);
+		Task<List<IDashboardReportModel>> SearchAllReportsDashboard();
 		Task<List<IDashboardReportModel>> GetReportsPagination(int offset, int fetch);
 		Task<int> GetReportsCount();
 	}

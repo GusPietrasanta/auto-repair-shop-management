@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLibrary.Models
 {
-	internal class ReportModel : IReportModel
+	public class ReportModel : IReportModel
 	{
 		public int Id { get; set; }
 		public DateTime TimeStarted { get; set; }

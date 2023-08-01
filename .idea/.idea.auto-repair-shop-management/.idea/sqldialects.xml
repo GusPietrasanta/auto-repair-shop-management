@@ -17,6 +17,7 @@
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Read_By_ID.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Read_SearchBar.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Update.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Mechanic/spMechanic_GetIdByUserName.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Mechanic/spMechanic_ReadAllBasic.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Message/spMessage_Create.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Message/spMessage_MarkAsRead.sql" dialect="TSQL" />

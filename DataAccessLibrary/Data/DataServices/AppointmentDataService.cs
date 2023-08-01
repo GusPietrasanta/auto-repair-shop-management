@@ -83,6 +83,5 @@ namespace DataAccessLibrary.Data.DataServices
 
 			return todayDetailedAppointments.ToList<IDetailedAppointment>();
 		}
-
 	}
 }

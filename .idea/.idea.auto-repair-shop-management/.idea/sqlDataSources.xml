@@ -47,6 +47,7 @@
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Update.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Customer/spCustomer_Read_SearchBar.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Mechanic/spMechanic_ReadAllBasic.sql" />
+              <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Mechanic/spMechanic_GetIdByUserName.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_Create.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchByLastName_Rego.sql" />
               <option value="file://$PROJECT_DIR$/Database/dbo/Stored Procedures/Report/spReport_SearchAll.sql" />

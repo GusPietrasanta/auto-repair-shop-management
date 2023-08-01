@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp.Models
 {
-	public class UISearchReporstByLastNameAndRego : ISearchReporstByLastNameAndRego
+	public class UISearchReportsByLastNameAndRego : ISearchReportsByLastNameAndRego
 	{
 		[Required]
 		public string LastName { get; set; }

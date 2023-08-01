@@ -16,7 +16,7 @@ namespace DataAccessLibrary.Data.DataServices
 		{
 			await _dataAccess.SaveData<dynamic>("spReport_Create", newReport, "SQLDB");
 		}
-		public async Task<List<IFullReportModel>> SearchReports(ISearchReporstByLastNameAndRego searchDetails)
+		public async Task<List<IFullReportModel>> SearchReports(ISearchReportsByLastNameAndRego searchDetails)
 		{
 			var results = await _dataAccess.LoadData<FullReportModel, dynamic>("spReport_SearchByLastName_Rego", searchDetails, "SQLDB");
 
@@ -29,7 +29,7 @@ namespace DataAccessLibrary.Data.DataServices
 			return results.ToList<IFullReportModel>();
 		}
 
-		public async Task<List<IDashboardReportModel>> SearchAllReportsDashboard()
+		public async Task<List<IDashboardReportModel>> SearchActiveReportsDashboard()
 		{
 			var results = await _dataAccess.LoadData<DashboardReportModel, dynamic>("spReport_SearchAllDashboard", new { }, "SQLDB");
 
@@ -62,7 +62,7 @@ namespace DataAccessLibrary.Data.DataServices
 			return results.ToList<IReportModel>();
 		}
 
-		public async Task<List<IDashboardReportModel>> SearchAllReportsDashboardNonArchived()
+		public async Task<List<IDashboardReportModel>> SearchAllReportsDashboard()
 		{
 			var results = await _dataAccess.LoadData<DashboardReportModel, dynamic>("spReport_SearchAllDashboardNonArchived", new { }, "SQLDB");
 

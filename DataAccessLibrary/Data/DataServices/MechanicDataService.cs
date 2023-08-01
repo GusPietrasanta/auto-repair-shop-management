@@ -19,5 +19,13 @@ namespace DataAccessLibrary.Data.DataServices
 
 			return mechanicsBasic.ToList<IMechanicBasicModel>();
 		}
+
+		public async Task<int> GetMechanicIdByUserName(string userName)
+		{
+			var mechanicId = await _dataAccess.LoadData<int, dynamic>("spMechanic_GetIdByUserName",
+				new { FirstName = userName }, "SQLDB");
+
+			return mechanicId.FirstOrDefault();
+		}
 	}
 }

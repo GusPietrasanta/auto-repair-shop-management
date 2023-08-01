@@ -12,15 +12,15 @@ namespace DataAccessLibrary.DataAccess
 
 		private bool _wasSearchButtonClicked;
 
-		private ISearchReporstByLastNameAndRego _searchDetails;
+		private ISearchReportsByLastNameAndRego _searchDetails;
 
 
-		public void SetSearchDetails(ISearchReporstByLastNameAndRego newDetails)
+		public void SetSearchDetails(ISearchReportsByLastNameAndRego newDetails)
 		{
 			_searchDetails = newDetails;
 		}
 
-		public ISearchReporstByLastNameAndRego GetSearchDetails()
+		public ISearchReportsByLastNameAndRego GetSearchDetails()
 		{
 			return _searchDetails;
 		}
