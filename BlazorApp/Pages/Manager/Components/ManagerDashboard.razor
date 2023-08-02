@@ -7,6 +7,7 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 @inject IManagerSessionData ManagerSession
+@implements IDisposable
 
 <div class="row my-4">
 	<hr/>
@@ -180,7 +181,8 @@
 	private List<IStockItemModel> _stock;
 	private List<IDashboardReportModel> _completedInspections;
 	private int _mechanicIdToAssign;
-
+	Timer _timer;
+	
 	protected override async Task OnInitializedAsync()
 	{
 		_todayAppointments = await AppointmentData.ReadTodayAppointmentsDetailed();
@@ -188,6 +190,14 @@
 		_stock = await StockData.ReadLowStockItems();
 		_completedInspections = await ReportData.SearchAllReportsDashboard();
 		_mechanics = await MechanicData.ReadAllMechanicsBasic();
+		
+		_timer = new Timer(async _ =>
+		{
+			_completedInspections = await ReportData.SearchAllReportsDashboard();
+			_todayAppointments = await AppointmentData.ReadTodayAppointmentsDetailed();
+			_messages = await MessageData.ReadAllUnreadMessages();       
+			await InvokeAsync(StateHasChanged);
+		}, null, 0, 1000);
 	}
 
 	private async void ResetAllDropDowns()
@@ -200,14 +210,7 @@
 	{
 		if (e.Value != null)
 		{
-			if (e.Value.ToString() == "")
-			{
-				_mechanicIdToAssign = 0;
-			}
-			else
-			{
-					_mechanicIdToAssign = int.Parse(e.Value.ToString()!);
-			}
+			_mechanicIdToAssign = e.Value.ToString() == "" ? 0 : int.Parse(e.Value.ToString()!);
 		}
 	}
 
@@ -244,7 +247,7 @@
 	{
 		await MessageData.MarkMessageAsRead(messageId);
 
-		_messages.Remove(_messages.Where(x => x.Id == messageId).FirstOrDefault());
+		_messages.Remove(_messages.FirstOrDefault(x => x.Id == messageId));
 	}
 
 	private void GoToInventory()
@@ -264,11 +267,15 @@
 	{
 		await ReportData.ArchiveInspection(inspectionId);
 
-		_completedInspections.Remove(_completedInspections.Where(x => x.Id == inspectionId).FirstOrDefault());
+		_completedInspections.Remove(_completedInspections.FirstOrDefault(x => x.Id == inspectionId));
 	}
 	private void GoToItem(int itemId)
 	{
 		ManagerSession.SetLastPage(NavigationManager.Uri);
 		NavigationManager.NavigateTo($"/StockItem/{itemId}");
+	}
+	public void Dispose()
+	{
+		_timer?.Dispose();
 	}
 }

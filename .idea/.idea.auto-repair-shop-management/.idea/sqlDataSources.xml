@@ -14,7 +14,7 @@
     <option name="dataSources">
       <list>
         <State>
-          <option name="id" value="faeffcae-9bbc-42a9-8c4f-a8ab26ecd947" />
+          <option name="id" value="ecbc3e46-34c2-4410-add0-cab378045b60" />
           <option name="name" value="RepairShopDB" />
           <option name="dbmsName" value="MSSQL" />
           <option name="urls">

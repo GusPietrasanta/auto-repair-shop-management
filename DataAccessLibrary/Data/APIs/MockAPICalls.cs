@@ -10,13 +10,25 @@ namespace DataAccessLibrary.Data.APIs
 		{
             IVehicleModel output = new VehicleModel();
 
-			string path = Directory.GetCurrentDirectory();
+            string path;
 
-            path = Directory.GetParent(path)!.ToString();
+            string fullPath;
+            
+            if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+            {
+	            fullPath = Path.Combine("DataAccessLibrary", "Data", "APIs", "TestXMLs");
+            }
+            else
+            {
+	            string currentDirectory = Directory.GetCurrentDirectory();
 
-			path = $"{path}\\DataAccessLibrary\\Data\\APIs\\TestXMLs";
+	            path = Directory.GetParent(currentDirectory)!.ToString();
+	            
+	            fullPath = Path.Combine(path, "DataAccessLibrary", "Data", "APIs", "TestXMLs");
 
-			string filePath = $"{path}\\{numberPlate}.xml";
+            }
+
+            string filePath = Path.Combine(fullPath, $"{numberPlate}.xml");
 
 			string parsedJson = "";
 
