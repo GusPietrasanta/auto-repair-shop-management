@@ -1,3 +1,4 @@
+using System.Globalization;
 using BlazorApp.Areas.Identity;
 using BlazorApp.Data;
 using DataAccessLibrary.Data.APIs;
@@ -10,6 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
+
+CultureInfo newCulture = new CultureInfo("en-AU");
+CultureInfo.CurrentCulture = newCulture;
+CultureInfo.CurrentUICulture = newCulture;
+Thread.CurrentThread.CurrentCulture = newCulture;
+Thread.CurrentThread.CurrentUICulture = newCulture;
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Environment.GetEnvironmentVariable("SyncfusionKey"));
 var connectionString = builder.Configuration.GetConnectionString("SQLDB") ?? throw new InvalidOperationException("Connection string 'SQLDB' not found.");

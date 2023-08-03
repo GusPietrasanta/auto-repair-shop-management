@@ -109,8 +109,6 @@
 
 	private async void AssignJobCard(int appointmentId)
 	{
-		Console.WriteLine(appointmentId);
-		Console.WriteLine(_mechanicIdToAssign);
 		if (_mechanicIdToAssign > 0)
 		{
 			await AppointmentData.AssignJobCardById(appointmentId, _mechanicIdToAssign);
@@ -128,7 +126,7 @@
 	private async void DeleteAppointment(int id)
 	{
 		await AppointmentData.DeleteAppointmentById(id);
-		_appointments.Remove(_appointments.Where(x => x.Id == id).FirstOrDefault());
+		_appointments.Remove(_appointments.FirstOrDefault(x => x.Id == id));
 		_idToDelete = 0;
 		StateHasChanged();
 	}	
