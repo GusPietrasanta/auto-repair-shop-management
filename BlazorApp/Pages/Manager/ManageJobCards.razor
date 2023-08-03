@@ -30,7 +30,7 @@
 						@if (a.MechanicId > 0)
 						{<p class="lead">
 							<b>Appointment ID:</b> @a.Id<br />
-							<b>Date:</b> @a.Date.ToShortDateString()<br />
+							<b>Date:</b> @a.Date.ToString("dd/MM/yyyy")<br />
 							<b>Customer:</b> @a.FirstName @a.LastName<br />
 							<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model<br />
 							<b>Assigned to:</b> @a.UserName</p>
@@ -38,7 +38,7 @@
 						else
 						{<p class="lead">
 							<b>Appointment ID:</b> @a.Id<br />
-							<b>Date:</b> @a.Date.ToShortDateString()<br />
+							<b>Date:</b> @a.Date.ToString("dd/MM/yyyy")<br />
 							<b>Customer:</b> @a.FirstName @a.LastName<br />
 							<b>Vehicle:</b> @a.NumberPlate - @a.Make @a.Model<br />
 							<b>No Mechanic Assigned.</b></p>

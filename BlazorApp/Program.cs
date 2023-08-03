@@ -19,6 +19,7 @@ Thread.CurrentThread.CurrentCulture = newCulture;
 Thread.CurrentThread.CurrentUICulture = newCulture;
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Environment.GetEnvironmentVariable("SyncfusionKey"));
+
 var connectionString = builder.Configuration.GetConnectionString("SQLDB") ?? throw new InvalidOperationException("Connection string 'SQLDB' not found.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -73,5 +74,3 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
-
-public partial class Program { }

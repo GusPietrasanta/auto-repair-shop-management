@@ -151,7 +151,7 @@ else
 				{
 					<div class="alert alert-success text-center">
 						@*<p>Report ID: @r.ID</p>*@
-						<p class="lead">Date: @r.TimeStarted.ToShortDateString() | Odometer: @r.Odometer kms</p>
+						<p class="lead">Date: @r.TimeStarted.ToString("dd/MM/yyyy") | Odometer: @r.Odometer kms</p>
 						<button class="btn btn-primary" @onclick="(() => SeeReport(r.Id))">View Report</button>
 					</div>
 						

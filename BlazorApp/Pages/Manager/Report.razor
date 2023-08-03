@@ -68,7 +68,7 @@
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">First Visit</td>
-					<td class="h5">@_vehicle.FirstVisit</td>
+					<td class="h5">@_vehicle.FirstVisit.ToString("dd/MM/yyyy hh:mm tt")</td>
 				</tr>
 				</tbody>
 			</table>
@@ -91,7 +91,7 @@
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">Date</td>
-					<td class="h5">@_report.TimeStarted.ToShortDateString()</td>
+					<td class="h5">@_report.TimeStarted.ToString("dd/MM/yyyy")</td>
 				</tr>
 				<tr>
 					<td class="h5 fw-bold">Time Started</td>
