@@ -14,7 +14,11 @@ namespace DataAccessLibrary.Data.APIs
 
             string fullPath;
             
-            if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+            if (Environment.GetEnvironmentVariable("RUNNING_IN_AZURE") == "true")
+            {
+	            fullPath = Path.Combine("wwwroot", "DataAccessLibrary", "Data", "APIs", "TestXMLs");
+            }
+            else if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
             {
 	            fullPath = Path.Combine("DataAccessLibrary", "Data", "APIs", "TestXMLs");
             }
@@ -25,7 +29,6 @@ namespace DataAccessLibrary.Data.APIs
 	            path = Directory.GetParent(currentDirectory)!.ToString();
 	            
 	            fullPath = Path.Combine(path, "DataAccessLibrary", "Data", "APIs", "TestXMLs");
-
             }
 
             string filePath = Path.Combine(fullPath, $"{numberPlate}.xml");
