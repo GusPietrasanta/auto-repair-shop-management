@@ -51,7 +51,7 @@
 						<b>Report ID:</b> @c.Id <br/>
 						<b>Vehicle:</b> @c.NumberPlate - @c.Make @c.Model @c.Year <br/>
 						<b>Customer:</b> @c.FirstName @c.LastName <br/>
-						<b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")<br/>
+						<b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("dd/MM/yyyy hh:mm tt")<br/>
 					</p>
 					<button class="btn btn-primary" @onclick="(() => SeeReport(c.Id))">See Report</button>
 				</div>

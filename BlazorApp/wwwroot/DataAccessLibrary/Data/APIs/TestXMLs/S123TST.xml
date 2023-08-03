@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "VOLKSWAGEN  Amarok Dual Cab Utility TDI420 HIGHLINE (4x4)",
+  "RegistrationYear": "2015",
+  "CarMake": {
+    "CurrentTextValue": "VOLKSWAGEN"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "VOLKSWAGEN"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Amarok Dual Cab Utility"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Tdi420 Highline (4X4) 8-Speed Auto"
+  },
+  "Colour": "",
+  "VechileIdentificationNumber": "VWNAMAH21A20QXQ2015A",
+  "Engine": "2.0 litre, 4 cyl diesel turbo, 2H MY14",
+  "extended": {
+    "nvic": "QXQ15A",
+    "driveType": "DUAL CAB UTILITY",
+    "family": "AMAROK",
+    "variant": "TDI420 HIGHLINE (4x4)",
+    "model": "Amarok Dual Cab Utility",
+    "colour": "",
+    "code": "VWNAMAH21A20QXQ2015A",
+    "make": "VOLKSWAGEN",
+    "fuelType": "Diesel",
+    "capacityValue": "2.0",
+    "series": "2H MY14",
+    "engineDescription": "2.0 litre, 4 cyl diesel turbo, 2H MY14",
+    "bodyDescription": "",
+    "bodyType": "Tdi420 Highline (4X4) 8-Speed Auto",
+    "cylinders": "DT4",
+    "year": "2015",
+    "capacityUnit": "L",
+    "transmissionType": "Auto"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@Vk9MS1NXQUdFTiBBbWFyb2sgRHVhbCBDYWIgVXRpbGl0eQ==",
+  "Expiry": "",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>VOLKSWAGEN Amarok Dual Cab Utility TDI420 HIGHLINE (4x4)</Description>
+    <RegistrationYear>2015</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>VOLKSWAGEN</CurrentTextValue>
+    </CarMake>
+    <CarModel>Amarok Dual Cab Utility</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Tdi420 Highline (4X4) 8-Speed Auto</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

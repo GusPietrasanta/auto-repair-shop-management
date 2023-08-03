@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "MERCEDES-BENZ C-Class",
+  "RegistrationYear": "2016",
+  "CarMake": {
+    "CurrentTextValue": "MERCEDES-BENZ"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "MERCEDES-BENZ"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "C-Class Sedan"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Sedan"
+  },
+  "Colour": "Blue",
+  "VechileIdentificationNumber": "MBE345C98H62LKDA2016M",
+  "Engine": "2.0 litre, 4 cyl petrol turbo",
+  "extended": {
+    "nvic": "2LKDA",
+    "driveType": "",
+    "family": "C-CLASS",
+    "variant": "",
+    "model": "C-Class Sedan",
+    "colour": "Blue",
+    "code": "MBE345C98H62LKDA2016M",
+    "make": "MERCEDES-BENZ",
+    "fuelType": "Petrol",
+    "capacityValue": "2.0",
+    "series": "",
+    "engineDescription": "2.0 litre, 4 cyl petrol turbo",
+    "bodyDescription": "4 door sedan",
+    "bodyType": "4 door sedan",
+    "cylinders": "4",
+    "year": "2016",
+    "capacityUnit": "L",
+    "transmissionType": "Manual"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@TUVSRUNFREVTLUJFTiBCLlRoaW5ncyBDYXN0IFNlZGFu",
+  "Expiry": "2023-09-10",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>MERCEDES-BENZ C-Class Sedan</Description>
+    <RegistrationYear>2016</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>MERCEDES-BENZ</CurrentTextValue>
+    </CarMake>
+    <CarModel>C-Class Sedan</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Sedan</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

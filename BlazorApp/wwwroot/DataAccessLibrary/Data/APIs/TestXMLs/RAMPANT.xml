@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "FERRARI Portofino",
+  "RegistrationYear": "2019",
+  "CarMake": {
+    "CurrentTextValue": "FERRARI"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "FERRARI"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Portofino Convertible"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Convertible"
+  },
+  "Colour": "Yellow",
+  "VechileIdentificationNumber": "FRP789G56L43JKIN2019F",
+  "Engine": "3.9 litre, V8 twin-turbo",
+  "extended": {
+    "nvic": "3JKIN",
+    "driveType": "",
+    "family": "PORTOFINO",
+    "variant": "",
+    "model": "Portofino Convertible",
+    "colour": "Yellow",
+    "code": "FRP789G56L43JKIN2019F",
+    "make": "FERRARI",
+    "fuelType": "Petrol",
+    "capacityValue": "3.9",
+    "series": "",
+    "engineDescription": "3.9 litre, V8 twin-turbo",
+    "bodyDescription": "2 door convertible",
+    "bodyType": "2 door convertible",
+    "cylinders": "8",
+    "year": "2019",
+    "capacityUnit": "L",
+    "transmissionType": "Automatic"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@RUVORlJJIFBvcnRvZmlubyBDb252ZXJ0aWJsZQ==",
+  "Expiry": "2026-11-02",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>FERRARI Portofino Convertible</Description>
+    <RegistrationYear>2019</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>FERRARI</CurrentTextValue>
+    </CarMake>
+    <CarModel>Portofino Convertible</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Convertible</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

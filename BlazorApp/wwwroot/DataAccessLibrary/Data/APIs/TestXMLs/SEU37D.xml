@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "BMW X5 Sports Activity Vehicle",
+  "RegistrationYear": "2019",
+  "CarMake": {
+    "CurrentTextValue": "BMW"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "BMW"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "X5 xDrive30d"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "SUV"
+  },
+  "Colour": "Black",
+  "VechileIdentificationNumber": "BMWE5X17M4L78KHA2019B",
+  "Engine": "3.0 litre, 6 cyl diesel",
+  "extended": {
+    "nvic": "8KHA",
+    "driveType": "",
+    "family": "X5",
+    "variant": "",
+    "model": "X5 xDrive30d",
+    "colour": "Black",
+    "code": "BMWE5X17M4L78KHA2019B",
+    "make": "BMW",
+    "fuelType": "Diesel",
+    "capacityValue": "3.0",
+    "series": "",
+    "engineDescription": "3.0 litre, 6 cyl diesel",
+    "bodyDescription": "5 doors SUV",
+    "bodyType": "5 doors SUV",
+    "cylinders": "6",
+    "year": "2019",
+    "capacityUnit": "L",
+    "transmissionType": "Auto"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@Qk1XIFg1IFNwb3J0cyBBY3Rpdml0eSBWZWhpY2xl",
+  "Expiry": "2023-11-20",
+  "State": "WA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>BMW X5 Sports Activity Vehicle</Description>
+    <RegistrationYear>2019</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>BMW</CurrentTextValue>
+    </CarMake>
+    <CarModel>X5 Sports Activity Vehicle</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>SUV</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>

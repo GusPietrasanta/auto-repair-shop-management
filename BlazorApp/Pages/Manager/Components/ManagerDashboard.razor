@@ -79,7 +79,7 @@
 				{
 					<div class="alert alert-info mx-auto w-75">
 						@* <p>Message ID: @m.ID</p> *@
-						<p><b>@m.UserName</b> posted on <b>@m.PostedOn.ToString("g")</b> in <b>@m.Tag</b>:</p>
+						<p><b>@m.UserName</b> posted on <b>@m.PostedOn.ToString("dd/MM/yyyy hh:mm tt")</b> in <b>@m.Tag</b>:</p>
 						<p><i>@m.Content</i></p>
 						<div class="text-center">
 							<button class="btn btn-primary" @onclick="(() => MarkMessageAsRead(m.Id))">Mark as read</button>	
@@ -110,7 +110,7 @@
 					<div class="alert alert-info mx-auto w-75">
 						<p><b>Vehicle:</b> @c.NumberPlate - @c.Make @c.Model @c.Year</p>
 						<p><b>Customer:</b> @c.FirstName @c.LastName</p>
-						<p><b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("g")</p>
+						<p><b>Completed by:</b> @c.UserName on @c.TimeFinished.ToString("dd/MM/yyyy hh:mm tt")</p>
 						<div class="text-center">
 							<button class="btn btn-primary" @onclick="(() => SeeReport(c.Id))">See Report</button>
 							<button class="btn btn-outline-danger" @onclick="(() => ArchiveInspection(c.Id))">Archive</button>
@@ -191,13 +191,13 @@
 		_completedInspections = await ReportData.SearchAllReportsDashboard();
 		_mechanics = await MechanicData.ReadAllMechanicsBasic();
 		
-		_timer = new Timer(async _ =>
-		{
-			_completedInspections = await ReportData.SearchAllReportsDashboard();
-			_todayAppointments = await AppointmentData.ReadTodayAppointmentsDetailed();
-			_messages = await MessageData.ReadAllUnreadMessages();       
-			await InvokeAsync(StateHasChanged);
-		}, null, 0, 1000);
+		// _timer = new Timer(async _ =>
+		// {
+		// 	_completedInspections = await ReportData.SearchAllReportsDashboard();
+		// 	_todayAppointments = await AppointmentData.ReadTodayAppointmentsDetailed();
+		// 	_messages = await MessageData.ReadAllUnreadMessages();       
+		// 	await InvokeAsync(StateHasChanged);
+		// }, null, 0, 1000);
 	}
 
 	private async void ResetAllDropDowns()

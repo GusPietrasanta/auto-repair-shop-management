@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vehicle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://regcheck.org.uk">
+  <vehicleJson>{
+  "Description": "VOLKSWAGEN Golf",
+  "RegistrationYear": "2014",
+  "CarMake": {
+    "CurrentTextValue": "VOLKSWAGEN"
+  },
+  "MakeDescription": {
+    "CurrentTextValue": "VOLKSWAGEN"
+  },
+  "ModelDescription": {
+    "CurrentTextValue": "Golf Hatchback"
+  },
+  "BodyStyle": {
+    "CurrentTextValue": "Hatchback"
+  },
+  "Colour": "Gray",
+  "VechileIdentificationNumber": "VWG234K56H78RSTY2014V",
+  "Engine": "1.4 litre, 4 cyl petrol",
+  "extended": {
+    "nvic": "8RSTY",
+    "driveType": "",
+    "family": "GOLF",
+    "variant": "",
+    "model": "Golf Hatchback",
+    "colour": "Gray",
+    "code": "VWG234K56H78RSTY2014V",
+    "make": "VOLKSWAGEN",
+    "fuelType": "Petrol",
+    "capacityValue": "1.4",
+    "series": "",
+    "engineDescription": "1.4 litre, 4 cyl petrol",
+    "bodyDescription": "5 door hatch",
+    "bodyType": "5 door hatch",
+    "cylinders": "4",
+    "year": "2014",
+    "capacityUnit": "L",
+    "transmissionType": "Manual"
+  },
+  "ImageUrl": "http://www.carregistrationapi.com/image.aspx/@Vk9MS1NQQVdFTiBHb2xm",
+  "Expiry": "2022-11-20",
+  "State": "SA"
+}</vehicleJson>
+  <vehicleData>
+    <Description>VOLKSWAGEN Golf Hatchback</Description>
+    <RegistrationYear>2014</RegistrationYear>
+    <CarMake>
+      <CurrentTextValue>VOLKSWAGEN</CurrentTextValue>
+    </CarMake>
+    <CarModel>Golf Hatchback</CarModel>
+    <BodyStyle>
+      <CurrentTextValue>Hatchback</CurrentTextValue>
+    </BodyStyle>
+  </vehicleData>
+</Vehicle>
