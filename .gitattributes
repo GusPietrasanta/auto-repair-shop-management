@@ -1,6 +1,12 @@
 *.* linguist-detectable=false
+* linguist-vendored
+*.html linguist-detectable=false
+*.cshtml linguist-detectable=false
+*.cs linguist-vendored=false
+*.css linguist-vendored=false
+*.razor linguist-vendored=false
+*.sql linguist-vendored=false
 *.cs linguist-detectable=true
 *.css linguist-detectable=true
 *.razor linguist-detectable=true
-*.cshtml linguist-detectable=true
 *.sql linguist-detectable=true
