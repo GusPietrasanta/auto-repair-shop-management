@@ -102,7 +102,7 @@ This repository focuses solely on the Blazor Server App. [Click here for more in
 
 # Search Vehicles by any paramter
 
-## Search a vehicle by any attribute: make, model, year, fuel type, number plate, etc!
+## Search a vehicle by any attribute: make, model, year, fuel type, number plate, etc.
 
 ![Searching vehicles](https://lh3.googleusercontent.com/pw/AIL4fc-drcZ574anY5jgeTYN-1hZdMdOdL39jOw03ghHBf5bC9LdqGjoT0PFGBMuSTEAfI6begHM0XCF9wsmkKibPfe61qw3fXPiDoVf7yFN0BLKg1-m2w5aIiXV7mLAroMK47uXNEODKYWkyJJqGB9fneBL=w814-h759-s-no)
 
@@ -140,6 +140,10 @@ This repository focuses solely on the Blazor Server App. [Click here for more in
 ## Testing Search Feature
 
 ![](https://lh3.googleusercontent.com/pw/AIL4fc_eoO4W2owLQx6FW4dkJ5aTULGSW7qY9bVTcJy1qEtMzk00uQK0Rt8wA9zOgg_UFx0KESVA0gH4GRZt-yGzW_JCExW1m7mlcPlJ6TvBgeq62Uw-tfr48WwAMymYsbt_wUuWo2LKVYYhNKbMY8H6N7Kd=w1135-h773-s-no)
+
+## Everything working together
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc_qDTlL_SmHqop5KzHfSqK3M3PAYdVpI5qzwrj_GaEIEr6A2djIBjL7FzTFNiOFwbCrHbj3Kr08bEr5eE3vIWYWWZtduXhfW1ZSguOtur3rK5KOUiheIhx5DdvYexeiZjvfAag_NJgP9yWe74XI9YnQ=w1824-h912-s-no)
 
 # Licence
 
