@@ -11,17 +11,17 @@ This repository focuses solely on the Blazor Server App. [Click here for more in
 
 ![](https://lh3.googleusercontent.com/pw/AIL4fc9bmbdVe3za4EvJNRaCMHk3qJKQgkGZ94v6Z9nXV-j6vwSKEVdYRdK7v-09bhVTZmC2VIDPkf7NEhKq6fsh2iB-TX-02rwJBDqKdB3JTfZTotdg4puREkdFktwfacIYbbZfkqNejmNjbf4Oc_mRNNld=w977-h760-s-no)
 
-# Web App Features
+# Blazor Web App Features
 
-## Users
+## For Users
 - Book an appointment using the vehicle number plate and contact details.
 - Access car reports history using the vehicle number plate and last name.
 
-## Mechanics
+## For Mechanics
 - Perform assigned car inspections and complete reports.
 - Post messages to a message board to communicate with managers about different topics using tags.
 
-## Managers
+## For Managers
 - Search, view, and update customers and their cars.
 - Search, view, and update vehicle details.
 - Assign job cards/inspections to mechanics.
@@ -47,8 +47,6 @@ This repository focuses solely on the Blazor Server App. [Click here for more in
 - A bit of JavaScript Interop
 
 # Screenshots
-
-<div align="center">
   
 # As customer:
 
@@ -142,8 +140,6 @@ This repository focuses solely on the Blazor Server App. [Click here for more in
 ## Testing Search Feature
 
 ![](https://lh3.googleusercontent.com/pw/AIL4fc_eoO4W2owLQx6FW4dkJ5aTULGSW7qY9bVTcJy1qEtMzk00uQK0Rt8wA9zOgg_UFx0KESVA0gH4GRZt-yGzW_JCExW1m7mlcPlJ6TvBgeq62Uw-tfr48WwAMymYsbt_wUuWo2LKVYYhNKbMY8H6N7Kd=w1135-h773-s-no)
-
-</div>
 
 # Licence
 
