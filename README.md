@@ -1,9 +1,11 @@
 # Auto Repair Shop Management
-An ASP.Net app to allow customers to book appointments, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment. This repository focuses solely on the Blazor Server App. [Click here for more information about the API](https://github.com/GusPietrasanta/auto-repair-shop-api), and [click here for more information about the Mobile Phone App](https://github.com/GusPietrasanta/auto-repair-shop-mobile-app) that form part of the project.
+An ASP.Net app to allow customers to book appointments, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment.
 
 # System Overview
 
 ![](https://lh3.googleusercontent.com/pw/AIL4fc_vjRoNtV7fKT5a8pAZfMPB6ln47LLtV7xLc6ZHMyVc8krj2x29iJsdkGLu8Jih5MNxOJbbQ2sks-4ExAnuXBY6shFf1ws7W2GBI-iDweBO88UcvDkpoYeFflbbW6n0P0mQLeH4ze6gW9M2_Nm8j0eP=w1011-h972-s-no)
+
+This repository focuses solely on the Blazor Server App. [Click here for more information about the API](https://github.com/GusPietrasanta/auto-repair-shop-api), and [click here for more information about the Mobile Phone App](https://github.com/GusPietrasanta/auto-repair-shop-mobile-app) that form part of the project.
 
 # Database Entity Relationship Diagram
 
