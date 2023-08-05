@@ -1,42 +1,35 @@
 # Auto Repair Shop Management
-An ASP.Net app to allow customers to book appointments, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment.
+An ASP.Net app to allow customers to book appointments, mechanics to complete job cards/inspections, and managers to perform numerous tasks in an automotive workshop environment. This repository focuses solely on the Blazor Server App. [Click here for more information about the API](https://github.com/GusPietrasanta/auto-repair-shop-api), and [click here for more information about the Mobile Phone App](https://github.com/GusPietrasanta/auto-repair-shop-mobile-app) that form part of the project.
 
-# Features
+# System Overview
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc_vjRoNtV7fKT5a8pAZfMPB6ln47LLtV7xLc6ZHMyVc8krj2x29iJsdkGLu8Jih5MNxOJbbQ2sks-4ExAnuXBY6shFf1ws7W2GBI-iDweBO88UcvDkpoYeFflbbW6n0P0mQLeH4ze6gW9M2_Nm8j0eP=w1011-h972-s-no)
+
+# Database Entity Relationship Diagram
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc9bmbdVe3za4EvJNRaCMHk3qJKQgkGZ94v6Z9nXV-j6vwSKEVdYRdK7v-09bhVTZmC2VIDPkf7NEhKq6fsh2iB-TX-02rwJBDqKdB3JTfZTotdg4puREkdFktwfacIYbbZfkqNejmNjbf4Oc_mRNNld=w977-h760-s-no)
+
+# Web App Features
 
 ## Users
-- [x] Book an appointment using the vehicle number plate and contact details.
-- [x] Access car reports history using the vehicle number plate and last name.
+- Book an appointment using the vehicle number plate and contact details.
+- Access car reports history using the vehicle number plate and last name.
 
 ## Mechanics
-- [x] Perform assigned car inspections and complete reports.
-- [x] Post messages to a message board to communicate with managers about different topics using tags.
+- Perform assigned car inspections and complete reports.
+- Post messages to a message board to communicate with managers about different topics using tags.
 
 ## Managers
-- [x] Search, view, and update customers and their cars.
-- [x] Search, view, and update vehicle details.
-- [x] Assign job cards/inspections to mechanics.
-- [x] View completed inspections.
-- [x] Check and update stock/inventory.
-- [x] Have a dashboard with multiple data, including:
-  - [x] Week schedule/incoming appointments.
-  - [x] Message board.
-  - [x] Analytics on customer preferences, popular services, etc.
-  - [x] Low stock alarms (if any).
-
-## Roadmap
-
-- [x] Set up the project structure and database schema.
-- [x] Enable users to book appointments.
-- [x] Allow users to access car reports history.
-- [x] Implement managers' ability to assign job cards/inspections to mechanics.
-- [x] Implement mechanics' ability to perform car inspections and complete reports.
-- [x] Enable mechanics to post messages to the message board.
-- [x] Implement managers' ability to search, view, and update customers details and their cars.
-- [x] Create a dashboard for managers with multiple data (e.g., week schedule, message board, low stock alarms).
-- [x] Implement an universal search bar for managers, to search for vehicles, customers or inventory items.
-- [x] Tidy up code
-- [x] Improve visuals
-- [x] Develop and implement integration and unit tests
+- Search, view, and update customers and their cars.
+- Search, view, and update vehicle details.
+- Assign job cards/inspections to mechanics.
+- View completed inspections.
+- Check and update stock/inventory.
+- Dashboard with multiple data, including:
+  - Week schedule/incoming appointments.
+  - Message board.
+  - Analytics on most common brands, popular services, etc.
+  - Low stock alarms (if any).
 
 ## Technology Stack
 
@@ -49,9 +42,10 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 - Dapper
 - Bootstrap
 - Syncfusion UI Components
-- A bit of JavaScript Interop ~~sadly~~
+- A bit of JavaScript Interop
 
 # Screenshots
+
 <div align="center">
   
 # As customer:
@@ -121,33 +115,31 @@ An ASP.Net app to allow customers to book appointments, mechanics to complete jo
 # Customer Page
 
 ## From the customer page, the manager can edit customer information, and have access to all their vehicles.
+
 ![Customer page](https://lh3.googleusercontent.com/pw/AIL4fc931b1d88CYfRZkqNh_ErMAg-RAoZErKTf3l20A9dN4Pen0yI0eZJmw92DBpgEvkL_5EBZxDkAuxYDc_uxi0n3V3OgrCGlYI5vDsJsVufdIniwqhf601px4-u5PAQJa6bCEewUkOBp0tJHTRp_L5mbc=w1178-h763-s-no)
 
-# Other Small Features
-
-## Update Customer Details directly from the Customer Search page
-![](https://lh3.googleusercontent.com/pw/AIL4fc_7hCEpOLOWlzzqE6c3mWFkp2NZlTAEjzXJeIDggrwuyqvBghV1c21vk0pkGNms8Pr9iSk-6TQDq470W6xbGqTaJJvNVdpcl4jxg8YWKOfTAGc6Ax3d-BzIJc4qA2uSPhMJwgIfIEDFsZglkBshELFe=w1193-h481-s-no)
-
-## Access customer's vehicles from Customer Search page
-![](https://lh3.googleusercontent.com/pw/AIL4fc-yzISgWmRk3wtWWMxpZl9JJ81ygdd2-P4yE4FTRomFl6v7xXPPbIeZncj2qRn1Wt1_66heTYjTwDoib_3ZlyYC2ChvIDTW2oUot4y2m1YTsHaCiXtWNqOiqjaoEvn_cFKaPP-Dm2KzTtJ1mZLq89fR=w1193-h276-s-no)
-
-## Pagination varies depending on the number of reports
-![](https://lh3.googleusercontent.com/pw/AIL4fc9o9OEiUDrdOxto6FiU3ZEZbboHA_KmFjZ6XOamo2yV-A9jqxluNWVqiuqEuJ14yf4l91fL2_4vD0NkmAHSg_cy8IxRC_H6iR_SL6OuNIgVxK72Vmqtajeupua7vlXgBE4dlWo0yJZlUZGKjRw9Ce0E=w732-h312-s-no)
-
-![](https://lh3.googleusercontent.com/pw/AIL4fc_ILzgPHWIyqrTBBohx7wG6KdN_WIh4JbhfSEz5XDhgWM20EaYULcUkYG-Or3A5AiFjyblqZQT6AAWe9LJq0qyN5MAp78sD1hqL1fgoM5pGo3DJa_x-BFtITNpA3pLRBksUyWtn47FvgkTX09QWHQhK=w755-h353-s-no)
-
-![](https://lh3.googleusercontent.com/pw/AIL4fc_hHNaSUrgP9H1Bj3hxEksNO5xpu_HkrymMTk0KfZOdZ-rvWXxu50N0F2ZPNWvKwWEzJbGvhNBMJnOKtTfZztkgsLx4gMMCyoSm_3EeNvAMtF5Ix52nGTJrzflnRDIpP9UHZlMzQwhGxf2ZSaNVrVEW=w696-h330-s-no)
-
 ## Navigation History saved on Manager's session
+
 ![](https://lh3.googleusercontent.com/pw/AIL4fc8vq_6y350IAA5NQvlRxmATVRfl3U5bQvgCqzMDr3fWDJDIhym-7ekEHu8fxnyiQtSQJS7TaIz8HDnKdDjpRxmS6YbzsDb2yeWzP6i9LEW-dGTWsnnWsGFWQ_bUWtCjc7zQOe4RQ6xW5tdH1g_Pl_DD=w935-h610-s-no)
 
-
 # Unit Testing 
+
 ![](https://lh3.googleusercontent.com/pw/AIL4fc8GxGAxRN4wY5DDMto-DHogl1i088VprhSxN07KSO65AnN65GZ5mE4hl_lRZIQSEOP4zJs-jIvKW9upPeE4qo9oHm7OtBt7kLtrnzaEq02E2i2x3VBwdQmdk7oXfpmBsWh_uAEtNTQhNzDGE-MGhjZ_=w1203-h918-s-no)
 
 # Integration Testing
+
 ![](https://lh3.googleusercontent.com/pw/AIL4fc_BHdXxlOrrgaqGUgDPE974hJuujTs7oBn72kwd3eSUE78BGKG9Q-xdqdncfu_w-A_i8S3ec7A1jwCAGrE-yB_cCRDrK7ekGkuXpLWIrAzancinEHmvpva5YdVvW5Kk6X7LWVFYEeISGjxJqh6UqnPH=w593-h491-s-no)
 
+# Deployed to Azure
+
+## Testing Inventory Updates
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc8tzozYCL91opoK-F7m6L9G4s_k_VwVXAHVCNDstW8Nnivq5KYhqS2en-gO7rLCFNDiSMQIeaABi7q67c9QOts9qhGY-e6ZGNjT0KtFPsaBkDyfbI8VEUe3Wl2mrqftDvNaTzAqfNgzD78mySfjk9LT=w1135-h773-s-no)
+
+
+## Testing Search Feature
+
+![](https://lh3.googleusercontent.com/pw/AIL4fc_eoO4W2owLQx6FW4dkJ5aTULGSW7qY9bVTcJy1qEtMzk00uQK0Rt8wA9zOgg_UFx0KESVA0gH4GRZt-yGzW_JCExW1m7mlcPlJ6TvBgeq62Uw-tfr48WwAMymYsbt_wUuWo2LKVYYhNKbMY8H6N7Kd=w1135-h773-s-no)
 
 </div>
 
