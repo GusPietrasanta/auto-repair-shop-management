@@ -9,7 +9,7 @@ This repository focuses solely on the Blazor Server App. [Click here for more in
 
 # Database Entity Relationship Diagram
 
-![](https://lh3.googleusercontent.com/pw/AIL4fc9bmbdVe3za4EvJNRaCMHk3qJKQgkGZ94v6Z9nXV-j6vwSKEVdYRdK7v-09bhVTZmC2VIDPkf7NEhKq6fsh2iB-TX-02rwJBDqKdB3JTfZTotdg4puREkdFktwfacIYbbZfkqNejmNjbf4Oc_mRNNld=w977-h760-s-no)
+![](https://lh3.googleusercontent.com/pw/AIL4fc_C4w5ugT2LDloqyg71jvnl81NDsYxt57q-qIg1fDjitvme_atBRb9SbrRhpU6G4TYZyX3ZPDXRlLuhgZNk5Uu_QClodJYX46XHsOd6K_lfknrUR8FR0xy3q4jcAB5EPi-OxqF3e_909KFj0GwlSfKp=w977-h760-s-no)
 
 # Blazor Web App Features
 
