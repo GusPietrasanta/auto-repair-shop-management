@@ -19,6 +19,11 @@
 		<EditForm Model="@_newAppointment" OnValidSubmit="HandleValidSubmit">
 			<DataAnnotationsValidator/>
 			<ValidationSummary/>
+			
+			<div class="mb-3 form-floating">
+				<InputText @bind-Value="_newAppointment.NumberPlate" @onfocusout="RetrieveVehicleData" id="numberPlate" placeholder="Vehicle Number Plate" class="form-control" />
+				<label for="numberPlate" class="form-label">Vehicle Number Plate</label>
+			</div>
 
 			<div class="mb-3 form-floating">
 				<InputText @bind-Value="_newAppointment.FirstName" id="firstName" placeholder="First Name" class="form-control" />
@@ -46,19 +51,22 @@
 			</div>
 
 			<div class="mb-3 form-floating">
-				<InputText @bind-Value="_newAppointment.NumberPlate" @onfocusout="RetrieveVehicleData" id="numberPlate" placeholder="Vehicle Number Plate" class="form-control" />
-				<label for="numberPlate" class="form-label">Vehicle Number Plate</label>
-			</div>
-
-			<div class="mb-3 form-floating">
 				<InputDate @bind-Value="_newAppointment.Date" id="date" placeholder="Date" class="form-control" />
 				<label for="date" class="form-label">Appointment Date</label>
 			</div>
 
-			<div class="text-center">
-				<button class="btn btn-primary" type="submit">Book An Appointment!</button>
-			</div>
-			
+			@if (_disableButton)
+			{
+				<div class="text-center">
+					<button class="btn btn-secondary" type="submit" disabled>Book An Appointment!</button>
+				</div>	
+			}
+			else
+			{
+				<div class="text-center">
+					<button class="btn btn-primary" type="submit">Book An Appointment!</button>
+				</div>
+			}
 
 		</EditForm>
 	</div>
@@ -136,6 +144,7 @@
 	private int _customerId;
 	private int _vehicleId;
 	private int _appointmentId;
+	private bool _disableButton = true;
 
 	private string _apiErrorMessage = "";
 
@@ -150,12 +159,15 @@
 			try
 			{
 				_newVehicle = ApiCalls.GetVehicleDetails(_newAppointment.NumberPlate);
+				_disableButton = false;
+
 			}
 			catch (Exception e)
 			{
 				_newVehicle = null;
-				Console.WriteLine(e);
-				_apiErrorMessage = "Vehicle Not Found";
+				// Console.WriteLine(e);
+				_apiErrorMessage = "Vehicle not found. Please call us to book an appointment.";
+				_disableButton = true;
 			}
 		}
 	}
